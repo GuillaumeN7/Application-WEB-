@@ -1,10 +1,20 @@
 <h1>Post#index</h1>
-<p>Find me in app/views/post/index.html.erb</p>
+	<p>Find me in app/views/post/index.html.erb</p>
 
-<% @posts.each do |p| %>
-	<%= p.title %>
-<% end %>
+	<b><font color = red> ______________________Affichage des posts ______________________</font></b>
+	<ul>
+		<% @posts.each do |p| %>
+			<li><font color = blue> 	<%= p.title %></font></li>
+		<% end %>
+	</ul>
+	<b><font color = red> ______________________Création des posts ______________________</font></b>
+<!--	<p> Creer un nouveau post : <input type='button' value="Add New Post" onclick="self.location.href=' ./posts/new'"></button> </p> !-->
+
+<form action="posts/new" method="POST">
+	<p>Nouveau Post : <input type="submit" name="CreationPostButton" value="Add New Post"<br></p>
+</form> 
 
 
 
 
+<!-- Commentaire !-->
