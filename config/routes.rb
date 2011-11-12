@@ -5,8 +5,9 @@ Blog::Application.routes.draw do
   # first created -> highest priority.
 
 	get "/posts", :controller => :post, :action => :index
-	post "/posts/new", :controller => :post, :action => :new
-
+	get "/posts/new", :controller => :post, :action => :new
+	post "/posts", :controller => :post, :action => :create
+	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

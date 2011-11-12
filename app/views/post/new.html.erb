@@ -1,7 +1,27 @@
-<h1>Post#new</h1>
+<!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
+<div class="Header">
+	<h1>Post#new</h1>
 	<p>Find me in app/views/post/new.html.erb</p>
+</div>
+	<div class="TitleHeader">
+		<b><font color = red> ______________________Creation d'un nouveau Post ______________________</font></b>
+	</div>
+<div>
+	<p><form action="/posts" method="POST">
+			<div class ="field">
+			 	<label for="title">Titre : </label>
+			 	<input type="text" id="title" name="title" cols="20" />
+			 </div>
+			<div class ="field">
+				<label for="body">Message : </label>
+				<textarea name="body" id="body" rows="10" cols="35" ></textarea>
+			</div>
+			<div class ="actions">
+				<input type="submit" name="ValidatePost" value="Valider"<br></td>
+			</div>
+	</form></p>
+</div>
 
-	<b><font color = red> ______________________Création d'un nouveau Post ______________________</font></b>
 
 
-<!-- Commentaire !-->
+<!-- Commentaire -->
