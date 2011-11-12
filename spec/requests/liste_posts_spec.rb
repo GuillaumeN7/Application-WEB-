@@ -46,8 +46,7 @@ describe "PostCreation" do
 			fill_in('body', :with => 'Le leader actuel du top 14 est le Stade Toulousain!!!!!')
 			click_button ('Valider')
 			current_path.should == "/posts"
-			page.should have_content('title')
-			page.should have_content('body')
+			page.should have_content('TOP 14 Orange')
 		end
 	end
 end
