@@ -88,11 +88,6 @@ describe "PostDelete" do
 			current_path.should == "/posts"
 			page.body.should include(@post1.title)
 			page.body.should_not include(@post2.title)
-		end	
-		it "verify ClickRetourPageAcceuilPresence" do
-			page.should have_button('Page d\'accueil')	
-			click_button('Page d\'accueil')
-			current_path.should == "/posts"			
 		end		
 	end
 end	
