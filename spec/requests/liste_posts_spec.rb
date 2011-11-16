@@ -14,7 +14,7 @@ describe "PostListings" do
 		end
 		it "verify ClickButtonPresence" do
 			page.has_xpath?('//input[@id="Add New Post"]')
-			click_on('Add New Post')
+			click_button('Add New Post')
 		end
 		it "After Click go on posts/new" do
 			click_button('Add New Post')
@@ -22,7 +22,7 @@ describe "PostListings" do
 		end
 	end
 end
-
+#-------------------------------------------------------------
 describe "PostCreation" do
 	before (:each) do
 		visit posts_new_path
@@ -49,25 +49,82 @@ describe "PostCreation" do
 			page.should have_content('TOP 14 Orange')
 		end
 	end
+
+
+	describe "POST /posts" do
+		it "After Click go on posts/new" do
+			fill_in('title', :with => 'D1 et D2')
+			fill_in('body', :with => 'TFC')
+			click_button('Valider')
+			current_path.should == "/posts"
+		end
+	end
+end	
+#---------------------------------------------------------------------------------
+describe "PostDelete" do
+	before (:each) do
+		@post1 = Post.create(:title => "sujet1garde", :body => "stay")
+		@post2 = Post.create(:title => "sujet2delete", :body => "deleted")
+		visit posts_path
+	end
+	describe "DELETE /posts" do
+		it "verifyCurrentPath" do
+			current_path.should == "/posts"
+		end	
+		it "generates a listing of posts" do
+			page.body.should include(@post1.title)
+			page.body.should include(@post2.title)
+		end
+		it "verifyClickButtonDeletePresence" do
+			page.should have_button("#{@post2.id}")
+		end
+		it "verifyAfterClick" do
+			click_button("#{@post2.id}")
+			current_path.should == "/posts"
+			page.body.should include(@post1.title)
+			page.body.should_not include(@post2.title)
+		end	
+	end
+end	
+#---------------------------------------------------------		
+describe "PostConsult" do
+	before (:each) do
+		@post1 = Post.create(:title => "sujet1", :body => "Ceci est le sujet 1")
+		@post2 = Post.create(:title => "sujet2Consulte", :body => "Ceci est le sujet consulte")
+		visit posts_path
+	end	
+	describe "GET /posts/:id" do
+		it "verifyCurrentPath" do
+			current_path.should == "/posts"
+		end	
+		it "generates a listing of posts" do
+			page.body.should include(@post1.title)
+			page.body.should include(@post2.title)
+		end
+		it "verifyLinkPostPresence" do
+			page.should have_link("#{@post2.id}")
+		end
+		it "verifyAfterClick" do
+			click_link("#{@post2.id}")
+			current_path.should == "/posts/#{@post2.id}"
+			page.body.should include(@post2.title)
+			page.body.should include(@post2.body)
+			page.body.should_not include(@post1.title)
+			page.body.should_not include(@post1.title)						
+		end	
+	end
+end
+#---------------------------------------------------------		
+describe "PostEdit" do
+
 end
 
-#		it "display new post" do
-#			page.body.should include(@post3.title)
-#		end
 
 
 
 
 
 
-#	describe "POST /posts/new do"
-#		it "After Click go on posts/new" do
-#			click_button('Valider')
-#			current_path.should == "/posts"
-#		end
-#	end
-		
-			
-	
+
 
 

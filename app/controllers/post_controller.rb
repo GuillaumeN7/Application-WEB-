@@ -11,8 +11,18 @@ class PostController < ApplicationController
 		@post.title = params[:title]
 		@post.body = params[:body]		
 		@post.save
-		redirect_to {posts_path}
+		redirect_to posts_path
 	end
+
+	def destroy
+		Post.delete(params[:id])
+		redirect_to posts_path
+	end
+	
+	def read
+		@post = Post.find(params[:id])
+	end
+	
 
 end
 

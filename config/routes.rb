@@ -6,7 +6,10 @@ Blog::Application.routes.draw do
 
 	get "/posts", :controller => :post, :action => :index
 	get "/posts/new", :controller => :post, :action => :new
+	get "/posts/:id", :controller => :post, :action => :read, :as => "consult"
 	post "/posts", :controller => :post, :action => :create
+	delete '/post/delete/:id', :controller => :post, :action => :destroy, :as => :delete
+
 	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

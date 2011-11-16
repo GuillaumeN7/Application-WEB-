@@ -1,0 +1,24 @@
+
+<center>
+	<div class="Header">
+		<h1>Post#read</h1>
+		<p>Find me in app/views/post/read.html.erb</p>
+	</div>
+</center>
+<div class="TitleHeader">
+	<b><font color = red> <HR size=3>Consultation du post : &nbsp  <center> </font>
+	<font color = orange><input type="text" readonly="true" id="title" name="title" cols="20" value="<%= @post.title %>" /> <HR></font></b></center>
+</div>
+
+<div class="reading">
+	<b><font color = red> Message : &nbsp </font></b>	
+	<center> 
+		<b><font color = orange><textarea name="body" id="body" rows="10" cols="35" readonly ><%= @post.body %></textarea></font></b>
+	</center>
+</div>
+	<HR>
+
+
+
+
+<!-- Commentaire -->
