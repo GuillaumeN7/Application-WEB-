@@ -116,7 +116,44 @@ describe "PostConsult" do
 end
 #---------------------------------------------------------		
 describe "PostEdit" do
-
+	before (:each) do
+		@post1 = Post.create(:title => "sujet1", :body => "Ceci est le sujet en attente de modification")
+		visit posts_path
+	end	
+		describe "PUT /posts/:id" do
+			it "verifyCurrentPath" do
+				current_path.should == "/posts"
+			end	
+			it "verifyClickButtonModifyPresence" do
+				page.should have_button("#{@post1.id}")
+			end	
+			it "verifyAfterClick" do
+				click_link("#{@post1.id}")
+				current_path.should == "/posts/#{@post1.id}"
+				page.body.should include(@post1.title)
+				page.body.should include(@post1.body)						
+			end	
+			it "verifyClickButtonModifyPresence" do
+				page.should have_button("#{@post1.id}")
+			end	
+			it "ModifOperation" do
+				click_link("#{@post1.id}")
+				current_path.should == "/posts/#{@post1.id}"
+				page.body.should include(@post1.title)
+				page.body.should include(@post1.body)
+				click_button("#{@post1.id}")
+				current_path.should == "/posts/#{@post1.id}"
+				page.body.should include(@post1.title)
+				page.body.should include(@post1.body)
+				fill_in('body', :with => 'Body modifie OK')
+				click_button("Valider")	
+				current_path.should == "/posts/#{@post1.id}"		
+				page.should have_content('Body modifie OK')							
+			
+				
+			end	
+	
+	end
 end
 
 

@@ -1,0 +1,30 @@
+
+<center>
+	<div class="Header">
+		<h1>Post#accessModify</h1>
+		<p>Find me in app/views/post/accessModify.html.erb</p>
+	</div>
+</center>
+	<%= form_tag(modify_path(@post.id), :method => "put") do %>
+	<div class="TitleHeader">
+		<b><font color = red> <HR size=3>Consultation du post : &nbsp  <center> </font>
+		<font color = orange><input type="text" id="title" name="title" cols="20" value="<%= @post.title %>" /> <HR></font></b></center>
+	</div>
+
+	<div class="reading">
+		<b><font color = red> Message : &nbsp </font></b>	
+		<center> 
+			<b><font color = orange><textarea name="body" id="body" rows="10" cols="35" ><%= @post.body %></textarea></font></b>
+		   <div class ="actions">
+		           <br><br><input type="submit" name="Valider" value="Valider"><br>
+		   </div>
+	<% end %>		
+	</center>
+</div>
+	<HR>
+
+
+
+
+<!-- Commentaire -->
+     

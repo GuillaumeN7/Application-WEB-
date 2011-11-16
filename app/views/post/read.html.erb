@@ -14,6 +14,7 @@
 	<b><font color = red> Message : &nbsp </font></b>	
 	<center> 
 		<b><font color = orange><textarea name="body" id="body" rows="10" cols="35" readonly ><%= @post.body %></textarea></font></b>
+		<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
 	</center>
 </div>
 	<HR>

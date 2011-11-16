@@ -9,6 +9,8 @@ Blog::Application.routes.draw do
 	get "/posts/:id", :controller => :post, :action => :read, :as => "consult"
 	post "/posts", :controller => :post, :action => :create
 	delete '/post/delete/:id', :controller => :post, :action => :destroy, :as => :delete
+	post "/posts/:id", :controller => :post, :action => :accessModify, :as => "accessModify"
+	put "/posts/:id", :controller => :post, :action => :modify, :as => "modify"
 
 	
   # Sample of regular route:
