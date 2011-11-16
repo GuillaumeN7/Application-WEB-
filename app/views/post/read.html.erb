@@ -6,6 +6,7 @@
 	</div>
 </center>
 <div class="TitleHeader">
+		<center><HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %></center>
 	<b><font color = red> <HR size=3>Consultation du post : &nbsp  <center> </font>
 	<font color = orange><input type="text" readonly="true" id="title" name="title" cols="20" value="<%= @post.title %>" /> <HR></font></b></center>
 </div>

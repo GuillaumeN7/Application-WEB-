@@ -4,7 +4,8 @@
 	<p>Find me in app/views/post/new.html.erb</p>
 </div>
 	<div class="TitleHeader">
-		<b><font color = red> <HR size=3>Creation d'un nouveau Post <HR></font></b>
+		<HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+		<b><font color = red> <HR size=3>Creation d'un nouveau Post <HR></font></b>	
 	</div>
 <div>
 	<p><form action="/posts" method="POST">
@@ -13,8 +14,8 @@
 			 	<input type="text" id="title" name="title" cols="20" />
 			 </div>
 			<div class ="field">
-				<label for="body">Message : </label>
-				<textarea name="body" id="body" rows="10" cols="35" ></textarea>
+				<p><label for="body">Message : </label>
+				<textarea name="body" id="body" rows="10" cols="35" ></textarea></p>
 			</div>
 			<div class ="actions">
 				<input type="submit" name="ValidatePost" value="Valider"<br></td>
