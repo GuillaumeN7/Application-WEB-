@@ -12,7 +12,7 @@ describe "post/index.html.erb" do
 		rendered.should have_selector "ul li"
 		rendered.should have_selector "li:contains('#{@post1.title}')"
 		rendered.should have_selector "li:contains('#{@post2.title}')"
-
+		
 	end
 
 

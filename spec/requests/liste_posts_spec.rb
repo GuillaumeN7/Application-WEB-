@@ -18,7 +18,7 @@ describe "PostListings" do
 		end
 		it "After Click go on posts/new" do
 			click_button('Add New Post')
-			current_path.should == "/posts/new"
+			current_path.should == posts_new_path
 		end
 	end
 end
@@ -51,17 +51,17 @@ describe "PostCreation" do
 		it "verify ClickRetourPageAcceuilPresence" do
 			page.should have_button('Page d\'accueil')	
 			click_button('Page d\'accueil')
-			current_path.should == "/posts"			
+			current_path.should == posts_path		
 		end		
 	end
 
 
 	describe "POST /posts" do
-		it "After Click go on posts/new" do
+		it "After Click go on posts_path" do
 			fill_in('title', :with => 'D1 et D2')
 			fill_in('body', :with => 'TFC')
 			click_button('Valider')
-			current_path.should == "/posts"
+			current_path.should == posts_path
 		end
 	end
 end	
@@ -85,7 +85,7 @@ describe "PostDelete" do
 		end
 		it "verifyAfterClick" do
 			click_button("#{@post2.id}")
-			current_path.should == "/posts"
+			current_path.should == posts_path
 			page.body.should include(@post1.title)
 			page.body.should_not include(@post2.title)
 		end		
@@ -100,7 +100,7 @@ describe "PostConsult" do
 	end	
 	describe "GET /posts/:id" do
 		it "verifyCurrentPath" do
-			current_path.should == "/posts"
+			current_path.should == posts_path
 		end	
 		it "generates a listing of posts" do
 			page.body.should include(@post1.title)
@@ -153,9 +153,7 @@ describe "PostEdit" do
 				fill_in('body', :with => 'Body modifie OK')
 				click_button("Valider")	
 				current_path.should == "/posts/#{@post1.id}"		
-				page.should have_content('Body modifie OK')							
-			
-				
+				page.should have_content('Body modifie OK')											
 			end	
 	
 	end

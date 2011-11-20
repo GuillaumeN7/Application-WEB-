@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "post/new.html.erb" do
+describe "post/read.html.erb" do
     it "displays a form to create a new post" do
     newpost = mock_model("Post", :title => "title", :body => "body").as_new_record
     assign(:post, newpost)

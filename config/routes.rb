@@ -11,6 +11,9 @@ Blog::Application.routes.draw do
 	delete '/post/delete/:id', :controller => :post, :action => :destroy, :as => :delete
 	post "/posts/:id", :controller => :post, :action => :accessModify, :as => "accessModify"
 	put "/posts/:id", :controller => :post, :action => :modify, :as => "modify"
+	get "/people/newUser" , :controller => :person, :action => :newUser, :as => "newUser" 
+	post "/newUser", :controller => :person, :action => :createUser, :as => "createUser"	
+
 
 	
   # Sample of regular route:
