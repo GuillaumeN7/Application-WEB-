@@ -1,15 +1,22 @@
 class PersonController < ApplicationController
 
-	def newUser
+	def index
 	end
 	
-	def createUser
+	def new
+	end
+	
+	def create
 		@person = Person.new
 		@person.name = params[:name]
 		@person.firstname = params[:firstname]		
 		@person.password = params[:password]
 		@person.login = params[:login]	
-		@person.save
+		if @person.save
+			flash[:notice] = "201 CREATED : l'utilisateur a ete cree avec succes"
+		else
+			flash[:notice] = "401 (Unauthorized) ou 403 (forbidden) : utilisateur non cree"
+		end	
 		redirect_to posts_path
 	end
 		

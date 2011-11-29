@@ -4,15 +4,22 @@ Blog::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-	get "/posts", :controller => :post, :action => :index
-	get "/posts/new", :controller => :post, :action => :new
-	get "/posts/:id", :controller => :post, :action => :read, :as => "consult"
-	post "/posts", :controller => :post, :action => :create
-	delete '/post/delete/:id', :controller => :post, :action => :destroy, :as => :delete
-	post "/posts/:id", :controller => :post, :action => :accessModify, :as => "accessModify"
-	put "/posts/:id", :controller => :post, :action => :modify, :as => "modify"
-	get "/people/newUser" , :controller => :person, :action => :newUser, :as => "newUser" 
-	post "/newUser", :controller => :person, :action => :createUser, :as => "createUser"	
+	get "/posts",							 :controller => :post,     :action => :index
+	get "/posts/new",						 :controller => :post,	  :action => :new
+	get "/posts/:id", 						 :controller => :post,     :action => :read, 			:as => "consult"
+	post "/posts", 						 :controller => :post,     :action => :create,			:as => "createPost"	
+	delete '/post/delete/:id', 				 :controller => :post,     :action => :destroy, 			:as => "delete"
+	post "/posts/:id", 						 :controller => :post,     :action => :accessModify,	 	:as => "accessModify"
+	put "/posts/:id",						 :controller => :post,     :action => :modify, 			:as => "modify"
+
+	get "/people/new",						 :controller => :person,   :action => :new	,			:as => "indexPeople"	
+	post "/people", 						 :controller => :person,   :action => :create,			:as => "createUser"
+
+	get "posts/:id/comments/",				 :controller => :comment,  :action => :index,			:as => "comment"
+	get "posts/:id/comments/new",	 			 :controller => :comment,  :action => :create,			:as => "newComment"
+	post "/posts/:id/comment",				 :controller => :comment,  :action => :new,				:as => "showComment"
+	get "/posts/:id/comments/:comment_id", 		 :controller => :comment, :action => :show, 				:as => "consultCom"
+
 
 
 	

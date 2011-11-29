@@ -4,6 +4,7 @@
 		<h1>Post#read</h1>
 		<p>Find me in app/views/post/read.html.erb</p>
 	</div>
+		<p style="color: green"><%= flash[:notice] %></p>
 </center>
 <div class="TitleHeader">
 		<center><HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %></center>
@@ -18,9 +19,20 @@
 		<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
 	</center>
 </div>
+<div class="listing">
+
+	<% @post.comments.each do |c| %>
+		<p><li>
+			Auteur : <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" /><br>
+			Message : <textarea name="body" id="body" rows="2" cols="20" readonly ><%= c.body %></textarea>
+		</li></p>
+
+		<p><%= button_to "Read", consultCom_path(c.post_id, c.id), :id => "Read#{c.id}" , :method => "get" %></p>
+	<% end %>
+</div>	
+<div class="readingPost">
+	<%= button_to "Add Commentaire", newComment_path, :method => "get", :id => "Add Commentaire"  %>
+</div>
 	<HR>
-
-
-
 
 <!-- Commentaire -->

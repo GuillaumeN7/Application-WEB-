@@ -1,19 +1,20 @@
 <h1>Post#index</h1>
 	<center><p>Find me in app/views/post/index.html.erb</p>
+	<p style="color: green"><%= flash[:notice] %></p>
 
 	<b><font color = red><HR size=8>Affichage des posts <HR size=3></font></b>
 	<ul>
 
 		<% @posts.each do |p| %>
-			<p><li><font color = blue><%= link_to "N°  #{p.id}--#{p.title}", consult_path(p.id)%></font></li></p>
+			<p><li><font color = blue><%= link_to "N°  #{p.id}--#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%></font></li></p>
 
    			<p><%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete %></p>
  
 		<% end %>
 	</ul>
-	<b><font color = red> <HR size=3>Création des posts <HR></font></b>
+	<b><font color = red> <HR size=3>Creation des posts <HR></font></b>
 
-	<p><form action="/posts/new" method="GET">
+	<p><form action= <%= posts_new_path %> method="GET">
 
 		<div class = "actions">Nouveau Post : <input type="submit" name="CreationPostButton" value="Add New Post" <br></div>
 

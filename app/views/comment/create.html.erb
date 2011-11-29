@@ -1,0 +1,32 @@
+
+<center>
+	<div class="Header">
+		<h1>Comment#index</h1>
+		<p>Find me in app/views/comment/index.html.erb</p>
+	</div>
+</center>
+  
+<center><HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %></center>  
+  
+<%= form_tag showComment_path(), :method => "post" do %>
+	<div class="TitleHeader">		
+		<b><font color = red> <HR size=3>Auteur : &nbsp  <center> </font>
+		<font color = orange><input type="text" id="author" name="author" cols="20" value="" /> <HR></font></b></center>
+	</div>
+
+	<div class="reading">
+		<b><font color = red> Commentaire : &nbsp </font></b>	
+		<center> 
+			<b><font color = orange><textarea name="body" id="body" rows="10" cols="35" ></textarea></font></b>
+ 			<%= submit_tag("Valider") %>
+		</center>
+	</div>
+<% end %>
+	<HR>
+
+
+
+
+<!-- Commentaire -->
+
+
