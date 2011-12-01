@@ -27,7 +27,8 @@
 			Message : <textarea name="body" id="body" rows="2" cols="20" readonly ><%= c.body %></textarea>
 		</li></p>
 
-		<p><%= button_to "Read", consultCom_path(c.post_id, c.id), :id => "Read#{c.id}" , :method => "get" %></p>
+		<p><%= button_to "Read", consultCom_path(c.post_id, c.id), :id => "Read#{c.id}" , :method => "get" %>
+		<%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p	
 	<% end %>
 </div>	
 <div class="readingPost">

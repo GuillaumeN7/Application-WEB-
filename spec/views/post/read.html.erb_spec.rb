@@ -20,7 +20,7 @@ describe "post/read.html.erb" do
 	it "should have a button to go at home page displaying 'Page d'accueil'" do
 		rendered.should have_selector("input", :type => "submit", :name => "Page d'accueil", :href => posts_path) 
 		rendered.should have_button("Page d'accueil")
-    end 
+	end 
     
     	it "should have a button named 'Add Commentaire' for add a commentaire at post" do
 		rendered.should have_selector("input", :type => "submit", :name => "Add Commentaire", :href => newComment_path) 
@@ -28,18 +28,24 @@ describe "post/read.html.erb" do
 	end
 	
 	it "should have a button Read for all comments posted" do
-		@comments.each do |c| 
-# 	      	rendered.should have_button("Read#{c.id}")			
+		@comments.each do |c| 			
 			rendered.should have_selector("input", :type => "submit", :href => consultCom_path(c.post_id, c.id))
 		end 
 	end
+
+	it "should have a button Supprimer for all comments posted" do
+		@comments.each do |c| 			
+			rendered.should have_selector("input", :type => "submit", :href => deleteCom_path(c.post_id, c.id))
+		end 
+	end	
+	
 	
     it "displays a textfield 'Consultation du post :' with value = 'post.title' and a textareafield 'Message :' with value = 'post.body' " do
-   		rendered.should have_selector("input", :type => "text") 
-    		rendered.should have_content('Consultation du post : ')
-   		rendered.should have_selector('input', :content => @post1.title)
-		rendered.should have_content('Message : ')
-   		rendered.should have_selector("textarea", :content => @post1.body) 
+	   		rendered.should have_selector("input", :type => "text") 
+	    		rendered.should have_content('Consultation du post : ')
+	   		rendered.should have_selector('input', :content => @post1.title)
+			rendered.should have_content('Message : ')
+	   		rendered.should have_selector("textarea", :content => @post1.body) 
 	end	
 	
 	

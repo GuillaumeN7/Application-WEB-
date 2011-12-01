@@ -19,6 +19,7 @@ end
 group :test, :development do
 	gem 'rspec-rails'
 	gem 'capybara'
+	gem "dynamic_form"	
 end
 
 gem 'therubyracer'

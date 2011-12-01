@@ -74,7 +74,7 @@ describe "PostDelete" do
 	end
 	describe "DELETE /posts" do
 		it "verifyCurrentPath" do
-			current_path.should == "/posts"
+			current_path.should == posts_path
 		end	
 		it "generates a listing of posts" do
 			page.body.should include(@post1.title)
@@ -127,20 +127,19 @@ describe "PostEdit" do
 	end	
 		describe "PUT /posts/:id" do
 			it "verifyCurrentPath" do
-				current_path.should == "/posts"
+				current_path.should == posts_path
 			end	
 			it "verifyClickButtonModifyPresence" do
-				page.should have_button("#{@post1.id}")
+				page.should have_button("#{@post1.id}")				
 			end	
 			it "verifyAfterClick" do
-				click_link("#{@post1.id}")
-				current_path.should == "/posts/#{@post1.id}"
+				click_link("#{@post1.id}")		
+				current_path.should == "/posts/#{@post1.id}"				
+				current_path.should == accessModify_path(@post1.id)				
 				page.body.should include(@post1.title)
 				page.body.should include(@post1.body)						
 			end	
-			it "verifyClickButtonModifyPresence" do
-				page.should have_button("#{@post1.id}")
-			end	
+
 			it "ModifOperation" do
 				click_link("#{@post1.id}")
 				current_path.should == "/posts/#{@post1.id}"

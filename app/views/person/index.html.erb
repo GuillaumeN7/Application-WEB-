@@ -1,0 +1,40 @@
+<!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
+<center><div class="Header">
+	<h1>Person#index</h1>
+	<p>Find me in app/views/person/index.html.erb</p>
+</div>
+	<div class="TitleHeader">
+		<HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+		<b><font color = red> <HR size=3>Creation d'un nouvel utilisateur <HR></font></b>	
+	</div>
+<div>
+	<p><form action="/people" method="POST">
+			<div class ="field">
+			 	<label for="name">Nom : </label>
+			 	<input type="text" id="name" name="name" cols="20" />
+			 </div>
+			<div class ="field">
+				<p>
+			 		<label for="firstname">Prenom : </label>
+			 		<input type="text" id="firstname" name="firstname" cols="20" />
+				</p>
+			 </div>
+			<div class ="field">
+			 	<p>
+			 		<label for="password">Password : </label>
+			 		<input type="text" id="password" name="password" cols="20" />
+			 	</p>
+			 </div>
+			<div class ="field">
+			 	<p>
+			 		<label for="login">Login/Pseudo : </label>
+			 		<input type="text" id="login" name="login" cols="20" />
+			 	</p>
+			 </div>			 			 
+			<div class ="actions">
+				<input type="submit" name="ValidateUser" value="Creer utilisateur"<br></td>
+			</div>
+	</form></p>
+</div></center>
+
+<!-- Commentaire -->

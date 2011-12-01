@@ -11,22 +11,29 @@ class PostController < ApplicationController
 		@post.title = params[:title]
 		@post.body = params[:body]		
 		if @post.save
-		      flash[:notice] = "201 CREATED : Le post a ete cree avec succes"
+			flash[:notice] = "201 CREATED : post created with success"
 		else
-			  flash[:notice] = "401 (Unauthorized) ou 403 (forbidden) : Le post n'a pas ete cree"
+			@post.valid?	
+			@post.errors
+			@post.errors
+			flash[:notice] = "title or body message : #{@post.errors[:title]} - or 401 (Unauthorized) or 403 (forbidden) : post not created"
 		end	  
 		redirect_to posts_path
 	end
 
 	def destroy
-		Post.delete(params[:id])
-		flash[:notice] = "200 : Le post a ete supprime avec succes"
+		if Post.destroy(params[:id])
+			flash[:notice] = "200 : Le post a ete supprime avec succes"
+		else
+			flash[:notice] = "304 : erreur, post non supprime"
+		end
 		redirect_to posts_path
 	end
 	
 	def read
 		@post = Post.find(params[:id])
-		@comments = Comment.all
+#		@comments = Comment.all
+		@comments = Comment.find_all_by_post_id(params[:id])
 	end
 	
 	def accessModify
