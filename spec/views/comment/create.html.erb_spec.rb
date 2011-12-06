@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe "comment/create.html.erb" do
 	before(:each) do
-    		@post1 = stub_model(Post)
-    		controller.request.path_parameters[:id] = @post1.id 
+
+		@post1 = stub_model(Post, :title => "titre du post", :body => "corps du post", :id => "24")
+		assign(:post, @post1)
 		render
 	end
 
@@ -19,7 +20,7 @@ describe "comment/create.html.erb" do
    
     it "displays a form to create a new comment with a method post" do
        	rendered.should have_selector("form",:method => "POST")
-       	rendered.should have_selector("input", :type => "submit", :name => "Valider", :href => showComment_path)   	
+       	rendered.should have_selector("input", :type => "submit", :name => "Valider", :href => showComment_path(@post1.id))   	
     end
     
     it "should have a button to go at home page" do
@@ -27,6 +28,12 @@ describe "comment/create.html.erb" do
        	rendered.should have_selector("input", :type => "submit", :name => "Page d'accueil", :href => posts_path) 
       	rendered.should have_button("Page d'accueil")
     end   
+
+    	it "should have a button named 'Precedent' for come back a the @post1 page" do
+		rendered.should have_selector("input", :type => "submit", :name => "Precedent", :href => consult_path(@post1.id)) 
+		rendered.should have_button("Precedent")
+	end	
+	    
 end
 
 

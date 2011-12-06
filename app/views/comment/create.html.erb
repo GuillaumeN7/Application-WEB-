@@ -7,8 +7,8 @@
 </center>
   
 <center><HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %></center>  
-  
-<%= form_tag showComment_path(), :method => "post" do %>
+<%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %>  
+<%= form_tag showComment_path(@post.id), :method => "post" do %>
 	<div class="TitleHeader">		
 		<b><font color = red> <HR size=3>Auteur : &nbsp  <center> </font>
 		<font color = orange><input type="text" id="author" name="author" cols="20" value="" /> <HR></font></b></center>

@@ -1,0 +1,23 @@
+
+
+<div class="Header">
+	<h1>Comment#edit</h1>
+	<p>Find me in app/views/comment/edit.html.erb</p>
+</div>
+	
+<%= button_to "Page d\'accueil", posts_path, :method => "get" %>  
+  
+	<%= form_tag(modifyCom_path(@comment.post_id,@comment.id), :method => "put") do %>
+	<div class="Reading">		
+			Auteur : <input type="text" id="author" name="author" cols="15" value="<%= @comment.author %>" /><br>
+			Message : <textarea name="body" id="body" cols="20" ><%= @comment.body %></textarea>
+
+			<p><input type="submit" name="Valider" value="Valider"><br></p>
+		</div>
+	<% end %>	
+
+	<%= button_to "Supprimer", deleteCom_path(@comment.post_id,@comment.id), :id => "Delete#{@comment.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p>	
+	<%= button_to "Supprimer", consult_path(@post.id), :id => "Precedent" , :method => "get" %> 
+
+<!-- Commentaire -->
+

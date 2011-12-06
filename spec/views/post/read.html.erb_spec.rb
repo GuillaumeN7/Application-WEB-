@@ -27,9 +27,9 @@ describe "post/read.html.erb" do
 		rendered.should have_button("Add Commentaire")
 	end
 	
-	it "should have a button Read for all comments posted" do
+	it "should have a button Edit for all comments posted" do
 		@comments.each do |c| 			
-			rendered.should have_selector("input", :type => "submit", :href => consultCom_path(c.post_id, c.id))
+			rendered.should have_selector("input", :type => "submit", :href => editCom_path(c.post_id, c.id))		
 		end 
 	end
 

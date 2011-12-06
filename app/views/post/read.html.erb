@@ -24,10 +24,10 @@
 	<% @post.comments.each do |c| %>
 		<p><li>
 			Auteur : <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" /><br>
-			Message : <textarea name="body" id="body" rows="2" cols="20" readonly ><%= c.body %></textarea>
+			Message : <textarea name="body" id="body" cols="40" rows="7" readonly ><%= c.body %></textarea>
 		</li></p>
 
-		<p><%= button_to "Read", consultCom_path(c.post_id, c.id), :id => "Read#{c.id}" , :method => "get" %>
+		<p><%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
 		<%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p	
 	<% end %>
 </div>	

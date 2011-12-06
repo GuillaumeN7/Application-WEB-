@@ -15,7 +15,7 @@ describe "CommentCreate" do
 		it "verifyClickButtonAddCommentaire" do
 			visit consult_path(:id => @post2.id)
 			current_path.should == consult_path(:id => @post2.id)
-			page.should have_button ("Read")	
+			page.should have_button ("Edit")	
 			page.should have_button ("Add Commentaire")		
 		end	
 			
@@ -31,6 +31,8 @@ describe "CommentCreate" do
 		it "verifyReturnHomePageAfterClick Page d\'accueil" do
 			visit consult_path(:id => @post2.id)
 			current_path.should == consult_path(:id => @post2.id)
+			click_on("Add Commentaire")	
+			current_path.should == newComment_path(:id => @post2.id)					
 			page.should have_button ("Page d'accueil")					
 		end
 		
@@ -44,6 +46,16 @@ describe "CommentCreate" do
 			end
 			page.body.should_not include(@comment1.author)
 			page.body.should_not include(@comment1.body)					
+		end		
+		
+		it "verify ReturnButton 'Precedent'" do
+			visit consult_path(:id => @post2.id)
+			current_path.should == consult_path(:id => @post2.id)
+			click_on("Add Commentaire")	
+			current_path.should == newComment_path(:id => @post2.id)			
+			page.should have_button ("Precedent")	
+			click_on("Precedent")
+			current_path.should == consult_path(:id => @post2.id)										
 		end			
 	end
 	
@@ -114,6 +126,33 @@ describe "CommentDelete" do
 	end
 end	
 #------------------------------------------------------------------------------------------------------------------------		
+describe "CommentEdit" do
+	before (:each) do
+		@post1 = Post.create(:title => "sujet1", :body => "corps du sujet 1", :id => "1")
+		@post2 = Post.create(:title => "sujet2", :body => "corps du sujet 2", :id => "2")		
+		@comment1 = Comment.create(:author => "Guillaume", :body => "Ruby ou Ruby on Rails????????", :post_id => @post1.id)		
+		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)		
+		@comments = [@comment1, @comment2]							
+		visit posts_path
+		visit consult_path(:id => @post1.id)
+		visit editCom_path(:id => @post1.id, :comment_id => @comment1.id)		
+	end
+	
+		describe "GET /posts/:id/comments/:comment_id" do
+			it "verifyCurrentPath" do
+				current_path.should == editCom_path(:id => @post1.id, :comment_id => @comment1.id)	
+			end	
+			
+			it "verify ReturnButton 'Precedent'" do			
+				page.should have_button ("Precedent")	
+				click_on("Precedent")
+				current_path.should == consult_path(:id => @post1.id)											
+			end			
+
+		end
+
+end	
+
 
 
 

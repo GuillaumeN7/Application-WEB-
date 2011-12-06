@@ -6,9 +6,9 @@ class CommentController < ApplicationController
 	end
 	
 	def create
-	    post = Post.find(params[:id])
+	    @post = Post.find(params[:id])
 	end
-	
+
 	def new
 		post = Post.find(params[:id])
 	    	@comment = post.comments.build	
@@ -23,10 +23,23 @@ class CommentController < ApplicationController
 		redirect_to consult_path
 	end
 	
-	def read
-		post = Post.find(params[:id])
-#   		@comment = post.comments.find(params[:comment_id])
+	def edit
+		@post = Post.find(params[:id])
+   		@comment = @post.comments.find(params[:comment_id])
 	end
+	
+	def modify
+		@post = Post.find(params[:id])
+   		@comment = @post.comments.find(params[:comment_id])
+   		@comment.author = params[:author]
+		@comment.body = params[:body]
+		if @comment.save
+			flash[:notice] = "200 : Commentaire modifie avec succes"
+		else
+			flash[:notice] = "401 (Unauthorized) ou 403 (forbidden) : Echec de la modification"
+		end
+		redirect_to consult_path(@post.id)
+	end	
 	
 	def destroy
 		comment = Comment.find(params[:comment_id])
@@ -34,7 +47,7 @@ class CommentController < ApplicationController
 		if Comment.delete(params[:comment_id])
 			flash[:notice] = "200 : Le commentaire de #{@author} a ete supprime avec succes"
 		else
-			flash[:notice] = "304 : Le commentaire de #{@author} n'a pas ete supprime"
+			flash[:notice] = "304 : Le commentaire de #{@author} n'a pagcaens ete supprime"
 		end
 		redirect_to consult_path(params[:id])
 	end
