@@ -1,28 +1,24 @@
 <!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
-<center><div class="Header">
-	<h1>Post#new</h1>
-	<p>Find me in app/views/post/new.html.erb</p>
-</div>
-	<div class="TitleHeader">
-		<HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %>
-		<b><font color = red> <HR size=3>Creation d'un nouveau Post <HR></font></b>	
+<body>
+	<div class="title">
+		Creation d'un nouveau Post
 	</div>
-<div>
-	<p><form action="/posts" method="POST">
-			<div class ="field">
-			 	<label for="title">Titre : </label>
-			 	<input type="text" id="title" name="title" cols="20" />
-			 </div>
-			<div class ="field">
-				<p><label for="body">Message : </label>
-				<textarea name="body" id="body" rows="10" cols="35" ></textarea></p>
-			</div>
+
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+	</div>
+
+	<div class="reading">
+		<form action="/posts" method="POST">
+		 	Titre : <input type="text" id="title" name="title" cols="20" />
+			Message : <textarea name="body" id="body" rows="10" cols="35" ></textarea></p>
 			<div class ="actions">
 				<input type="submit" name="ValidatePost" value="Valider"<br></td>
 			</div>
-	</form></p>
-</div></center>
+		</form>
+	</div>
 
 
 
 <!-- Commentaire -->
+</body>

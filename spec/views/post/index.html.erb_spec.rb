@@ -10,9 +10,9 @@ describe "post/index.html.erb" do
 
 	it "display number of post and title" do
 		rendered.should =~ /sujet1/
-		rendered.should =~ /#{@post1.id}--#{@post1.title}/
+		rendered.should =~ /#{@post1.title}/
 		rendered.should =~ /sujet2/				
-		rendered.should =~ /#{@post2.id}--#{@post2.title}/
+		rendered.should =~ /#{@post2.title}/
 	end
 
     	it "should have a button named 'Add New Post' for create a post" do
@@ -21,9 +21,8 @@ describe "post/index.html.erb" do
 	end
 	
 	it "display 'Affichage des posts', 'Creation des posts' and 'Nouveau Post :'" do
-		rendered.should have_content('Affichage des posts')
-		rendered.should have_content('Creation des posts')
-		rendered.should have_content('Nouveau Post :')
+		rendered.should have_content('Affichage de la liste des posts')
+		rendered.should have_content('Creation d\'un nouveau post')
 	end
 	
 	it "should have ul li in page to display listing of posts" do

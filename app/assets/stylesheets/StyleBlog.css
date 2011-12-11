@@ -1,0 +1,94 @@
+#notice
+{
+	text-align: center;
+	color: green;
+	font-weight: bold;	
+	font-size: 24px;		
+}
+
+.title
+{
+	text-align: center;
+	font-family: "Times New Roman", serif;
+	color: orange;
+	font-size: 30px;
+	font-weight: bold;	
+	text-decoration: underline;
+	text-transform: uppercase;	
+}
+
+.reading
+{
+	text-align: center;
+	font-family: "Times New Roman", serif;
+	color: orange;
+	font-size: 22px;
+	font-weight: bold;	
+}
+
+.listing
+{
+	padding-top: 1%;
+	text-align: center;
+	font-family: "Times New Roman", serif;
+	color: orange;
+	font-size: 22px;
+	font-weight: bold;		
+}
+
+.listingURl
+{
+	padding-top: 1%;
+	text-align: center;
+	font-family: "Times New Roman", serif;
+	color: #77B5FE;
+	font-size: 22px;
+	font-weight: bold;	
+	list-style-image: url("ST.jpg");	
+}
+
+.actions
+{
+	color: white;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	text-align: center;
+	font-weight: normal;			
+}
+
+
+textarea, input[type=text]
+{
+	font-weight: bold;	
+	color: red;
+	font-size: 16px;
+	text-align: justify;
+	text-indent: 15px;
+	font-weight: bold;		
+	background-color: black;
+	padding-bottom: 5px;
+	border: 1px solid red;
+}
+
+body
+{
+	padding-top: 6.5%;
+	padding-right: 10%;
+	padding-left: 10%;
+	background-image: url("STfd.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center;
+
+}
+
+a:visited {
+	color:blue ;
+	text-decoration:none ;
+}
+
+a:hover {
+	color:lime ;
+	text-decoration:underline ;
+}
+

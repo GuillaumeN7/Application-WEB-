@@ -1,39 +1,48 @@
-
-<center>
-	<div class="Header">
-		<h1>Post#read</h1>
-		<p>Find me in app/views/post/read.html.erb</p>
+<body>
+	<p id="notice""><%= flash[:notice] %></p>
+	<div class="title">
+		Consultation du post "<%=@post.title%>" et de ses commentaires
 	</div>
-		<p style="color: green"><%= flash[:notice] %></p>
-</center>
-<div class="TitleHeader">
-		<center><HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %></center>
-	<b><font color = red> <HR size=3>Consultation du post : &nbsp  <center> </font>
-	<font color = orange><input type="text" readonly="true" id="title" name="title" cols="20" value="<%= @post.title %>" /> <HR></font></b></center>
-</div>
-
-<div class="reading">
-	<b><font color = red> Message : &nbsp </font></b>	
-	<center> 
-		<b><font color = orange><textarea name="body" id="body" rows="10" cols="35" readonly ><%= @post.body %></textarea></font></b>
+	
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+	</div>
+	
+	<div class="reading">	
+		Titre : 
+		<input type="text" readonly="true" id="title" name="title" cols="20" value="<%= @post.title %>" />
+		<p>Message : 
+			<textarea name="body" id="body" cols="80" rows="6" readonly ><%= @post.body %></textarea></p>
+	</div>
+	
+	<div class="actions">
 		<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
-	</center>
-</div>
-<div class="listing">
+	</div>
+	
+
+	<div class="title">	
+		Commentaires 
+	</div>	
+	
 
 	<% @post.comments.each do |c| %>
-		<p><li>
-			Auteur : <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" /><br>
-			Message : <textarea name="body" id="body" cols="40" rows="7" readonly ><%= c.body %></textarea>
-		</li></p>
+		<div class="listing">		
+			<li>
+				Auteur :  <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" /><br>
+				<p>Message : <textarea name="body" id="body" cols="80" rows="6" readonly ><%= c.body %></textarea></p>
+			</li>
+		</div>	
+		<div class="actions">
+			<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
+			<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p>
+			<HR>	
+		</div>
+		<% end %>
+	</div>	
+	<div class="actions">
+		<%= button_to "Add Commentaire", newComment_path, :method => "get", :id => "Add Commentaire"  %>
+	</div>
 
-		<p><%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
-		<%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p	
-	<% end %>
-</div>	
-<div class="readingPost">
-	<%= button_to "Add Commentaire", newComment_path, :method => "get", :id => "Add Commentaire"  %>
-</div>
-	<HR>
 
 <!-- Commentaire -->
+</body>

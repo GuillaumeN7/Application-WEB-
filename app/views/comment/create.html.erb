@@ -1,29 +1,23 @@
-
-<center>
-	<div class="Header">
-		<h1>Comment#index</h1>
-		<p>Find me in app/views/comment/index.html.erb</p>
+<body>
+	<div class="title">
+		Creation d'un commentaire
 	</div>
-</center>
   
-<center><HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %></center>  
-<%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %>  
-<%= form_tag showComment_path(@post.id), :method => "post" do %>
-	<div class="TitleHeader">		
-		<b><font color = red> <HR size=3>Auteur : &nbsp  <center> </font>
-		<font color = orange><input type="text" id="author" name="author" cols="20" value="" /> <HR></font></b></center>
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+		<%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %>  
+		<%= form_tag showComment_path(@post.id), :method => "post" do %>
+			<h2><div class="Field">		
+				<h2>Auteur : &nbsp</h2>
+				<input type="text" id="author" name="author" cols="20" value="" />
+				<h2><p>Commentaire : &nbsp</p></h2>
+				<textarea name="body" id="body" rows="10" cols="35" ></textarea>
+				<%= submit_tag("Valider") %>
+			</div>
+		<% end %>
 	</div>
 
-	<div class="reading">
-		<b><font color = red> Commentaire : &nbsp </font></b>	
-		<center> 
-			<b><font color = orange><textarea name="body" id="body" rows="10" cols="35" ></textarea></font></b>
- 			<%= submit_tag("Valider") %>
-		</center>
-	</div>
-<% end %>
-	<HR>
-
+</body>
 
 
 

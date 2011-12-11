@@ -1,12 +1,12 @@
-<!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
-<center><div class="Header">
-	<h1>Person#new</h1>
-	<p>Find me in app/views/person/new.html.erb</p>
-</div>
-	<div class="TitleHeader">
-		<HR><%= button_to "Page d\'accueil", posts_path, :method => "get" %>
-		<b><font color = red> <HR size=3>Creation d'un nouvel utilisateur <HR></font></b>	
+<body>
+	<div class="title">
+		Creation d'un utilisateur
 	</div>
+	
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+	</div>
+	
 <div>
 	<p><form action="/people" method="POST">
 			<div class ="field">
@@ -35,6 +35,7 @@
 				<input type="submit" name="ValidateUser" value="Creer utilisateur"<br></td>
 			</div>
 	</form></p>
-</div></center>
+</div>
 
 <!-- Commentaire -->
+</body>

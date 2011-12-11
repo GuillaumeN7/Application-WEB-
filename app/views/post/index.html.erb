@@ -1,25 +1,23 @@
-<h1>Post#index</h1>
-	<center><p>Find me in app/views/post/index.html.erb</p>
-	<p style="color: green"><%= flash[:notice] %></p>	
-	
-	<b><font color = red><HR size=8>Affichage des posts <HR size=3></font></b>
+<body>
+	<div class="title">
+		Affichage de la liste des posts
+	</div>	
 	<ul>
-
 		<% @posts.each do |p| %>
-			<p><li><font color = blue><%= link_to "N°  #{p.id}--#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%></font></li></p>
-
-   			<p><%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete %></p>
- 
+			<div class="listingURl">
+				<li><%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%></li>
+			</div>	
+			<div class="actions">
+   				<%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete %>
+   			</div>
 		<% end %>
 	</ul>
-	<b><font color = red> <HR size=3>Creation des posts <HR></font></b>
+	<div class="title">
+		Creation d'un nouveau post.
+	</div>
 
-	<p><form action= <%= posts_new_path %> method="GET">
+	<form action= <%= posts_new_path %> method="GET">
+		<div class = "actions"><input type="submit" name="CreationPostButton" value="Add New Post" <br></div>
+	</form> 
 
-		<div class = "actions">Nouveau Post : <input type="submit" name="CreationPostButton" value="Add New Post" <br></div>
-
-	</form></p></center> 
-
-
-
-
+</body>

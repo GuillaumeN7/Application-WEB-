@@ -15,9 +15,9 @@ describe "post/accessModify.html.erb" do
 	
 	it "displays a textfield 'Consultation du post :' with value = 'post.title' and a textareafield 'Message :' with value = 'post.body' " do
 		rendered.should have_selector("input", :type => "text") 
-		rendered.should have_content('Consultation du post : ')
-		rendered.should have_selector('input', :content => @post1.title)
-		rendered.should =~ /#{@post1.title}/			
+		rendered.should have_content('Consultation du post')
+		rendered.should =~ /#{@post1.title}/					
+		rendered.should have_selector('input', :content => @post1.title)	
 		rendered.should have_content('Message : ')
 		rendered.should have_selector("textarea", :content => @post1.body) 
 		rendered.should =~ /#{@post1.body}/					

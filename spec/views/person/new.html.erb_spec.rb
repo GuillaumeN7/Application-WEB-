@@ -7,7 +7,7 @@ describe "person/new.html.erb" do
 	end
 	
 	it "displays parameters of a Person" do
-		rendered.should have_content('Creation d\'un nouvel utilisateur')
+		rendered.should have_content('Creation d\'un utilisateur')
 		rendered.should have_content('Nom')
 		rendered.should have_content('Prenom')
 		rendered.should have_content('Password ')
