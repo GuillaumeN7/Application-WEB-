@@ -32,7 +32,6 @@ class PostController < ApplicationController
 	
 	def read
 		@post = Post.find(params[:id])
-#		@comments = Comment.all
 		@comments = Comment.find_all_by_post_id(params[:id])
 	end
 	

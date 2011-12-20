@@ -17,7 +17,7 @@
 	text-transform: uppercase;	
 }
 
-.reading
+.reading, .authentication
 {
 	text-align: center;
 	font-family: "Times New Roman", serif;
@@ -57,7 +57,7 @@
 }
 
 
-textarea, input[type=text]
+textarea, input[type=text], input[type=password]
 {
 	font-weight: bold;	
 	color: red;

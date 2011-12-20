@@ -1,15 +1,10 @@
 class CommentController < ApplicationController
-
-	def index
-		post = Post.find(params[:id])		
-		@comments = Comment.find_all_by_post_id(params[:id])
-	end
 	
-	def create
+	def new
 	    @post = Post.find(params[:id])
 	end
 
-	def new
+	def create
 		post = Post.find(params[:id])
 	    	@comment = post.comments.build	
 		@comment.author = params[:author]
@@ -42,9 +37,10 @@ class CommentController < ApplicationController
 	end	
 	
 	def destroy
-		comment = Comment.find(params[:comment_id])
-		@author = comment.author
-		if Comment.delete(params[:comment_id])
+		@post = Post.find(params[:id])
+		@comment = @post.comments.find(params[:comment_id])
+		@author = @comment.author
+		if Comment.destroy(params[:comment_id])
 			flash[:notice] = "200 : Le commentaire de #{@author} a ete supprime avec succes"
 		else
 			flash[:notice] = "304 : Le commentaire de #{@author} n'a pagcaens ete supprime"

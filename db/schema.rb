@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20111127160211) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "person_id"
   end
 
 end

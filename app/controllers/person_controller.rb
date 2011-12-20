@@ -13,11 +13,35 @@ class PersonController < ApplicationController
 		@person.password = params[:password]
 		@person.login = params[:login]	
 		if @person.save
-			flash[:notice] = "201 CREATED : l'utilisateur a ete cree avec succes"
+			flash[:notice] = "201 USER #{@person.name} #{@person.firstname} alias #{@person.login} CREATED "
 		else
-			flash[:notice] = "401 (Unauthorized) ou 403 (forbidden) : utilisateur non cree"
+			flash[:notice] = "ERROR : possibilities ==> Fill all the fields, Unhautorized or User already existing"
 		end	
 		redirect_to posts_path
+	end
+	
+	def connect
+		session[:id] = nil
+		if request.post?
+			person = Person.find_by_login_and_password(params[:login], params[:password])
+			if person
+ 				session[:id]=person.id
+ 				session[:name]=person.name	
+				session[:login]=person.login
+				session[:firstname]=person.firstname				
+				session[:password]=person.password			
+				flash[:notice] = "#{person.login} authenticated"		
+			else
+				if person = Person.find_by_login(params[:login])
+					person = nil
+					session[:id]=nil
+					flash[:notice] = "Bad Password"
+				else
+					flash[:notice] = "User not existing"
+				end				
+			end		
+		end
+		redirect_to posts_path		
 	end
 		
 

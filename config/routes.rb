@@ -12,12 +12,13 @@ Blog::Application.routes.draw do
 	post "/posts/:id", 						 :controller => :post,     :action => :accessModify,	 	:as => "accessModify"
 	put "/posts/:id",						 :controller => :post,     :action => :modify, 			:as => "modify"
 
-	get "/people/new",						 :controller => :person,   :action => :new	,			:as => "indexPeople"	
+	get "/people/new",						 :controller => :person,   :action => :new,				:as => "indexPeople"
+	get "/people/connect",					 :controller => :person,	  :action => :login, 			:as => "connect"	
+	post "/people/connect",					 :controller => :person,	  :action => :connect,			:as => "connect"
 	post "/people", 						 :controller => :person,   :action => :create,			:as => "createUser"
 
-	get "posts/:id/comments/",				 :controller => :comment,  :action => :index,			:as => "comment"
-	get "posts/:id/comments/new",	 			 :controller => :comment,  :action => :create,			:as => "newComment"
-	post "/posts/:id/comment",				 :controller => :comment,  :action => :new,				:as => "showComment"
+	get "posts/:id/comments/new",	 			 :controller => :comment,  :action => :new,				:as => "newComment"
+	post "/posts/:id/comment",				 :controller => :comment,  :action => :create,			:as => "showComment"
 	get "/posts/:id/comments/:comment_id", 		 :controller => :comment,  :action => :edit, 			:as => "editCom"
 	put "/posts/:id/comments/:comment_id",		 :controller => :comment,  :action => :modify, 			:as => "modifyCom"	
 	delete '/post/:id/comments/:comment_id',	 :controller => :comment,  :action => :destroy, 			:as => "deleteCom" 																			

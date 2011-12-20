@@ -5,35 +5,38 @@
 	
 	<div class="actions">
 		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
-	</div>
+	</div>    
 	
-<div>
+<div class="reading">
 	<p><form action="/people" method="POST">
+		<fieldset>
+		<legend> Informations utilisateurs : renseignez tous les champs</legend>
 			<div class ="field">
-			 	<label for="name">Nom : </label>
+			 	Nom :
 			 	<input type="text" id="name" name="name" cols="20" />
 			 </div>
 			<div class ="field">
 				<p>
-			 		<label for="firstname">Prenom : </label>
+			 		Prenom :
 			 		<input type="text" id="firstname" name="firstname" cols="20" />
 				</p>
 			 </div>
 			<div class ="field">
 			 	<p>
-			 		<label for="password">Password : </label>
-			 		<input type="text" id="password" name="password" cols="20" />
+			 		Password :
+			 		<input type="password" id="password" name="password" cols="20" />
 			 	</p>
 			 </div>
 			<div class ="field">
 			 	<p>
-			 		<label for="login">Login/Pseudo : </label>
+			 		Login/Pseudo :
 			 		<input type="text" id="login" name="login" cols="20" />
 			 	</p>
 			 </div>			 			 
 			<div class ="actions">
 				<input type="submit" name="ValidateUser" value="Creer utilisateur"<br></td>
 			</div>
+		</fieldset>
 	</form></p>
 </div>
 

@@ -1,0 +1,26 @@
+<body>
+	<div class="title">
+		Creation d'un commentaire
+	</div>
+  
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+		<%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %>  
+		<%= form_tag showComment_path(@post.id), :method => "post" do %>
+			<div class="reading">		
+				Auteur : &nbsp
+				<input type="text" id="author" name="author" cols="20" value="" />
+				<p>Commentaire : &nbsp</p>
+				<textarea name="body" id="body" rows="10" cols="35" ></textarea>
+				<%= submit_tag("Valider") %>
+			</div>
+		<% end %>
+	</div>
+
+</body>
+
+
+
+<!-- Commentaire -->
+
+
