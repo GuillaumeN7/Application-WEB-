@@ -21,6 +21,8 @@ describe PostController do
 
 	describe "DELETE 'delete_path'" do
 		before(:each) do
+			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
+			session[:id] = @person.id
 			@post = Post.create(:title => "Titre du Com", :body => "yihaaaa", :id => "4")
 			Post.stub(:find){@post}
 			@post.stub(:destroy){ true }
@@ -39,6 +41,8 @@ describe PostController do
 	
 	describe "POST 'create'" do
 		it "should redirect to the todo list" do
+			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
+			session[:id] = @person.id
 			post :create
 			response.should redirect_to posts_path
 		end
@@ -46,6 +50,8 @@ describe PostController do
 
 	describe "POST 'create'" do
 		before(:each) do
+			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
+			session[:id] = @person.id
 			@new_post_params = {"post" => {"title" => "post_title", "body" => "post_body"}}
 			@post = stub_model(Post)
 			Post.stub(:new) {@post}
@@ -64,6 +70,8 @@ describe PostController do
 	
 	describe " POST 'accessModify' and PUT 'modify'" do
 		before(:each) do
+			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
+			session[:id] = @person.id		
 			@post1 = Post.create(:title => "titre1", :body => "body1")
 			@post2 = Post.create(:title => "titre2", :body => "body2")
 			@posts = [@post1, @post2]

@@ -49,5 +49,17 @@ describe PersonController do
 			response.should redirect_to posts_path
 		end
 	end
+		
+	describe "POST 'connect'" do		
+		it "should unhautorize the authentication" do
+			@person = stub_model(Person, :login => "Froz", :name => "CAEN", :firstname => "Guillaume", :password => "secret", :id => "31")		
+			Person.stub(:find_by_login).with(@person.login)
+			Person.should_receive(:find_by_login).with(@person.login).and_return(@pers)		
+			post :connect, :login => @person.login
+			assigns(:person).should eq @pers		
+			assert_equal nil, session[@person.id]
+			response.should redirect_to posts_path
+		end
+	end
 
 end

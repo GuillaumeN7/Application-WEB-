@@ -52,6 +52,8 @@ describe CommentController do
 
 	describe "PUT 'modify'" do
 		before(:each) do
+			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
+			session[:id] = @person.id		
 			@post = Post.create(:title => "Titre du Com", :body => "yihaaaa", :id => "1")						
 			@comment = Comment.create(:author => "guillaume", :body => "Ceci est un com", :post_id => @post.id, :id => "17" )										
 			@comment.stub(:save){ true }
@@ -71,6 +73,8 @@ describe CommentController do
 	
 	describe "DELETE 'destroy'" do	
 		before(:each) do
+			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
+			session[:id] = @person.id		
 			@post = Post.create(:title => "Titre du Com", :body => "yihaaaa", :id => "1")						
 			@comment = Comment.create(:author => "guillaume", :body => "Ceci est un com", :post_id => @post.id, :id => "17" )										
 			@comment.stub(:destroy){ true }

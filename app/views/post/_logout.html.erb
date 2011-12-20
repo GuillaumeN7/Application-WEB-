@@ -1,0 +1,3 @@
+<% if session[:id] %>
+	<%= link_to "Deconnexion", logout_path(session[:id]), :id => "Deconnexion" , :method => "get" %>
+<% end %>	

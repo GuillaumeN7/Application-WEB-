@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+#not logged
 describe "post/read.html.erb" do
 	before(:each) do
 		@post1 = stub_model(Post, :title => "titre du post", :body => "corps du post", :id => "24")
@@ -12,9 +13,8 @@ describe "post/read.html.erb" do
 		render
 	end
 
-	it "should have a button named 'Modifier' for modify the post" do
-		rendered.should have_selector("input", :type => "submit", :name => "Modifier", :href => accessModify_path(@post1.id)) 
-		rendered.should have_button("Modifier")
+	it "should not have a button named 'Modifier' for modify the post" do
+		rendered.should_not have_button("Modifier")
 	end
 
 	it "should have a button to go at home page displaying 'Page d'accueil'" do
@@ -33,9 +33,10 @@ describe "post/read.html.erb" do
 		end 
 	end
 
-	it "should have a button Supprimer for all comments posted" do
+	it "should not have a button Supprimer for all comments posted" do
 		@comments.each do |c| 			
 			rendered.should have_selector("input", :type => "submit", :href => deleteCom_path(c.post_id, c.id))
+			rendered.should_not have_button("Supprimer")			
 		end 
 	end	
 	
@@ -48,12 +49,40 @@ describe "post/read.html.erb" do
 			rendered.should have_content('Message : ')
 	   		rendered.should have_selector("textarea", :content => @post1.body) 
 	end	
-	
-	
-
-
 end
 
+#logged
+describe "post/read.html.erb" do
+	before(:each) do
+		@post1 = stub_model(Post, :title => "titre du post", :body => "corps du post", :id => "24")
+		@comment1 = stub_model(Comment, :author => "Guillaume", :body => "com pour le test de la vue", :post_id =>@post1.id)
+		@comment2 = stub_model(Comment, :author => "Pauline", :body => "2eme com pour le test", :post_id =>@post1.id)	
+		@comments = [@comment1, @comment2]	
+		@person = stub_model(Person, :login => "capybara")			
+		session[:id] = @person.id	
+		session[:login] = @person.login						
+		assign(:post, @post1)
+		assign(:comments, [@comment1, @comment2])
+		controller.request.path_parameters[:id] = @post1.id
+		render
+	end
+	
+	it "should have a button named 'Modifier' for modify the post" do
+		rendered.should have_selector("input", :type => "submit", :name => "Modifier", :href => accessModify_path(@post1.id)) 
+		rendered.should have_button("Modifier")
+	end
 
-
-
+	it "should have a button Supprimer for all comments posted" do
+		@comments.each do |c| 			
+			rendered.should have_selector("input", :type => "submit", :href => deleteCom_path(c.post_id, c.id))
+		end 
+	end
+	
+	it "should have a link 'Deconnexion'" do
+		rendered.should have_link("Deconnexion")
+	end	
+	
+	it "should display '<%= session[:login] %> logged' if user logged" do
+		rendered.should have_content("#{session[:login]} logged")
+	end			
+end

@@ -1,5 +1,6 @@
 class CommentController < ApplicationController
-	
+	before_filter :authorize, :except => [:new, :create]
+		
 	def new
 	    @post = Post.find(params[:id])
 	end

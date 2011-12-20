@@ -1,11 +1,13 @@
 class PostController < ApplicationController
-  def index
+	before_filter :authorize, :except => [:read, :index]
+
+	def index
 		@posts = Post.all
-  end
+	end
 
 	def new
 	end
-	
+
 	def create
 		@post = Post.new
 		@post.title = params[:title]
@@ -16,7 +18,7 @@ class PostController < ApplicationController
 			@post.valid?	
 			@post.errors
 			@post.errors
-			flash[:notice] = "title or body message : #{@post.errors[:title]} - or 401 (Unauthorized) or 403 (forbidden) : post not created"
+			flash[:notice] = "error : #{@post.errors[:title]} --> post not created"
 		end	  
 		redirect_to posts_path
 	end
@@ -29,16 +31,16 @@ class PostController < ApplicationController
 		end
 		redirect_to posts_path
 	end
-	
+
 	def read
 		@post = Post.find(params[:id])
 		@comments = Comment.find_all_by_post_id(params[:id])
 	end
-	
+
 	def accessModify
 		@post = Post.find(params[:id])
 	end
-	
+
 	def modify
 		@post = Post.find(params[:id])
 		@post.title = params[:title]
@@ -48,7 +50,7 @@ class PostController < ApplicationController
 		else
 			flash[:notice] = "401 (Unauthorized) ou 403 (forbidden) : Echec de la modification"
 		end
-		redirect_to consult_path
+	redirect_to consult_path
 	end
 
 end

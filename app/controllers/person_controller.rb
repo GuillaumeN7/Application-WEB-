@@ -1,9 +1,7 @@
 class PersonController < ApplicationController
-
-	def index
-	end
 	
-	def new
+	def index
+		@people = Person.all
 	end
 	
 	def create
@@ -42,6 +40,12 @@ class PersonController < ApplicationController
 			end		
 		end
 		redirect_to posts_path		
+	end
+	
+	def logout
+		session[:id] = nil
+		flash[:notice] = "Deconnexion terminee. Merci de votre visite"
+		redirect_to posts_path
 	end
 		
 

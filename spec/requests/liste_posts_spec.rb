@@ -4,7 +4,11 @@ describe "PostListings" do
 	before (:each) do
 		@post1 = Post.create(:title => "sujet1", :body => "bla bla")
 		@post2 = Post.create(:title => "sujet2", :body => "bla bla")
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')
 	end
 
 	describe "GET /posts" do
@@ -25,6 +29,11 @@ end
 #-------------------------------------------------------------
 describe "PostCreation" do
 	before (:each) do
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
+		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')	
 		visit posts_new_path
 	end	
 
@@ -70,7 +79,11 @@ describe "PostDelete" do
 	before (:each) do
 		@post1 = Post.create(:title => "sujet1garde", :body => "stay")
 		@post2 = Post.create(:title => "sujet2delete", :body => "deleted")
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')
 	end
 	describe "DELETE /posts" do
 		it "verifyCurrentPath" do
@@ -96,7 +109,11 @@ describe "PostConsult" do
 	before (:each) do
 		@post1 = Post.create(:title => "sujet1", :body => "Ceci est le sujet 1")
 		@post2 = Post.create(:title => "sujet2Consulte", :body => "Ceci est le sujet consulte")
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')
 	end	
 	describe "GET /posts/:id" do
 		it "verifyCurrentPath" do
@@ -123,7 +140,11 @@ end
 describe "PostEdit" do
 	before (:each) do
 		@post1 = Post.create(:title => "sujet1", :body => "Ceci est le sujet en attente de modification")
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')
 	end	
 		describe "PUT /posts/:id" do
 			it "verifyCurrentPath" do

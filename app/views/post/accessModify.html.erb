@@ -1,18 +1,26 @@
 <body>
+	<div class="authentication">
+		<% if session[:id] %>
+			<%= session[:login] %> logged
+		<% end %>		
+		<%= render "logout" %>				
+	</div>		
 	<div class="title">
-		Consultation du post "<%= @post.title %>"
+		Modification du post "<%= @post.title %>"
 	</div>
 	
 	<div class="actions">
-		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %> &nbsp
 		<%= form_tag(modify_path(@post.id), :method => "put") do %>
 			<div class="reading">
-				Titre du post : 
-				<input type="text" id="title" name="title" cols="20" value="<%= @post.title %>" />
-				 Message : 	
-				<textarea name="body" id="body" cols="80" rows="6" ><%= @post.body %></textarea>
-				<div class ="actions">
-					<input type="submit" name="Valider" value="Valider">
+				<p>Titre du post : 
+					<input type="text" id="title" name="title" cols="20" value="<%= @post.title %>" />
+				</p>
+				<p>Message : 	
+					<textarea name="body" id="body" cols="80" rows="6" ><%= @post.body %></textarea>
+					<div class ="actions">
+				</p>
+				<input type="submit" name="Valider" value="Valider">
 				</div>
 			</div>
 		<% end %>		

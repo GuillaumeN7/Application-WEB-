@@ -17,7 +17,18 @@
 	text-transform: uppercase;	
 }
 
-.reading, .authentication
+.authentication
+{
+	padding-top: 0;
+	padding-right: 0%;
+	padding-left: 80%;
+	text-align: center;
+	color: yellow;
+	font-size: 20px;
+	font-weight: bold;	
+}
+
+.reading
 {
 	text-align: center;
 	font-family: "Times New Roman", serif;
@@ -53,7 +64,8 @@
 	padding-top: 1%;
 	padding-bottom: 1%;
 	text-align: center;
-	font-weight: normal;			
+	font-weight: bold;	
+	font-size: 22px;			
 }
 
 
@@ -79,7 +91,6 @@ body
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-position: center;
-
 }
 
 a:visited {

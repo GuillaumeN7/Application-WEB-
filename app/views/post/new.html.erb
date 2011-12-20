@@ -1,4 +1,11 @@
 <!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
+<div class="authentication">
+	<%= render "logout" %>
+	<p><% if session[:id] %>
+		<%= session[:login] %> logged
+	<% end %>	</p>	
+	&nbsp<p></p>	
+</div>
 <body>
 	<div class="title">
 		Creation d'un nouveau Post
@@ -10,8 +17,8 @@
 
 	<div class="reading">
 		<form action="/posts" method="POST">
-		 	Titre : <input type="text" id="title" name="title" cols="20" />
-			Message : <textarea name="body" id="body" rows="10" cols="35" ></textarea></p>
+		 	<p>Titre : <input type="text" id="title" name="title" cols="20" /></p>
+			<p>Message : <textarea name="body" id="body" rows="10" cols="35" ></textarea></p>
 			<div class ="actions">
 				<input type="submit" name="ValidatePost" value="Valider"<br></td>
 			</div>

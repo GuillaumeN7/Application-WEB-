@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "comment/new.html.erb" do
 	before(:each) do
-
 		@post1 = stub_model(Post, :title => "titre du post", :body => "corps du post", :id => "24")
 		assign(:post, @post1)
 		render
@@ -37,5 +36,21 @@ describe "comment/new.html.erb" do
 end
 
 
-
+describe "comment/new.html.erb" do
+	before(:each) do	
+		@post1 = stub_model(Post, :title => "titre du post", :body => "corps du post", :id => "24")
+		assign(:post, @post1)
+		@person = stub_model(Person, :login => "capybara")			
+		session[:id] = @person.id
+		session[:login] = @person.login				
+		render
+	end	
+	it "should have a link 'Deconnexion'" do
+		rendered.should have_link("Deconnexion")
+	end	
+	
+	it "should display '<%= session[:login] %> logged' if user logged" do
+		rendered.should have_content("#{session[:login]} logged")
+	end		
+end
 

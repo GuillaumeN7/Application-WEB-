@@ -1,44 +1,42 @@
 <div class="authentication">
-	<% if !session[:id] %>
-	<fieldset>
-		<legend> Connexion </legend>
-		<form action="/people/connect" method="POST">
-			<p>
-				Login :
-				<input type="text" id="login" name="login" cols="20" /> 
-			</p>
-			<p>
-				Password :
-				<input type="password" id="password" name="password" cols="20" />
-			</p>	
-			<p>
-				<%= submit_tag "Connexion" %>
-			</p>
-		</form>
-	</fieldset>		
-	<% end %>
+		<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>
+		<%= render "login" %>
+		<% if session[:id] %>
+			Bienvenue <%= session[:login] %>
+		<% end %>	
+		<%= render "logout" %>				
 </div>
 <body>
 	<p id="notice""><%= flash[:notice] %></p>
+	<HR>
 	<div class="title">
-		Affichage de la liste des posts <%= session[:login] %>
+		Affichage de la liste des posts 
 	</div>	
 	<ul>
 		<% @posts.each do |p| %>
 			<div class="listingURl">
 				<li><%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%></li>
-			</div>	
-			<div class="actions">
-   				<%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete %>
-   			</div>
+			</div>
+			<% if session[:id] %>	
+				<div class="actions">
+   					<%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete %>
+   				</div>
+   			<% end %>
 		<% end %>
 	</ul>
+	<% if session[:id] %>
+		<div class="title">
+			Creation d'un nouveau post.
+		</div>
+		<form action= <%= posts_new_path %> method="GET">
+			<div class = "actions"><input type="submit" name="CreationPostButton" value="Add New Post" <br></div>
+		</form> 
+	<% end %>	
+	<HR>
 	<div class="title">
-		Creation d'un nouveau post.
+		Utilisateurs
+	</div>	
+	<div class="actions">
+		<%= button_to "Page des utilisateurs", listingPeople_path, :method => 'get' %>
 	</div>
-
-	<form action= <%= posts_new_path %> method="GET">
-		<div class = "actions"><input type="submit" name="CreationPostButton" value="Add New Post" <br></div>
-	</form> 
-
 </body>

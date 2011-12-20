@@ -8,7 +8,12 @@ describe "CommentCreate" do
 		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)
 		@comment3 = Comment.create(:author => "Gautier", :body => "REST", :post_id => @post1.id)		
 		@comments = [@comment1, @comment2, @comment3]
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')		
+		
 	end
 
 	describe "GET /posts/:id" do
@@ -55,10 +60,9 @@ describe "CommentCreate" do
 			current_path.should == newComment_path(:id => @post2.id)			
 			page.should have_button ("Precedent")	
 			click_on("Precedent")
-			current_path.should == consult_path(:id => @post2.id)										
+			current_path.should == consult_path(:id => @post2.id)									
 		end			
-	end
-	
+	end	
 end
 #-----------------------------------------------------------------------------------------------------------------------
 describe "CommentDelete" do
@@ -70,7 +74,11 @@ describe "CommentDelete" do
 		@comment3 = Comment.create(:author => "Gautier", :body => "REST", :post_id => @post1.id)
 		@comment4 = Comment.create(:author => "Alex", :body => "Rspec", :post_id => @post2.id)		
 		@comments = [@comment1, @comment2, @comment3,@comment4]							
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')
 		visit consult_path(:id => @post1.id)		
 	end
 
@@ -133,7 +141,11 @@ describe "CommentEdit" do
 		@comment1 = Comment.create(:author => "Guillaume", :body => "Ruby ou Ruby on Rails????????", :post_id => @post1.id)		
 		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)		
 		@comments = [@comment1, @comment2]							
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		fill_in('login', :with => @person.login)
+		fill_in('password', :with => @person.password)
+		click_button ('Connexion')
 		visit consult_path(:id => @post1.id)
 		visit editCom_path(:id => @post1.id, :comment_id => @comment1.id)		
 	end

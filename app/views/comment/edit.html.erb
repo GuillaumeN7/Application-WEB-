@@ -1,3 +1,9 @@
+<div class="authentication">
+	<% if session[:id] %>
+		<%= session[:login] %> logged
+	<% end %>	
+	<%= render "logout" %>				
+</div>
 <body>
 	<div class="title">
 		Modification d'un commentaire
@@ -8,17 +14,15 @@
 	</div>
   
 	<%= form_tag(modifyCom_path(@comment.post_id,@comment.id), :method => "put") do %>
-	<div class="reading">		
-		Auteur : <input type="text" id="author" name="author" cols="15" value="<%= @comment.author %>" /><br>
-		Message : <textarea name="body" id="body" cols="80" rows="6" ><%= @comment.body %></textarea>
-		<p><input type="submit" name="Valider" value="Valider"></p>
+		<div class="reading">		
+			Auteur : <input type="text" id="author" name="author" cols="15" value="<%= @comment.author %>" /><br>
+			Message : <textarea name="body" id="body" cols="80" rows="6" ><%= @comment.body %></textarea>
+			<p><input type="submit" name="Valider" value="Valider"></p>
+		</div>
+	<% end %>	
+	<div class="actions">
+		<%= button_to "Supprimer", deleteCom_path(@comment.post_id,@comment.id), :id => "Delete#{@comment.id}" , :confirm => 'Confirmer la suppression', :method => :delete %> &nbsp	
+		<%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %> 
 	</div>
-<% end %>	
-<div class="actions">
-	<%= button_to "Supprimer", deleteCom_path(@comment.post_id,@comment.id), :id => "Delete#{@comment.id}" , :confirm => 'Confirmer la suppression', :method => :delete %> &nbsp	
-	<%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %> 
-</div>
 <!-- Commentaire -->
-
-
 </body>

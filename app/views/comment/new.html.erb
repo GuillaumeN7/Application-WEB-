@@ -1,20 +1,28 @@
-<body>
+<div class="authentication">
+	<%= render "login" %>
+	<% if session[:id] %>
+		<%= session[:login] %> logged
+	<% end %>		
+	<%= render "logout" %>
+	&nbsp<p></p>	
+</div>
+<body>	
 	<div class="title">
 		Creation d'un commentaire
 	</div>
   
 	<div class="actions">
-		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
-		<%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %>  
-		<%= form_tag showComment_path(@post.id), :method => "post" do %>
+		<p><%= button_to "Page d\'accueil", posts_path, :method => "get" %></p>
+		<p><%= button_to "Precedent", consult_path(@post.id), :id => "Precedent" , :method => "get" %>  </p>
+		<p><%= form_tag showComment_path(@post.id), :method => "post" do %>
 			<div class="reading">		
 				Auteur : &nbsp
-				<input type="text" id="author" name="author" cols="20" value="" />
+				<input type="text" id="author" name="author" cols="15" value="" />
 				<p>Commentaire : &nbsp</p>
-				<textarea name="body" id="body" rows="10" cols="35" ></textarea>
+				<textarea name="body" id="body" rows="6" cols="80" ></textarea>
 				<%= submit_tag("Valider") %>
 			</div>
-		<% end %>
+		<% end %></p>
 	</div>
 
 </body>

@@ -1,14 +1,25 @@
 <!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
 <body>
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+	</div>
+	<HR>
 	<div class="title">
 		Affichage des utilisateurs
 	</div>
 
-	<div class="actions">
-		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+	<% @people.each do |p| %>
+		<div class="listing">
+			<li> <%= p.firstname %> alias <%= p.login %> </li>
+		</div>
+	<% end %>
+	<HR>
+	<div class="title">
+		Creation d'un nouvel utilisateur
 	</div>
-
-
+	<div class="actions">
+		<%= button_to "Creer un utilisateur", newUser_path, :method => "get" %>
+	</div>
 
 <!-- Commentaire -->
 </body>  

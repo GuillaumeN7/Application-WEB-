@@ -1,4 +1,11 @@
 <body>
+	<div class="authentication">
+		<%= render "login" %>
+		<% if session[:id] %>
+			<%= session[:login] %> logged
+		<% end %>			
+		<%= render "logout" %>				
+	</div>	
 	<p id="notice""><%= flash[:notice] %></p>
 	<div class="title">
 		Consultation du post "<%=@post.title%>" et de ses commentaires
@@ -14,11 +21,11 @@
 		<p>Message : 
 			<textarea name="body" id="body" cols="80" rows="6" readonly ><%= @post.body %></textarea></p>
 	</div>
-	
-	<div class="actions">
-		<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
-	</div>
-	
+	<% if session[:id] %>
+		<div class="actions">
+			<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
+		</div>
+	<% end %>
 
 	<div class="title">	
 		Commentaires 
@@ -32,12 +39,14 @@
 				<p>Message : <textarea name="body" id="body" cols="80" rows="6" readonly ><%= c.body %></textarea></p>
 			</li>
 		</div>	
-		<div class="actions">
-			<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
-			<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p>
-			<HR>	
-		</div>
-		<% end %>
+		<% if session[:id] %>
+			<div class="actions">
+				<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
+				<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p>
+				<HR>	
+			</div>
+		<% end %>	
+	<% end %>
 	</div>	
 	<div class="actions">
 		<%= button_to "Add Commentaire", newComment_path, :method => "get", :id => "Add Commentaire"  %>
