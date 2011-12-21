@@ -11,7 +11,10 @@ class PostController < ApplicationController
 	def create
 		@post = Post.new
 		@post.title = params[:title]
-		@post.body = params[:body]		
+		@post.body = params[:body]
+		if session[:id]
+			@post.person_id = session[:id]
+		end		
 		if @post.save
 			flash[:notice] = "201 CREATED : post created with success"
 		else
@@ -24,10 +27,15 @@ class PostController < ApplicationController
 	end
 
 	def destroy
-		if Post.destroy(params[:id])
-			flash[:notice] = "200 : Le post a ete supprime avec succes"
-		else
-			flash[:notice] = "304 : erreur, post non supprime"
+		@post = Post.find(params[:id])
+		if @post.person_id != session[:id]	
+			flash[:notice] = "ERROR : Ce post ne vous appartient pas!"	
+		else	if 
+			Post.destroy(params[:id])
+				flash[:notice] = "200 : Le post a ete supprime avec succes"
+			else
+				flash[:notice] = "304 : erreur, post non supprime"
+			end						
 		end
 		redirect_to posts_path
 	end

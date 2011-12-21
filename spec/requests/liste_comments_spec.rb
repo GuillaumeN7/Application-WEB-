@@ -2,14 +2,45 @@ require 'spec_helper'
 
 describe "CommentCreate" do
 	before (:each) do
-		@post1 = Post.create(:title => "sujet1", :body => "bla bla")
-		@post2 = Post.create(:title => "sujet2", :body => "bla bla")
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "bla bla")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet2", :body => "bla bla")
 		@comment1 = Comment.create(:author => "Guillaume", :body => "RoR", :post_id => @post2.id)
 		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)
 		@comment3 = Comment.create(:author => "Gautier", :body => "REST", :post_id => @post1.id)		
 		@comments = [@comment1, @comment2, @comment3]
-		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		visit login_path			
+	end
+	
+	describe "GET /posts/:id" do
+		it "verifyLoginPagePresence" do
+			visit login_path
+			current_path.should == login_path	
+			page.should have_button ("Connexion")
+			page.body.should include("Login :")				
+			page.body.should include("Password :")			
+		end	
+		
+		it "verifyFillingFields" do
+			visit login_path		
+			fill_in('login', :with => @person.login)
+			fill_in('password', :with => @person.password)	
+		end	
+	end	
+end
+
+describe "CommentCreate" do
+	before (:each) do
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "bla bla")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet2", :body => "bla bla")
+		@comment1 = Comment.create(:author => "Guillaume", :body => "RoR", :post_id => @post2.id)
+		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)
+		@comment3 = Comment.create(:author => "Gautier", :body => "REST", :post_id => @post1.id)		
+		@comments = [@comment1, @comment2, @comment3]
+		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')		
@@ -67,15 +98,16 @@ end
 #-----------------------------------------------------------------------------------------------------------------------
 describe "CommentDelete" do
 	before (:each) do
-		@post1 = Post.create(:title => "sujet1", :body => "corps du sujet 1", :id => "1")
-		@post2 = Post.create(:title => "sujet2", :body => "corps du sujet 2", :id => "2")		
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "corps du sujet 1", :id => "1")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet2", :body => "corps du sujet 2", :id => "2")		
 		@comment1 = Comment.create(:author => "Guillaume", :body => "Ruby", :post_id => @post1.id)		
 		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)
 		@comment3 = Comment.create(:author => "Gautier", :body => "REST", :post_id => @post1.id)
 		@comment4 = Comment.create(:author => "Alex", :body => "Rspec", :post_id => @post2.id)		
 		@comments = [@comment1, @comment2, @comment3,@comment4]							
-		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')
@@ -136,13 +168,14 @@ end
 #------------------------------------------------------------------------------------------------------------------------		
 describe "CommentEdit" do
 	before (:each) do
-		@post1 = Post.create(:title => "sujet1", :body => "corps du sujet 1", :id => "1")
-		@post2 = Post.create(:title => "sujet2", :body => "corps du sujet 2", :id => "2")		
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "corps du sujet 1", :id => "1")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet2", :body => "corps du sujet 2", :id => "2")		
 		@comment1 = Comment.create(:author => "Guillaume", :body => "Ruby ou Ruby on Rails????????", :post_id => @post1.id)		
 		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)		
 		@comments = [@comment1, @comment2]							
-		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')

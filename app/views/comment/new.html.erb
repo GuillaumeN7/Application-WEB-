@@ -17,7 +17,12 @@
 		<p><%= form_tag showComment_path(@post.id), :method => "post" do %>
 			<div class="reading">		
 				Auteur : &nbsp
-				<input type="text" id="author" name="author" cols="15" value="" />
+				<% if !session[:id] %>
+					<input type="text" id="author" name="author" cols="15" value="" /> <q>[Guest]</q>
+				<% end %>	
+				<% if session[:id] %>
+					<input type="text" id="author" name="author" cols="15" readonly value=<%= session[:login] %> /> <q>[User]</q>
+				<% end %>				
 				<p>Commentaire : &nbsp</p>
 				<textarea name="body" id="body" rows="6" cols="80" ></textarea>
 				<%= submit_tag("Valider") %>

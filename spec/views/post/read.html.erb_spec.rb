@@ -3,7 +3,8 @@ require 'spec_helper'
 #not logged
 describe "post/read.html.erb" do
 	before(:each) do
-		@post1 = stub_model(Post, :title => "titre du post", :body => "corps du post", :id => "24")
+		@person = Person.create(:id => "1", :name => "gui", :firstname => "gui", :login => "lala", :password => "2")
+		@post1 = stub_model(Post, :person_id => @person.id, :title => "titre du post", :body => "corps du post", :id => "24")
 		@comment1 = stub_model(Comment, :author => "Guillaume", :body => "com pour le test de la vue", :post_id =>@post1.id)
 		@comment2 = stub_model(Comment, :author => "Pauline", :body => "2eme com pour le test", :post_id =>@post1.id)	
 		@comments = [@comment1, @comment2]			
@@ -54,11 +55,12 @@ end
 #logged
 describe "post/read.html.erb" do
 	before(:each) do
-		@post1 = stub_model(Post, :title => "titre du post", :body => "corps du post", :id => "24")
+		@person = Person.create(:id => "1", :name => "caen", :firstname => "gui", :login => "capybara", :password => "2")
+		@post1 = stub_model(Post, :person_id => @person.id, :title => "titre du post", :body => "corps du post", :id => "24")
 		@comment1 = stub_model(Comment, :author => "Guillaume", :body => "com pour le test de la vue", :post_id =>@post1.id)
 		@comment2 = stub_model(Comment, :author => "Pauline", :body => "2eme com pour le test", :post_id =>@post1.id)	
 		@comments = [@comment1, @comment2]	
-		@person = stub_model(Person, :login => "capybara")			
+			
 		session[:id] = @person.id	
 		session[:login] = @person.login						
 		assign(:post, @post1)

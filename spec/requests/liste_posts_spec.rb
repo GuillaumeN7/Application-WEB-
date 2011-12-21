@@ -6,6 +6,7 @@ describe "PostListings" do
 		@post2 = Post.create(:title => "sujet2", :body => "bla bla")
 		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')
@@ -31,6 +32,7 @@ describe "PostCreation" do
 	before (:each) do
 		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
 		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')	
@@ -39,7 +41,7 @@ describe "PostCreation" do
 
 	describe "GET /posts/new" do
 		it "verifyCurrentPath" do
-			current_path.should == "/posts/new"
+			current_path.should == posts_new_path
 		end	
 		it "verifyClickButtonValiderPresence" do
 			click_on('Valider')
@@ -54,7 +56,7 @@ describe "PostCreation" do
 			fill_in('title', :with => 'TOP 14 Orange')
 			fill_in('body', :with => 'Le leader actuel du top 14 est le Stade Toulousain!!!!!')
 			click_button ('Valider')
-			current_path.should == "/posts"
+			current_path.should == posts_path
 			page.should have_content('TOP 14 Orange')
 		end
 		it "verify ClickRetourPageAcceuilPresence" do
@@ -77,10 +79,11 @@ end
 #---------------------------------------------------------------------------------
 describe "PostDelete" do
 	before (:each) do
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
 		@post1 = Post.create(:title => "sujet1garde", :body => "stay")
-		@post2 = Post.create(:title => "sujet2delete", :body => "deleted")
-		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet2delete", :body => "deleted")
 		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')
@@ -107,10 +110,11 @@ end
 #---------------------------------------------------------		
 describe "PostConsult" do
 	before (:each) do
-		@post1 = Post.create(:title => "sujet1", :body => "Ceci est le sujet 1")
-		@post2 = Post.create(:title => "sujet2Consulte", :body => "Ceci est le sujet consulte")
 		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "Ceci est le sujet 1")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet2Consulte", :body => "Ceci est le sujet consulte")
 		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')
@@ -139,9 +143,10 @@ end
 #---------------------------------------------------------		
 describe "PostEdit" do
 	before (:each) do
-		@post1 = Post.create(:title => "sujet1", :body => "Ceci est le sujet en attente de modification")
-		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "Ceci est le sujet en attente de modification")
 		visit posts_path
+		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')

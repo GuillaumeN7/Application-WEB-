@@ -38,20 +38,28 @@ describe "post/index.html.erb" do
 		end  	
 	end
 	  
-	it "should not have a button 'supprimer' by post" do
-	  	rendered.should_not have_button("Supprimer")
+	it "should have a button 'supprimer' by post" do
+	  	rendered.should have_button("Supprimer")
 		@posts.each do |p| 	
 		  	rendered.should have_selector("input", :type => "submit", :href => delete_path(p.id))
 		end 	         		  	  	  	
-	end	
-	
-	it "should display a window to permit the authentication" do
-		rendered.should have_content('Connexion')	
-		rendered.should have_content('Login')
-		rendered.should have_content('Password')
-		rendered.should have_button("Connexion")
-	end				
+	end		
 end
+
+#describe "post/index.html.erb" do
+#	before(:each) do	
+#		@post1 = stub_model(Post, :title => "sujet1")
+#		@post2 = stub_model(Post, :title => "sujet2")
+#		@posts = [@post1, @post2]	
+#		render
+#	end		
+#	it "should display a window to permit the authentication after visit login_path" do
+#		rendered.should have_content('Connexion')	
+#		rendered.should have_content('Login')
+#		rendered.should have_content('Password')
+#		rendered.should have_button("Connexion")
+#	end				
+#end
 
 #User logged
 describe "post/index.html.erb" do
@@ -65,8 +73,8 @@ describe "post/index.html.erb" do
 		render
 	end	
 	
-	it "should have a button 'supprimer' by post" do
-	  	rendered.should have_button("Supprimer")
+	it "should not have a button 'supprimer' by post" do
+	  	rendered.should_not have_button("Supprimer")
 		@posts.each do |p| 	
 		  	rendered.should have_selector("input", :type => "submit", :href => delete_path(p.id))
 		end     	         		  	  	  	

@@ -23,7 +23,7 @@ describe PostController do
 		before(:each) do
 			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
 			session[:id] = @person.id
-			@post = Post.create(:title => "Titre du Com", :body => "yihaaaa", :id => "4")
+			@post = Post.create(:person_id => @person.id ,:title => "Titre du Com", :body => "yihaaaa", :id => "4")
 			Post.stub(:find){@post}
 			@post.stub(:destroy){ true }
 		end

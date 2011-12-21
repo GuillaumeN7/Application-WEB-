@@ -18,7 +18,7 @@ class PersonController < ApplicationController
 		redirect_to posts_path
 	end
 	
-	def connect
+	def connect	
 		session[:id] = nil
 		if request.post?
 			person = Person.find_by_login_and_password(params[:login], params[:password])
@@ -28,7 +28,11 @@ class PersonController < ApplicationController
 				session[:login]=person.login
 				session[:firstname]=person.firstname				
 				session[:password]=person.password			
-				flash[:notice] = "#{person.login} authenticated"		
+				flash[:notice] = "#{person.login} authenticated"	
+				respond_to do |format|
+					format.html {redirect_to posts_path} 
+					format.js
+				end										
 			else
 				if person = Person.find_by_login(params[:login])
 					person = nil
@@ -36,10 +40,13 @@ class PersonController < ApplicationController
 					flash[:notice] = "Bad Password"
 				else
 					flash[:notice] = "User not existing"
-				end				
-			end		
-		end
-		redirect_to posts_path		
+				end
+				respond_to do |format|
+					format.html {render :action => "connect"}
+					format.js
+				end													
+			end					
+		end			
 	end
 	
 	def logout

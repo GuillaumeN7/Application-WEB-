@@ -1,10 +1,11 @@
 <div class="authentication">
-		<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>
-		<%= render "login" %>
+		<% if !session[:id] %>
+			<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>	
+		<% end %>					
 		<% if session[:id] %>
 			Bienvenue <%= session[:login] %>
-		<% end %>	
-		<%= render "logout" %>				
+		<%= render "logout" %>	
+		<% end %>						
 </div>
 <body>
 	<p id="notice""><%= flash[:notice] %></p>
@@ -17,7 +18,7 @@
 			<div class="listingURl">
 				<li><%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%></li>
 			</div>
-			<% if session[:id] %>	
+			<% if session[:id] == p.person_id %>	
 				<div class="actions">
    					<%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete %>
    				</div>

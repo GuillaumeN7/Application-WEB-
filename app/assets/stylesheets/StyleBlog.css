@@ -17,11 +17,32 @@
 	text-transform: uppercase;	
 }
 
+.var
+{
+	text-align: center;
+	font-family: "Times New Roman", serif;
+	color: purple;
+	font-size: 30px;
+	font-weight: bold;	
+	text-transform: uppercase;	
+}
+
 .authentication
 {
 	padding-top: 0;
 	padding-right: 0%;
 	padding-left: 80%;
+	text-align: center;
+	color: yellow;
+	font-size: 20px;
+	font-weight: bold;	
+}
+
+.authenticationRetry
+{
+	padding-top: 20;
+	padding-right: 20%;
+	padding-left: 20%;
 	text-align: center;
 	color: yellow;
 	font-size: 20px;
@@ -35,6 +56,15 @@
 	color: orange;
 	font-size: 22px;
 	font-weight: bold;	
+}
+
+q
+{
+	text-align: center;
+	font-family: "Times New Roman", serif;
+	color: purple;
+	font-size: 22px;
+	font-weight: italic;	
 }
 
 .listing

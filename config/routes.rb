@@ -12,7 +12,7 @@ Blog::Application.routes.draw do
 	post "/posts/:id", 						 :controller => :post,     :action => :accessModify,	 	:as => "accessModify"
 	put "/posts/:id",						 :controller => :post,     :action => :modify, 			:as => "modify"
 
-	get "/people",							 :controller => :person,   :action => :index,			:as => "listingPeople"
+	get "/people",							 :controller => :person,   :action => :index,			:as => "listingPeople"	
 	get "/people/new",						 :controller => :person,   :action => :new,				:as => "newUser"
 	get "/people/connect",					 :controller => :person,	  :action => :connect, 			:as => "login"	
 	post "/people/connect",					 :controller => :person,	  :action => :connect,			:as => "connect"

@@ -58,7 +58,6 @@ describe PersonController do
 			post :connect, :login => @person.login
 			assigns(:person).should eq @pers		
 			assert_equal nil, session[@person.id]
-			response.should redirect_to posts_path
 		end
 	end
 

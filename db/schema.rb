@@ -31,11 +31,11 @@ ActiveRecord::Schema.define(:version => 20111127160211) do
   end
 
   create_table "posts", :force => true do |t|
+    t.integer  "person_id"
     t.string   "title"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "person_id"
   end
 
 end
