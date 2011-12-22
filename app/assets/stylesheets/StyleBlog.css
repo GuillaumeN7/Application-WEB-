@@ -6,6 +6,15 @@
 	font-size: 24px;		
 }
 
+#deux
+{
+	text-align: center;
+	font-family: "Times New Roman", serif;
+	color: pink;
+	font-size: 22px;
+	font-weight: italic;	
+}
+
 .title
 {
 	text-align: center;
@@ -17,6 +26,14 @@
 	text-transform: uppercase;	
 }
 
+hr
+{
+	color: green;
+	background-color: green;
+	height: 1px;
+	border: 0;
+}
+	
 .var
 {
 	text-align: center;
@@ -74,7 +91,8 @@ q
 	font-family: "Times New Roman", serif;
 	color: orange;
 	font-size: 22px;
-	font-weight: bold;		
+	font-weight: bold;	
+	box-shadow: 6px 6px 6px red;		
 }
 
 .listingURl

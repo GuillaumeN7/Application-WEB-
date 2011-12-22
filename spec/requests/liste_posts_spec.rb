@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "PostListings" do
 	before (:each) do
-		@post1 = Post.create(:title => "sujet1", :body => "bla bla")
-		@post2 = Post.create(:title => "sujet2", :body => "bla bla")
-		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "bla bla")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet2", :body => "bla bla")
 		visit posts_path
 		visit login_path
 		fill_in('login', :with => @person.login)
@@ -80,7 +80,7 @@ end
 describe "PostDelete" do
 	before (:each) do
 		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
-		@post1 = Post.create(:title => "sujet1garde", :body => "stay")
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1garde", :body => "stay")
 		@post2 = Post.create(:person_id => @person.id, :title => "sujet2delete", :body => "deleted")
 		visit posts_path
 		visit login_path

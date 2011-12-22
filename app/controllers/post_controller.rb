@@ -37,7 +37,11 @@ class PostController < ApplicationController
 				flash[:notice] = "304 : erreur, post non supprime"
 			end						
 		end
-		redirect_to posts_path
+#		redirect_to posts_path
+		respond_to do |format|
+			format.html {redirect_to posts_path} 
+			format.js
+		end		
 	end
 
 	def read

@@ -6,10 +6,11 @@ describe "post/read.html.erb" do
 		@person = Person.create(:id => "1", :name => "gui", :firstname => "gui", :login => "lala", :password => "2")
 		@post1 = stub_model(Post, :person_id => @person.id, :title => "titre du post", :body => "corps du post", :id => "24")
 		@comment1 = stub_model(Comment, :author => "Guillaume", :body => "com pour le test de la vue", :post_id =>@post1.id)
-		@comment2 = stub_model(Comment, :author => "Pauline", :body => "2eme com pour le test", :post_id =>@post1.id)	
-		@comments = [@comment1, @comment2]			
+		@comment2 = stub_model(Comment, :author => "Pauline", :body => "2eme com pour le test", :post_id =>@post1.id)
+		@comment3 = stub_model(Comment, :author => "lala", :body => "3eme com pour le test", :post_id =>@post1.id)			
+		@comments = [@comment1, @comment2, @comment3]			
 		assign(:post, @post1)
-		assign(:comments, [@comment1, @comment2])
+		assign(:comments, [@comment1, @comment2, @comment3])
 		controller.request.path_parameters[:id] = @post1.id
 		render
 	end
@@ -28,9 +29,10 @@ describe "post/read.html.erb" do
 		rendered.should have_button("Add Commentaire")
 	end
 	
-	it "should have a button Edit for all comments posted" do
+	it "should not have a button Edit for all comments posted because no user logged" do
 		@comments.each do |c| 			
-			rendered.should have_selector("input", :type => "submit", :href => editCom_path(c.post_id, c.id))		
+			rendered.should have_selector("input", :type => "submit", :href => editCom_path(c.post_id, c.id))	
+			rendered.should_not have_button("Edit")						
 		end 
 	end
 
@@ -59,8 +61,7 @@ describe "post/read.html.erb" do
 		@post1 = stub_model(Post, :person_id => @person.id, :title => "titre du post", :body => "corps du post", :id => "24")
 		@comment1 = stub_model(Comment, :author => "Guillaume", :body => "com pour le test de la vue", :post_id =>@post1.id)
 		@comment2 = stub_model(Comment, :author => "Pauline", :body => "2eme com pour le test", :post_id =>@post1.id)	
-		@comments = [@comment1, @comment2]	
-			
+		@comments = [@comment1, @comment2]				
 		session[:id] = @person.id	
 		session[:login] = @person.login						
 		assign(:post, @post1)
@@ -74,8 +75,8 @@ describe "post/read.html.erb" do
 		rendered.should have_button("Modifier")
 	end
 
-	it "should have a button Supprimer for all comments posted" do
-		@comments.each do |c| 			
+	it "should have a button Supprimer for comments posted if post's owner or comment's owner logged" do
+		@comments.each do |c|	
 			rendered.should have_selector("input", :type => "submit", :href => deleteCom_path(c.post_id, c.id))
 		end 
 	end

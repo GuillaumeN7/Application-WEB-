@@ -3,8 +3,10 @@ require 'spec_helper'
 # User not logged
 describe "post/index.html.erb" do
 	before(:each) do	
-		@post1 = stub_model(Post, :title => "sujet1")
-		@post2 = stub_model(Post, :title => "sujet2")
+		@person1 = Person.create(:name => "a", :firstname => "aa", :login => "capybara", :password => "aaAzeaz")
+		@person2 = Person.create(:name => "a", :firstname => "aa", :login => "capybara2222", :password => "aaAzeaz")			
+		@post1 = stub_model(Post, :person_id => @person1, :title => "sujet1")
+		@post2 = stub_model(Post, :person_id => @person2, :title => "sujet2")
 		@posts = [@post1, @post2]		
 		render
 	end	
@@ -37,12 +39,16 @@ describe "post/index.html.erb" do
 			rendered.should have_link("#{p.id}", :href => consult_path(p.id))
 		end  	
 	end
+
+	it "should display the author of post after link post" do
+		@posts.each do |p|	
+			rendered.should have_content("#{p.title}")
+			rendered.should =~ /[Auteur : #{Person.find_by_id(p.person_id).login}]/			
+		end 
+	end
 	  
-	it "should have a button 'supprimer' by post" do
-	  	rendered.should have_button("Supprimer")
-		@posts.each do |p| 	
-		  	rendered.should have_selector("input", :type => "submit", :href => delete_path(p.id))
-		end 	         		  	  	  	
+	it "should not have a button 'supprimer' by post because no person logged" do
+	  	rendered.should_not have_button("Supprimer")         		  	  	  	
 	end		
 end
 
@@ -64,20 +70,23 @@ end
 #User logged
 describe "post/index.html.erb" do
 	before(:each) do	
-		@post1 = stub_model(Post, :title => "sujet1")
-		@post2 = stub_model(Post, :title => "sujet2")
-		@posts = [@post1, @post2]
-		@person = stub_model(Person, :login => "capybara")			
+		@person = Person.create(:name => "b", :firstname => "ab", :login => "capybarab", :password => "aaAzeaz")		
+		@person1 = Person.create(:name => "a", :firstname => "aa", :login => "capybara", :password => "aaAzeaz")		
+		@post1 = stub_model(Post, :person_id => @person.id, :title => "sujet1")
+		@post2 = stub_model(Post, :person_id => @person1.id, :title => "sujet2")
+		@posts = [@post1, @post2]		
 		session[:id] = @person.id
 		session[:login] = @person.login				
 		render
 	end	
 	
-	it "should not have a button 'supprimer' by post" do
-	  	rendered.should_not have_button("Supprimer")
+	it "should have a button 'supprimer' by post if user logged is a owner" do
+	  	rendered.should have_button("Supprimer")  
 		@posts.each do |p| 	
-		  	rendered.should have_selector("input", :type => "submit", :href => delete_path(p.id))
-		end     	         		  	  	  	
+			if p.person_id = session[:id]
+		  		rendered.should have_selector("input", :type => "submit", :href => delete_path(p.id))
+		  	end
+		end 		     		  	  	  	
 	end		
 
 	it "should display 'Bienvenue <%= session[:login] %>' if user logged" do
@@ -111,9 +120,7 @@ describe "post/index.html.erb" do
 	end
 		
 end
-	
-	
-	
+
 	
 	
 	
