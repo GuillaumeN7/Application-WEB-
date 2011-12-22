@@ -1,4 +1,4 @@
-$("form").remove();
+$("login").remove();
 $("a[href='<%= login_path %>']").after("<%= escape_javascript(render 'login') %>");
 $("form#login").attr("data-remote", true);
 $("a[href='<%= login_path %>']").fadeOut();

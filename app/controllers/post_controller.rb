@@ -27,6 +27,7 @@ class PostController < ApplicationController
 	end
 
 	def destroy
+		@posts = Post.all	
 		@post = Post.find(params[:id])
 		if @post.person_id != session[:id]	
 			flash[:notice] = "ERROR : Ce post ne vous appartient pas!"	

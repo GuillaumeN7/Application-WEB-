@@ -28,12 +28,6 @@ describe "post/index.html.erb" do
 		rendered.should_not have_content('Creation d\'un nouveau post')
 	end
 	
-	it "should have ul li in page to display listing of posts" do
-		rendered.should have_selector "ul li"
-		rendered.should have_selector "li:contains('#{@post1.title}')"
-		rendered.should have_selector "li:contains('#{@post2.title}')"
-	end
-	
 	it "should display a link with 'id = post.id' to read the post" do
 		@posts.each do |p|	
 			rendered.should have_link("#{p.id}", :href => consult_path(p.id))

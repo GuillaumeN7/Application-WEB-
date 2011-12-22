@@ -43,7 +43,7 @@ class PersonController < ApplicationController
 				end
 				respond_to do |format|
 					format.html {render :action => "connect"}
-					format.js
+					format.js 
 				end													
 			end					
 		end			
