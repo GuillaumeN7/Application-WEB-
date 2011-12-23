@@ -1,15 +1,38 @@
 <div class="listingURl">
-	<% @posts.each do |p| %>
+	<% @posts.sort_by {|p| p[:updated_at]}.reverse.each do |p| %>
 		<div class="<%= p.id %>" 
 			<li><%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%> 
-				&nbsp;&nbsp;<q>[Auteur : <%= Person.find_by_id(p.person_id).login %>]</q> 
-				<div class="right"> <%= p.updated_at %>  </div>
+				&nbsp;&nbsp;<div class="qright">[Auteur : <%= Person.find_by_id(p.person_id).login %>]</div> 
+				<div class="right"> Modifie le : <%= time_tag p.updated_at %> </div>
 			</li>
 			<% if session[:id] == p.person_id %>	
 				<div class="actions">
-					<%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %>
-				</div>
-			<% end %><HR>
+					<div class="needLogin">
+						<%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %>
+					</div>
+				</div>	
+			<% end %>
+				<div class = "modifDate">
+					[ Derniere modification :
+						<% if (DateTime.now.year - (p.updated_at).year) != 0 %>
+							 	<%= (DateTime.now.year - (p.updated_at).year)%60  %> an,					
+						<% end %>									
+						<% if (DateTime.now.month - (p.updated_at).month) != 0 %>
+								<%= (DateTime.now.month - (p.updated_at).month)%60  %> mois
+						<% end %>
+						<% if (DateTime.now.day - (p.updated_at).day) != 0 %>		
+								<%= (DateTime.now.day - (p.updated_at).day)%60  %> j	 
+						<% end %>
+						<% if (DateTime.now.hour - (p.updated_at).hour - 1.hour) != 0 %>		
+								<%= (DateTime.now.hour - (p.updated_at).hour)%60 %> h 
+						<% end %>
+						<% if (DateTime.now.min - (p.updated_at).min) != 0 %>								
+								<%= (DateTime.now.min - (p.updated_at).min)%60  %> min et
+						<% end %>										
+						<%= (DateTime.now.sec - (p.updated_at).sec)%60  %> sec ]
+				<HR></div>			
 		</div>	
 	<% end %>
 </div>
+
+

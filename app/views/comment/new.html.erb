@@ -1,5 +1,7 @@
 <div class="authentication">
-	<%= render "login" %>
+	<% if !session[:id] %>
+		<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>	
+	<% end %>	
 	<% if session[:id] %>
 		<%= session[:login] %> logged
 	<% end %>		

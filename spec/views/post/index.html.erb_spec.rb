@@ -5,9 +5,11 @@ describe "post/index.html.erb" do
 	before(:each) do	
 		@person1 = Person.create(:name => "a", :firstname => "aa", :login => "capybara", :password => "aaAzeaz")
 		@person2 = Person.create(:name => "a", :firstname => "aa", :login => "capybara2222", :password => "aaAzeaz")			
-		@post1 = stub_model(Post, :person_id => @person1, :title => "sujet1")
-		@post2 = stub_model(Post, :person_id => @person2, :title => "sujet2")
-		@posts = [@post1, @post2]		
+		@post1 = stub_model(Post, :person_id => @person1, :title => "sujet1", :updated_at => "2011-10-23 12:17:47")
+		@post2 = stub_model(Post, :person_id => @person2, :title => "sujet2", :updated_at => "2011-11-18 19:01:00")
+		@post3 = stub_model(Post, :person_id => @person2, :title => "sujet3", :updated_at => DateTime.now)		
+		@posts = [@post1, @post2]
+		@posts_bis = [@post3]			
 		render
 	end	
 
@@ -43,31 +45,36 @@ describe "post/index.html.erb" do
 	  
 	it "should not have a button 'supprimer' by post because no person logged" do
 	  	rendered.should_not have_button("Supprimer")         		  	  	  	
-	end		
-end
+	end
+	
+	it "should notdisplay 'Modifie le :' and 'time_tag @post.updated_at'" do
+		@posts.each do |p|	
+			rendered.should have_content ("Modifie le : ")
+			rendered.should =~ /#{time_tag p.updated_at}/
+		end  		
+	end
+		
+	it "should display '[Derniere modification : ' and 'sec', 'h', 'mois' and 'min' (in function of updated_at)" do
+		rendered.should have_content ("[ Derniere modification : ")
+		rendered.should have_content ("sec")	
+		rendered.should have_content ("h")
+		rendered.should have_content ("min")
+		rendered.should have_content ("mois")																
+	end			
 
-#describe "post/index.html.erb" do
-#	before(:each) do	
-#		@post1 = stub_model(Post, :title => "sujet1")
-#		@post2 = stub_model(Post, :title => "sujet2")
-#		@posts = [@post1, @post2]	
-#		render
-#	end		
-#	it "should display a window to permit the authentication after visit login_path" do
-#		rendered.should have_content('Connexion')	
-#		rendered.should have_content('Login')
-#		rendered.should have_content('Password')
-#		rendered.should have_button("Connexion")
-#	end				
-#end
+	it "should not display 'an' because of updated_at much recent" do
+		rendered.should_not have_content ("an")																	
+	end	
+			
+end
 
 #User logged
 describe "post/index.html.erb" do
 	before(:each) do	
 		@person = Person.create(:name => "b", :firstname => "ab", :login => "capybarab", :password => "aaAzeaz")		
 		@person1 = Person.create(:name => "a", :firstname => "aa", :login => "capybara", :password => "aaAzeaz")		
-		@post1 = stub_model(Post, :person_id => @person.id, :title => "sujet1")
-		@post2 = stub_model(Post, :person_id => @person1.id, :title => "sujet2")
+		@post1 = stub_model(Post, :person_id => @person.id, :title => "sujet1", :updated_at => "2011-12-23 12:17:47")
+		@post2 = stub_model(Post, :person_id => @person1.id, :title => "sujet2", :updated_at => "2010-10-21 10:24:00")
 		@posts = [@post1, @post2]		
 		session[:id] = @person.id
 		session[:login] = @person.login				

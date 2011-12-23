@@ -1,5 +1,10 @@
 <!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
 <body>
+	<div class="authentication">
+		<% if !session[:id] %>
+			<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>	
+		<% end %>	
+	</div>
 	<div class="actions">
 		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
 	</div>

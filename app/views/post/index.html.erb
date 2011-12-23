@@ -21,7 +21,9 @@
 			Creation d'un nouveau post.
 		</div>
 		<form action= <%= posts_new_path %> method="GET">
-			<div class = "actions"><input type="submit" name="CreationPostButton" value="Add New Post" <br></div>
+			<div class="needLogin">
+				<div class = "actions"><input type="submit" name="CreationPostButton" value="Add New Post" <br></div>
+			</div>
 		</form> 
 	<% end %>	
 	<HR>

@@ -3,6 +3,7 @@ class PostController < ApplicationController
 
 	def index
 		@posts = Post.all
+#		@posts.sort.reverse { |post| post[:updated_at] }		
 	end
 
 	def new
@@ -20,8 +21,7 @@ class PostController < ApplicationController
 		else
 			@post.valid?	
 			@post.errors
-			@post.errors
-			flash[:notice] = "error : #{@post.errors[:title]} --> post not created"
+			flash[:notice] = "error (title or body) : #{@post.errors[:title]}#{@post.errors[:body]} --> post not created"
 		end	  
 		redirect_to posts_path
 	end

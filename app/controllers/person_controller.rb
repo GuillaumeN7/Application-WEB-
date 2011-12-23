@@ -55,7 +55,10 @@ class PersonController < ApplicationController
 		session[:firstname] = nil
 		session[:password] = nil
 		flash[:notice] = "Deconnexion terminee. Merci de votre visite"
-		redirect_to posts_path
+		respond_to do |format|
+			format.html {redirect_to posts_path} 
+			format.js
+		end	
 	end
 		
 end

@@ -1,6 +1,8 @@
 <body>
 	<div class="authentication">
-		<%= render "login" %>
+		<% if !session[:id] %>
+			<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>	
+		<% end %>		
 		<% if session[:id] %>
 			<%= session[:login] %> logged
 		<% end %>			
@@ -24,8 +26,10 @@
 			<textarea name="body" id="body" cols="80" rows="6" readonly ><%= @post.body %></textarea></p>
 	</div>
 	<% if session[:id] == @post.person_id %>
-		<div class="actions">
-			<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
+		<div class="needLogin">
+			<div class="actions">
+				<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
+			</div>
 		</div>
 	<% end %>
 	<HR>
@@ -51,19 +55,23 @@
 				<% end %>
 			</div>	
 			<% if session[:id] == @post.person_id %> 
-				<div class="actions">
-					<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>			
-					<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p><HR>	
-				</div>
+				<div class="needLogin">	
+					<div class="actions">
+						<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>			
+						<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p><HR>	
+					</div>
+				</div>	
 			
 			<% else %> 
 				<% if  session[:id] %>
 					<% if  c.author == Person.find_by_id(session[:id]).login %>
-						<div class="actions">
-							<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
+						<div class="needLogin">
+							<div class="actions">
+								<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
 						
-							<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p>
+								<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p>
 							<HR>		
+						</div>
 						</div>
 					<% end %>	
 				<% end %>
