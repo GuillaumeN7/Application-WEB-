@@ -44,9 +44,12 @@ class CommentController < ApplicationController
 		if Comment.destroy(params[:comment_id])
 			flash[:notice] = "200 : Le commentaire de #{@author} a ete supprime avec succes"
 		else
-			flash[:notice] = "304 : Le commentaire de #{@author} n'a pagcaens ete supprime"
+			flash[:notice] = "304 : Le commentaire de #{@author} n'a pas ete supprime"
 		end
-		redirect_to consult_path(params[:id])
+		respond_to do |format|
+			format.html {redirect_to consult_path(params[:id])} 
+			format.js
+		end			
 	end
 		
 	

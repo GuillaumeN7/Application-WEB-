@@ -2,7 +2,9 @@
 	<% @posts.each do |p| %>
 		<div class="<%= p.id %>" 
 			<li><%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%> 
-			&nbsp;&nbsp;<q>[Auteur : <%= Person.find_by_id(p.person_id).login %>]</q></li>
+				&nbsp;&nbsp;<q>[Auteur : <%= Person.find_by_id(p.person_id).login %>]</q> 
+				<div class="right"> <%= p.updated_at %>  </div>
+			</li>
 			<% if session[:id] == p.person_id %>	
 				<div class="actions">
 					<%= button_to "Supprimer", delete_path(p.id), :id => p.id , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %>

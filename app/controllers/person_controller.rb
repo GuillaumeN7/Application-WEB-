@@ -51,6 +51,9 @@ class PersonController < ApplicationController
 	
 	def logout
 		session[:id] = nil
+		session[:name] = nil
+		session[:firstname] = nil
+		session[:password] = nil
 		flash[:notice] = "Deconnexion terminee. Merci de votre visite"
 		redirect_to posts_path
 	end

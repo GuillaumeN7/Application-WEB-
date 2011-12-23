@@ -19,34 +19,18 @@ describe PersonController do
 	  	end
 	end
 
-	describe "GET 'new'" do
-	
-	end
-
-	# Cas ou Javascript utilise : on appelle la page Login dans posts_path
-	describe "GET 'connect'" do
-	
-	end
-	
-	# Cas ou Javascript desactive : une fenetre est integree dans la page posts_path
 	describe "POST 'connect'" do
 		before(:each) do
-	#		@person = Person.create(:login => "Froz", :name => "CAEN", :firstname => "Guillaume", :password => "secret", :id => "31")
-			@person = stub_model(Person, :login => "Froz", :name => "CAEN", :firstname => "Guillaume", :password => "secret", :id => "31")
-			@person_param = {"person" => {"password" => "person_password", "login" => "person_login"}}				
-			Person.stub(:find_by_login_and_password).with(@person.login, @person.password)
-	#		post :connect, :login => @person.login, :password => @person.password
-			post :connect, @person_param
+			@person = stub_model(Person, :login => "Froz", :name => "CAEN", :firstname => "Guillaume", :password => "secret", :id => "31")			
+			@p=Person.stub(:find_by_login_and_password).with(@person.login, @person.password)
 		end
 		
 		it "should search the person" do
 			Person.should_receive(:find_by_login_and_password).with(@person.login, @person.password).and_return(@pers)
-		end
-		
-		it "should log the user" do
-#			post :connect, :person => { :login => @person.login, :password => @person.password}
-			assert_equal @person.id, session[@person.id]
-			response.should redirect_to posts_path
+			post :connect, {:login => @person.login, :password => @person.password}		
+			assigns(:person).should eq @pers
+			#response.should be_success				
+			assert_equal nil, session[:id]
 		end
 	end
 		
@@ -56,9 +40,27 @@ describe PersonController do
 			Person.stub(:find_by_login).with(@person.login)
 			Person.should_receive(:find_by_login).with(@person.login).and_return(@pers)		
 			post :connect, :login => @person.login
-			assigns(:person).should eq @pers		
-			assert_equal nil, session[@person.id]
+			assigns(:person).should eq @pers	
+			controller.session[:id] = @person.id
+			assert_equal @person.id, session[:id]
 		end
 	end
-
+	
+	describe " 'logout'" do		
+		before(:each) do
+			@person = stub_model(Person, :login => "Froz", :name => "CAEN", :firstname => "Guillaume", :password => "secret", :id => "31")		
+			session[:id]=@person.id	
+			session[:name]=@person.name
+			session[:firstname]=@person.firstname	
+			session[:password]=@person.password
+		end
+		it "should logout the user and redirect_to posts_path" do
+			get :logout, {:id => @person.id }	
+			assert_equal nil, session[:id]
+			assert_equal nil, session[:password]
+			assert_equal nil, session[:firstname]
+			assert_equal nil, session[:name]									
+			response.should redirect_to posts_path			
+		end
+	end
 end

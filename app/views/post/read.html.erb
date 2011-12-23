@@ -6,7 +6,7 @@
 		<% end %>			
 		<%= render "logout" %>				
 	</div>	
-	<p id="notice""><%= flash[:notice] %></p>
+	<div class="notice"><%= flash[:notice] %></div>
 	<div class="title">Consultation du post</div> 
 		<div class="var">"<%=@post.title%>"</div>
 		<div class="title">de</div>
@@ -35,38 +35,41 @@
 	
 
 	<% @post.comments.each do |c| %>
-		<div class="listing">		
-				<li>
-				Auteur :  <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" />
-				<% if  Person.find_by_login(c.author) != nil %>
-					<q> [User] </q>
-				<% else %>
-					<q id="deux"> [Guest] </q>
+<		<div class="<%= c.id %>"> 
+			<div class="listing">		
+					<li>
+					Auteur :  <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" />
+					<% if  Person.find_by_login(c.author) != nil %>
+						<q> [User] </q>
+					<% else %>
+						<q id="deux"> [Guest] </q>
+					<% end %>
+					<p>Message : <textarea name="body" id="body" cols="80" rows="6" readonly ><%= c.body %></textarea></p>
+				</li>
+				<% if  session[:id] %>
+					<% if  c.author != Person.find_by_id(session[:id]).login %><HR><% end %>
 				<% end %>
-				<p>Message : <textarea name="body" id="body" cols="80" rows="6" readonly ><%= c.body %></textarea></p>
-			</li>
-			<% if  session[:id] %>
-				<% if  c.author != Person.find_by_id(session[:id]).login %><HR><% end %>
-			<% end %>
-		</div>	
-		<% if session[:id] == @post.person_id %> 
-			<div class="actions">
-				<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
-				<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p>
-				
-			</div>
-		<% end %>	
-		<% if  session[:id] %>
-			<% if  c.author == Person.find_by_id(session[:id]).login %>
+			</div>	
+			<% if session[:id] == @post.person_id %> 
 				<div class="actions">
-					<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
-					<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete %></p>
-					<HR>		
+					<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>			
+					<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p><HR>	
 				</div>
-			<% end %>	
-		<% end %>
+			
+			<% else %> 
+				<% if  session[:id] %>
+					<% if  c.author == Person.find_by_id(session[:id]).login %>
+						<div class="actions">
+							<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
+						
+							<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p>
+							<HR>		
+						</div>
+					<% end %>	
+				<% end %>
+			<% end %>
+		</div>
 	<% end %>	
-	</div>	
 	<div class="actions">
 		<%= button_to "Add Commentaire", newComment_path, :method => "get", :id => "Add Commentaire"  %>
 	</div>
