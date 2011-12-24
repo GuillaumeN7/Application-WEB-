@@ -1,3 +1,11 @@
+<div class="search">
+	<fieldset>
+		<legend> Recherche de message(s) </legend>
+		<div class="actions">
+			<%= button_to "Search", search_path, :method => 'get' %>
+		</div>		
+	</fieldset>
+</div>
 <div class="authentication">
 		<% if !session[:id] %>
 			<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>	

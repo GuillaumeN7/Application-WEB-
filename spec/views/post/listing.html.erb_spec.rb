@@ -1,0 +1,46 @@
+require 'spec_helper'
+
+describe "post/listing.html.erb" do
+	before(:each) do	
+		@person1 = Person.create(:name => "a", :firstname => "aa", :login => "capybara", :password => "aaAzeaz")
+		@person2 = Person.create(:name => "a", :firstname => "aa", :login => "capybara2222", :password => "aaAzeaz")			
+		@post1 = stub_model(Post, :person_id => @person1, :title => "sujet1", :updated_at => "2011-10-23 12:17:47")
+		@post2 = stub_model(Post, :person_id => @person2, :title => "sujet2", :updated_at => "2011-11-18 19:01:00")
+		@post3 = stub_model(Post, :person_id => @person2, :title => "sujet3", :updated_at => DateTime.now)		
+		@posts = [@post1, @post2, @post3]		
+		render
+	end	
+
+	it "should display 'Affichage de la liste des posts trouves'" do
+		rendered.should have_content('Affichage de la liste des posts trouves')
+	end 
+	
+	it "should have a button to go at home page displaying 'Page d'accueil'" do
+		rendered.should have_selector("input", :type => "submit", :name => "Page d'accueil", :href => posts_path) 
+		rendered.should have_button("Page d'accueil")
+	end 
+	
+	it "should have a button named 'Nouvelle recherche' " do
+		rendered.should have_selector("input", :type => "submit", :name => "Nouvelle recherche", :href => search_path) 
+		rendered.should have_button("Nouvelle recherche")
+	end 
+	
+	it "should display listing of posts owed by @person2.id" do
+		@posts.each do |p| 	
+			if p.person_id = @person2.id
+		  		rendered.should have_content ("#{p.title}")
+			else
+				rendered_should_not have_content("#{p.title}")
+		  	end
+		end 	
+	end
+
+#	it "should display the author of post after link post" do
+#		@posts.each do |p|	
+#			rendered.should have_content("#{p.title}")
+#			rendered.should =~ /[Auteur : #{Person.find_by_id(p.person_id).login}]/			
+#		end 
+#	end
+			
+end
+

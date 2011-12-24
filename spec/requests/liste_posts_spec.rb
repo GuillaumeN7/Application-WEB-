@@ -17,14 +17,23 @@ describe "PostListings" do
 			page.body.should include(@post1.title)
 			page.body.should include(@post2.title)
 		end
+		
 		it "verify ClickButtonPresence" do
 			page.has_xpath?('//input[@id="Add New Post"]')
 			click_button('Add New Post')
 		end
+		
 		it "After Click go on posts/new" do
 			click_button('Add New Post')
 			current_path.should == posts_new_path
 		end
+		
+		it "Verify clickButton SearchPresence" do
+			page.should have_content("Recherche de message(s)")
+			page.should have_button("Search")
+			click_button("Search")
+			current_path.should == search_path
+		end				
 	end
 end
 #-------------------------------------------------------------
@@ -43,15 +52,18 @@ describe "PostCreation" do
 		it "verifyCurrentPath" do
 			current_path.should == posts_new_path
 		end	
+		
 		it "verifyClickButtonValiderPresence" do
 			click_on('Valider')
 		end
+		
 		it "verifyPresenceFormulaireAvecTitleEtBody" do
 			page.should have_selector('form')
 			page.should have_field('title')
 			page.should have_field('body')
 			page.should have_button('Valider')
 		end
+		
 		it "fillingFieldsAndCreate" do
 			fill_in('title', :with => 'TOP 14 Orange')
 			fill_in('body', :with => 'Le leader actuel du top 14 est le Stade Toulousain!!!!!')
@@ -59,6 +71,7 @@ describe "PostCreation" do
 			current_path.should == posts_path
 			page.should have_content('TOP 14 Orange')
 		end
+		
 		it "verify ClickRetourPageAcceuilPresence" do
 			page.should have_button('Page d\'accueil')	
 			click_button('Page d\'accueil')
@@ -138,6 +151,13 @@ describe "PostConsult" do
 			page.body.should_not include(@post1.title)
 			page.body.should_not include(@post1.title)						
 		end	
+		
+		it "verify ClickRetourPageAcceuilPresence" do
+			click_link("#{@post2.id}")
+			page.should have_button('Page d\'accueil')	
+			click_button('Page d\'accueil')
+			current_path.should == posts_path		
+		end	
 	end
 end
 #---------------------------------------------------------		
@@ -160,7 +180,7 @@ describe "PostEdit" do
 			end	
 			it "verifyAfterClick" do
 				click_link("#{@post1.id}")		
-				current_path.should == "/posts/#{@post1.id}"				
+				current_path.should == consult_path(@post1.id)			
 				current_path.should == accessModify_path(@post1.id)				
 				page.body.should include(@post1.title)
 				page.body.should include(@post1.body)						
@@ -168,26 +188,83 @@ describe "PostEdit" do
 
 			it "ModifOperation" do
 				click_link("#{@post1.id}")
-				current_path.should == "/posts/#{@post1.id}"
+				current_path.should == consult_path(@post1.id)
 				page.body.should include(@post1.title)
 				page.body.should include(@post1.body)
-				click_button("#{@post1.id}")
-				current_path.should == "/posts/#{@post1.id}"
+				click_button("Modifier")
+				current_path.should == accessModify_path(@post1.id)
 				page.body.should include(@post1.title)
 				page.body.should include(@post1.body)
 				fill_in('body', :with => 'Body modifie OK')
 				click_button("Valider")	
-				current_path.should == "/posts/#{@post1.id}"		
+				current_path.should == consult_path(@post1.id)		
 				page.should have_content('Body modifie OK')											
-			end	
+			end
+			
+			it "verify ClickRetourPageAcceuilPresence" do
+				click_link("#{@post1.id}")
+				click_button("Modifier")
+				page.should have_button('Page d\'accueil')	
+				click_button('Page d\'accueil')
+				current_path.should == posts_path		
+			end					
 	
 	end
 end
 
+#---------------------------------------------------------		
+describe "PostSearch" do
+	before (:each) do
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "Ceci est le sujet en attente de modification")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "body2")		
+		visit search_path
+	end	
+	
+	it "Verify button 'Search' presence" do
+		page.should have_button('Search')
+	end
+	
+	it "should have content 'Mot(s) ou morceau de message :' and 'Auteur'" do
+		page.should have_content('Mot(s) ou morceau de message :')
+		page.should have_content('Auteur :')
+	end
 
+	it "verify ClickRetourPageAcceuilPresence" do
+		page.should have_button('Page d\'accueil')	
+		click_button('Page d\'accueil')
+		current_path.should == posts_path		
+	end		
 
+end
 
+#---------------------------------------------------------		
+describe "PostListing" do
+	before (:each) do
+		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
+		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "Ceci est le sujet en attente de modification")
+		@post2 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "body2")		
+		visit search_path
+		click_button("Search")
+	end	
+	
+	it "should have content 'Affichage de la liste des posts trouves'" do
+		page.should have_content('Affichage de la liste des posts trouves')
+	end
 
+	it "verify ClickRetourPageAcceuilPresence" do
+		page.should have_button('Page d\'accueil')	
+		click_button('Page d\'accueil')
+		current_path.should == posts_path		
+	end	
+	
+	it "verify button presence 'Nouvelle recherche'" do
+		page.should have_button('Nouvelle recherche')	
+		click_button('Nouvelle recherche')
+		current_path.should == search_path		
+	end				
+
+end
 
 
 

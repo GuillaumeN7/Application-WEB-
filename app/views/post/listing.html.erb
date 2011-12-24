@@ -1,0 +1,28 @@
+<div class="authentication">
+	<% if !session[:id] %>
+		<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>	
+	<% end %>		
+	<% if session[:id] %>
+		<%= session[:login] %> logged
+	<% end %>			
+	<%= render "logout" %>				
+</div>
+<body>
+	<div class="notice"><%= flash[:notice] %></div>
+	<HR>
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+	</div>
+	<HR>	
+	<div class="title">
+		Affichage de la liste des posts trouves
+	</div>
+	<ul>
+		<%= render "listingpost" %>
+	</ul>
+	<HR>
+	<div class="actions">
+		<%= button_to "Nouvelle recherche", search_path, :method => "get" %>
+	</div>	
+
+</body>

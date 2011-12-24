@@ -125,4 +125,31 @@ describe PostController do
 			response.should be_success
 		end	
 	end
+	
+	describe "POST 'listing'" do
+		before(:each) do
+			@person = stub_model(Person, :login => "PersoA", :password =>"b", :name => "c", :firstname => "d")
+			@person2 = stub_model(Person, :login => "PersoB", :password =>"z", :name => "a", :firstname => "a")			
+			@post1 = stub_model(Post, :person_id => @person.id ,:title => "azerty", :body => "yihaaaa", :id => "1")
+			@post2 = stub_model(Post, :person_id => @person.id ,:title => "uiop", :body => "poazeza", :id => "2")
+			@post3 = stub_model(Post, :person_id => @person.id ,:title => "qsdfgh", :body => "mmmmmm", :id => "3")
+			@post4 = stub_model(Post, :person_id => @person2.id ,:title => "poiuio", :body => "gggggg", :id => "1")	
+			@postsAttendus = [@post1, @post2, @post3]
+			@postsNonAttendus = [@post1, @post2, @post3, @post4]								
+			@personnetrouvee = Person.stub(:find_by_login){@person}
+			Post.stub(:find_all_by_person_id) {@persontrouvee.id}
+		end
+		
+		it "should search the login of @person to verify it existing" do
+			Person.should_receive(:find_by_login).and_return(@pers)	
+			post :listing, {:auterSrch => @person.login }
+			assigns(:person).should eq @pers
+			Post.should_receive(:find_all_by_person_id).and_return(@posts)				
+			post :listing, {:auterSrch => @person.login }
+			assigns(:postsAttendus).should eq @posts
+			response.should be_success
+		end
+		
+			
+	end		
 end

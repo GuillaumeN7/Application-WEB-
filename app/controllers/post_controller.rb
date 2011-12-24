@@ -1,9 +1,22 @@
 class PostController < ApplicationController
-	before_filter :authorize, :except => [:read, :index]
+	before_filter :authorize, :except => [:read, :index, :search, :makeSearch, :listing]
 
 	def index
-		@posts = Post.all
-#		@posts.sort.reverse { |post| post[:updated_at] }		
+		@posts = Post.all	
+	end
+	
+	def search
+		
+	end
+	
+	def listing
+		if Person.find_by_login(params[:auteurSrch])
+			@posts = Post.find_all_by_person_id(Person.find_by_login(params[:auteurSrch]).id)
+			flash[:notice] = "Recherche validee"
+		else			
+			flash[:notice] = "Aucun resultat correspondant a votre recherche"
+			redirect_to search_path
+		end
 	end
 
 	def new

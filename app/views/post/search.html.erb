@@ -1,0 +1,30 @@
+<!-- L'utilisation des div permettra une mise en page simplifiée via CSS -->
+<div class="notice"><%= flash[:notice] %></div>		
+<div class="authentication">
+	<% if !session[:id] %>
+		<%= link_to "S'authentifier", login_path, :method => 'get', :remote => true %>	
+	<% end %>		
+	<% if session[:id] %>
+		<%= session[:login] %> logged
+	<% end %>			
+	<%= render "logout" %>				
+</div>
+<body>
+	<div class="actions">
+		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
+	</div>
+	<HR>
+	<div class="reading">
+		<fieldset>
+			<legend> Recherche de message(s) </legend>
+			<%=form_tag listing_research_path do%>
+				Auteur : <input type="text" id="auteurSrch" name="auteurSrch" cols="15" /><br>
+				<p>Mot(s) ou morceau de message : <input type="text" id="messSrch" name="messSrch" cols="24" /></p>
+				<%= submit_tag "Search", :remote => true %>
+			<% end %>
+		</fieldset>
+	</div>
+
+<!-- Commentaire -->
+</body>
+

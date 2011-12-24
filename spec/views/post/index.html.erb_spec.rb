@@ -119,6 +119,11 @@ describe "post/index.html.erb" do
 		rendered.should have_button("Page des utilisateurs")
 		rendered.should have_content("Utilisateurs")
 	end
+	
+	it "should have button 'Rechercher un message'" do
+		rendered.should have_button("Search")
+		rendered.should have_content("Recherche de message(s)")
+	end	
 		
 end
 
