@@ -1,7 +1,7 @@
 $('.needLogin').remove();
 $("a[href='<%=logout_path%>']").remove();
-$('.authentication').remove(":contains('Bienvenue <%= session[:login] %>')");
-$("a[href='<%= login_path %>']").after("<%= escape_javascript(render 'login') %>");
+$('.authentication').replaceWith("<div class='authentication'><%= escape_javascript(link_to 'Sauthentifier', login_path, :remote => true, :method => 'get') %></div>");
 $("form#login").attr("data-remote", true);
 $('.notice').replaceWith("<% if flash[:notice] %><div class='notice'><%= escape_javascript(flash[:notice]) %></div><%end%>");
 <%flash[:notice]=nil%>
+

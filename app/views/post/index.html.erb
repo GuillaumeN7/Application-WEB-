@@ -4,7 +4,7 @@
 		<% end %>					
 		<% if session[:id] %>
 			Bienvenue <%= session[:login] %>
-		<%= render "logout" %>	
+			<%= render "logout" %>	
 		<% end %>						
 </div>
 <body>
@@ -12,7 +12,7 @@
 	<HR>
 	<div class="title">
 		Affichage de la liste des posts 
-	</div>	
+	</div>
 	<ul>
 		<%= render "listingpost" %>
 	</ul>
@@ -26,7 +26,6 @@
 			</div>
 		</form> 
 	<% end %>	
-	<HR>
 	<div class="title">
 		Utilisateurs
 	</div>	
