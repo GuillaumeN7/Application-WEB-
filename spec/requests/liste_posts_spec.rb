@@ -245,6 +245,7 @@ describe "PostListing" do
 		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "Ceci est le sujet en attente de modification")
 		@post2 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "body2")		
 		visit search_path
+		fill_in('auteurSrch', :with => @person.login)		
 		click_button("Search")
 	end	
 	
