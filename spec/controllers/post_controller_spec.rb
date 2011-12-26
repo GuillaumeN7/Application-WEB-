@@ -214,7 +214,7 @@ describe PostController do
 		it "should not find following the parameters specified => no author, bad title and bad body" do
 			post :listing, {:auteurSrch => "", :titreSrch => "QueLeTitreFaux", :messSrch => "fauxnoexisting"}
 			response.should be_success
-			flash.now[:notice].should eq "Resultat de la recherche 'Auteur : . Titre : fauxnoexisting"
+			flash.now[:notice].should eq "Resultat de la recherche 'Titre : QueLeTitreFaux. Message : fauxnoexisting"
 		end			
 				
 	end		

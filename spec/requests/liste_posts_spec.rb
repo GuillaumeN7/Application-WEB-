@@ -387,6 +387,36 @@ describe "PostListing" do
 		 	end
 		end 			
 	end	
+	
+	it "make research by author and body : it should generate listing with posts of @person whom 'body' = @post1.body" do
+		fill_in('auteurSrch', :with => @person.login)
+		fill_in('messSrch', :with => @post1.body)					
+		click_button("Search")
+		current_path.should == listing_research_path	
+		@posts.each do |p| 	
+			if p.person_id == @person.id and p.body == @post1.body
+		  		page.body.should include(@person.login)
+		  		page.should have_link(p.title)
+		  	else	  	
+		  		page.should_not have_link(p.title)
+		 	end
+		end 			
+	end	
+	
+	it "make research by author and extract(body) : it should generate listing with posts of 'titreSrch' whom 'titreSrch' = @post1.title" do
+		fill_in('auteurSrch', :with => @person.login)
+		fill_in('messSrch', :with => 'body')					
+		click_button("Search")
+		current_path.should == listing_research_path	
+		@posts.each do |p| 	
+			if p.person_id == @person.id and p.body =~ /body/
+		  		page.body.should include(@person.login)
+		  		page.should have_link(p.title)
+		  	else	  	
+		  		page.should_not have_link(p.title)
+		 	end
+		end 			
+	end			
 
 	it "make research by author, title and body :  it should generate listing with posts of 'titreSrch' whom 'titreSrch' = @post1.title
 	and whom body = @post1.body" do
@@ -404,6 +434,23 @@ describe "PostListing" do
 		 	end
 		end 			
 	end		
+	
+	it "make research by author, title and extract(body) :  it should generate listing with posts of 'titreSrch' whom 'titreSrch' = @post1.title
+	and whom body = extract(@post1.body)" do
+		fill_in('auteurSrch', :with => @person.login)	
+		fill_in('titreSrch', :with => @post1.title)		
+		fill_in('messSrch', :with => 'body')			
+		click_button("Search")
+		current_path.should == listing_research_path	
+		page.body.should include(@person.login)		
+		@posts.each do |p| 	
+			if p.person_id == @person.id and p.title == @post1.title and p.body =~ /body/
+		  		page.should have_link(p.title)
+		  	else	  	
+		  		page.should_not have_link(p.title)
+		 	end
+		end 			
+	end			
 
 	it "make research by title : it should generate listing with posts whom 'titreSrch' = @post1.title" do
 		fill_in('titreSrch', :with => @post1.title)		
@@ -433,7 +480,23 @@ describe "PostListing" do
 		  		page.should_not have_link(p.title)
 		 	end
 		end 		
-	end		
+	end	
+	
+	it "make research by title and extract(body) : it should generate listing with posts whom 'titreSrch' = @post1.title
+	and 'messSrch' = extract(@post1.body)" do
+		fill_in('titreSrch', :with => @post1.title)	
+		fill_in('messSrch', :with => "body")				
+		click_button("Search")
+		current_path.should == listing_research_path	
+		page.body.should include(@person.login)		
+		@posts.each do |p| 	
+			if p.title == @post1.title and p.body =~ /body/
+		  		page.should have_link(p.title)
+		  	else	  	
+		  		page.should_not have_link(p.title)
+		 	end
+		end 		
+	end			
 	
 	it "make research by body : it should generate listing with posts whom 'messSrch' = @post1.body" do
 		fill_in('messSrch', :with => @post1.body)		
@@ -446,6 +509,18 @@ describe "PostListing" do
 		  	else	  	
 		  		page.should_not have_link(p.title)
 		 	end
+		end 		
+	end	
+	
+	it "make research by extract(body) : it should generate listing with posts whom 'messSrch' = extract(@post1.body)" do
+		fill_in('messSrch', :with => "body")		
+		click_button("Search")
+		current_path.should == listing_research_path	
+		# all posts contain 'body' so we have to list all post
+  		page.body.should include(@person.login)
+  		page.body.should include(@person2.login)
+		@posts.each do |p| 	
+	  		page.should have_link(p.title)
 		end 		
 	end		
 

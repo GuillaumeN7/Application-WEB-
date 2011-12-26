@@ -14,7 +14,8 @@ class PostController < ApplicationController
 		if params[:auteurSrch] != "" and params[:titreSrch] != "" and params[:messSrch] != ""
 			# On verifie que l'user recherche existe pour ne pas avoir un 'Nil_Object'
 			if Person.find_by_login(params[:auteurSrch])
-				@posts = Post.find_all_by_person_id_and_title_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:titreSrch], params[:messSrch])
+				@posts = Post.find(:all, :conditions => ["person_id = #{Person.find_by_login(params[:auteurSrch]).id} AND title = '#{params[:titreSrch]}' AND body like ?", "%#{params[:messSrch]}%"])
+#				@posts = Post.find_all_by_person_id_and_title_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:titreSrch], params[:messSrch])
 				flash[:notice] = "Resultat de la recherche suivant vos criteres auteur : #{params[:auteurSrch]}. Titre : #{params[:titreSrch]}. Contenant : #{params[:messSrch]}"									
 			# User non existant => pas de resultat possible	
 			else
@@ -35,8 +36,9 @@ class PostController < ApplicationController
 			
 			# titre + message
 			elsif params[:messSrch] != ""
-				@posts = Post.find_all_by_title_and_body(params[:titreSrch], params[:messSrch])
-				flash[:notice] = "Resultat de la recherche 'Auteur : #{params[:auteurSrch]}. Titre : #{params[:messSrch]}"				
+				@posts = Post.find(:all, :conditions => ["title = '#{params[:titreSrch]}' AND body like ?", "%#{params[:messSrch]}%"])			
+#				@posts = Post.find_all_by_title_and_body(params[:titreSrch], params[:messSrch])
+				flash[:notice] = "Resultat de la recherche 'Titre : #{params[:titreSrch]}. Message : #{params[:messSrch]}"				
 			
 			#titre uniquement
 			else 
@@ -50,7 +52,8 @@ class PostController < ApplicationController
 			
 				# auteur + message
 				if params[:messSrch] != ""
-					@posts = Post.find_all_by_person_id_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:messSrch])
+					@posts = Post.find(:all, :conditions => ["person_id = #{Person.find_by_login(params[:auteurSrch]).id} AND body like ?", "%#{params[:messSrch]}%"])
+#					@posts = Post.find_all_by_person_id_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:messSrch])
 					flash[:notice] = "Resultat de la recherche 'Auteur : #{params[:auteurSrch]}. Contenant : #{params[:messSrch]}"		
 			
 				# auteur uniquement
@@ -65,7 +68,8 @@ class PostController < ApplicationController
 		
 		# Recherche par 'body' du post uniquement 
 		elsif params[:messSrch] != ""
-			@posts = Post.find_all_by_body(params[:messSrch])
+#			@posts = Post.find_all_by_body(params[:messSrch])
+			@posts = Post.find(:all, :conditions => ["body like ?", "%#{params[:messSrch]}%"])
 			flash[:notice] = "Resultat de la recherche 'Contenant : #{params[:messSrch]}"		
 		
 		# Aucun parametres renseignes
