@@ -22,25 +22,16 @@ describe "post/listing.html.erb" do
 	
 	it "should have a button named 'Nouvelle recherche' " do
 		rendered.should have_selector("input", :type => "submit", :name => "Nouvelle recherche", :href => search_path) 
+		rendered.should have_content("Nouvelle recherche")
 		rendered.should have_button("Nouvelle recherche")
 	end 
 	
-	it "should display listing of posts owed by @person2.id" do
+	
+	it "should display listing of posts" do
 		@posts.each do |p| 	
-			if p.person_id = @person2.id
-		  		rendered.should have_content ("#{p.title}")
-			else
-				rendered_should_not have_content("#{p.title}")
-		  	end
+		  	rendered.should have_content ("#{p.title}")
 		end 	
 	end
-
-#	it "should display the author of post after link post" do
-#		@posts.each do |p|	
-#			rendered.should have_content("#{p.title}")
-#			rendered.should =~ /[Auteur : #{Person.find_by_id(p.person_id).login}]/			
-#		end 
-#	end
 			
 end
 

@@ -6,18 +6,91 @@ class PostController < ApplicationController
 	end
 	
 	def search
-		
+	
 	end
 	
 	def listing
-		if Person.find_by_login(params[:auteurSrch])
-			@posts = Post.find_all_by_person_id(Person.find_by_login(params[:auteurSrch]).id)
-			flash[:notice] = "Recherche validee"
-		else			
-			flash[:notice] = "Aucun resultat correspondant a votre recherche"
+		# les 3 parametres renseignes par l'user
+		if params[:auteurSrch] != "" and params[:titreSrch] != "" and params[:messSrch] != ""
+			# On verifie que l'user recherche existe pour ne pas avoir un 'Nil_Object'
+			if Person.find_by_login(params[:auteurSrch])
+				@posts = Post.find_all_by_person_id_and_title_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:titreSrch], params[:messSrch])
+				flash[:notice] = "Resultat de la recherche suivant vos criteres auteur : #{params[:auteurSrch]}. Titre : #{params[:titreSrch]}. Contenant : #{params[:messSrch]}"									
+			# User non existant => pas de resultat possible	
+			else
+				flash[:notice] = "L'auteur recherche n'existe pas"
+				redirect_to search_path
+			end
+		# parametres renseignes par l'user dont le titre
+		elsif params[:titreSrch] != ""
+			# titre + auteur
+			if params[:auteurSrch] != ""
+				if Person.find_by_login(params[:auteurSrch])
+					@posts = Post.find_all_by_person_id_and_title(Person.find_by_login(params[:auteurSrch]).id, params[:titreSrch])		
+					flash[:notice] = "Resultat de la recherche. 'Auteur : #{params[:auteurSrch]}. Titre : #{params[:titreSrch]}."	
+				else
+					flash[:notice] = "L'auteur recherche n'existe pas"
+					redirect_to search_path
+				end
+			
+			# titre + message
+			elsif params[:messSrch] != ""
+				@posts = Post.find_all_by_title_and_body(params[:titreSrch], params[:messSrch])
+				flash[:notice] = "Resultat de la recherche 'Auteur : #{params[:auteurSrch]}. Titre : #{params[:messSrch]}"				
+			
+			#titre uniquement
+			else 
+				@posts = Post.find_all_by_title(params[:titreSrch])
+				flash[:notice] = "Resultat de la recherche 'Titre : #{params[:titreSrch]}"
+			end
+			
+		# 2 parametres renseignes par l'user dont l'auteur
+		elsif params[:auteurSrch] != ""
+			if Person.find_by_login(params[:auteurSrch])
+			
+				# auteur + message
+				if params[:messSrch] != ""
+					@posts = Post.find_all_by_person_id_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:messSrch])
+					flash[:notice] = "Resultat de la recherche 'Auteur : #{params[:auteurSrch]}. Contenant : #{params[:messSrch]}"		
+			
+				# auteur uniquement
+				else 
+					@posts = Post.find_all_by_person_id(Person.find_by_login(params[:auteurSrch]).id)
+					flash[:notice] = "Resultat de la recherche 'Auteur : #{params[:auteurSrch]}."
+				end	
+			else
+				flash[:notice] = "L'auteur recherche n'existe pas"
+				redirect_to search_path
+			end
+		
+		# Recherche par 'body' du post uniquement 
+		elsif params[:messSrch] != ""
+			@posts = Post.find_all_by_body(params[:messSrch])
+			flash[:notice] = "Resultat de la recherche 'Contenant : #{params[:messSrch]}"		
+		
+		# Aucun parametres renseignes
+		else
+			flash[:notice] = "Aucun parametre renseigne"
 			redirect_to search_path
 		end
+			
 	end
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
 
 	def new
 	end

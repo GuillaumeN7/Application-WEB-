@@ -128,28 +128,112 @@ describe PostController do
 	
 	describe "POST 'listing'" do
 		before(:each) do
+			@personA = Person.create(:login => "PersoA", :password =>"b", :name => "c", :firstname => "d")		
 			@person = stub_model(Person, :login => "PersoA", :password =>"b", :name => "c", :firstname => "d")
 			@person2 = stub_model(Person, :login => "PersoB", :password =>"z", :name => "a", :firstname => "a")			
 			@post1 = stub_model(Post, :person_id => @person.id ,:title => "azerty", :body => "yihaaaa", :id => "1")
 			@post2 = stub_model(Post, :person_id => @person.id ,:title => "uiop", :body => "poazeza", :id => "2")
 			@post3 = stub_model(Post, :person_id => @person.id ,:title => "qsdfgh", :body => "mmmmmm", :id => "3")
-			@post4 = stub_model(Post, :person_id => @person2.id ,:title => "poiuio", :body => "gggggg", :id => "1")	
+			@post4 = stub_model(Post, :person_id => @person2.id ,:title => "poiuio", :body => "gggggg", :id => "1")	 
 			@postsAttendus = [@post1, @post2, @post3]
 			@postsNonAttendus = [@post1, @post2, @post3, @post4]								
-			@personnetrouvee = Person.stub(:find_by_login){@person}
-			Post.stub(:find_all_by_person_id) {@persontrouvee.id}
+
 		end
 		
+		# RESEARCH with SUCCESS
 		it "should search the login of @person to verify it existing" do
-			Person.should_receive(:find_by_login).and_return(@pers)	
-			post :listing, {:auterSrch => @person.login }
-			assigns(:person).should eq @pers
-			Post.should_receive(:find_all_by_person_id).and_return(@posts)				
-			post :listing, {:auterSrch => @person.login }
-			assigns(:postsAttendus).should eq @posts
-			response.should be_success
+			@personnetrouvee = Person.stub(:find_by_login){@person}	
+			Person.should_receive(:find_by_login).and_return(@personRcv)	
+			post :listing, {:auteurSrch => @person.login }
+			assigns(:person).should eq @personRcv			
 		end
 		
-			
+		it "should find nothing" do
+			post :listing, {:auteurSrch => "", :titreSrch => "", :messSrch => ""}
+			response.should redirect_to search_path
+			flash.now[:notice].should eq "Aucun parametre renseigne"
+		end	
+
+		it "should find something. Params : author" do
+			post :listing, {:auteurSrch => @personA.login, :titreSrch => "", :messSrch => ""}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche 'Auteur : #{@personA.login}."
+		end				
+		
+		it "should find something. Params : author and title" do
+			post :listing, {:auteurSrch => @personA.login, :titreSrch => @post1.title, :messSrch => ""}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche. 'Auteur : #{@personA.login}. Titre : #{@post1.title}."
+		end
+		
+		it "should find something. Params : author, title and body" do
+			post :listing, {:auteurSrch => @personA.login, :titreSrch => @post1.title, :messSrch => @post1.body}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche suivant vos criteres auteur : #{@personA.login}. Titre : #{@post1.title}. Contenant : #{@post1.body}"
+		end				
+		
+		# RESEARCH FAILED and redirect_to search_path because no author
+		it "should not find the author searched. Params : author" do
+			post :listing, {:auteurSrch => "jeNexistePas", :titreSrch => "", :messSrch => ""}
+			response.should redirect_to search_path
+			flash.now[:notice].should eq "L'auteur recherche n'existe pas"
+		end
+		
+		it "should not find posts searched. Params : good title and body but bad author" do
+			post :listing, {:auteurSrch => "jeNexistePas", :titreSrch => @post1.title, :messSrch => @post1.body}
+			response.should redirect_to search_path
+			flash.now[:notice].should eq "L'auteur recherche n'existe pas"
+		end
+		
+		# If author exists, response_should be_success but just listing empty
+		
+		it "should not find following the parameters specified => good author bad title" do
+			post :listing, {:auteurSrch => @personA.login, :titreSrch => "TitreQuiExistePas", :messSrch => ""}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche. 'Auteur : #{@personA.login}. Titre : TitreQuiExistePas."
+		end
+		
+		it "should not find following the parameters specified => good author and bad body" do
+			post :listing, {:auteurSrch => @personA.login, :titreSrch => "", :messSrch => "MessQuiExistePas"}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche 'Auteur : #{@personA.login}. Contenant : MessQuiExistePas"
+		end	
+		
+		it "should not find following the parameters specified => no author and bad body" do
+			post :listing, {:auteurSrch => "", :titreSrch => "", :messSrch => "QueLeMessFaux"}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche 'Contenant : QueLeMessFaux"
+		end		
+		
+		it "should not find following the parameters specified => no author and bad title" do
+			post :listing, {:auteurSrch => "", :titreSrch => "QueLeTitreFaux", :messSrch => ""}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche 'Titre : QueLeTitreFaux"
+		end		
+		
+		it "should not find following the parameters specified => no author, bad title and bad body" do
+			post :listing, {:auteurSrch => "", :titreSrch => "QueLeTitreFaux", :messSrch => "fauxnoexisting"}
+			response.should be_success
+			flash.now[:notice].should eq "Resultat de la recherche 'Auteur : . Titre : fauxnoexisting"
+		end			
+				
 	end		
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

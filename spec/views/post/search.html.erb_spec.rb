@@ -11,9 +11,10 @@ describe "post/search.html.erb" do
 		render
 	end	
 
-	it "should display 'Mot(s) ou morceau de message :' and 'Auteur :' and 'Recherche de message(s)'" do
+	it "should display 'Mot(s) ou morceau de message :' and 'Auteur :' and 'Titre :' and 'Recherche de message(s)'" do
 		rendered.should have_content('Mot(s) ou morceau de message :')
 		rendered.should have_content('Auteur :')
+		rendered.should have_content('Titre :')		
 		rendered.should have_content('Recherche de message(s)')
 	end 
 	

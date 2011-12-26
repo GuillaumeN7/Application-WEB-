@@ -19,7 +19,8 @@
 			<legend> Recherche de message(s) </legend>
 			<%=form_tag listing_research_path do%>
 				Auteur : <input type="text" id="auteurSrch" name="auteurSrch" cols="15" /><br>
-				<p>Mot(s) ou morceau de message : <input type="text" id="messSrch" name="messSrch" cols="24" /></p>
+				<p>Titre : <input type="text" id="titreSrch" name="titreSrch" cols="15" /></p>
+				<p>Mot(s) ou morceau de message : <textarea id="messSrch" name="messSrch" rows="10" cols="24"</textarea></p>
 				<%= submit_tag "Search", :remote => true %>
 			<% end %>
 		</fieldset>
