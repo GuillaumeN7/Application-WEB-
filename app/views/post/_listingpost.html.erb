@@ -2,7 +2,15 @@
 	<% @posts.sort_by {|p| p[:updated_at]}.reverse.each do |p| %>
 		<div class="<%= p.id %>">
 			<li><%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%> 
-				&nbsp;&nbsp;<div class="qright">[Auteur : <%= Person.find_by_id(p.person_id).login %>]</div> 
+				&nbsp;&nbsp;
+				<% unless Person.find_by_id(p.person_id).nil? %>
+					<div class="qright">
+						[Auteur : <%= Person.find_by_id(p.person_id).login %>]
+					</div> 
+				<% end %>
+				<% unless p.note_post == nil %>			
+					<div class="note">[Note : <%= p.note_post %>]</div> 
+				<% end %>
 				<div class="right"> Modifie le : <%= time_tag p.updated_at %> </div>
 			</li>
 			<% if session[:id] == p.person_id %>	

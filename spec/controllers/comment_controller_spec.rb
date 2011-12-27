@@ -4,7 +4,7 @@ describe CommentController do
 	describe "POST 'create'" do
 		before(:each) do
 			@post = Post.create(:title => "lala", :body => "lili", :id => "100")
-			@commentaire = stub_model(Comment, :author => "Guillaule", :body => "aha", :id => 1, :post_id => @post.id)
+			@commentaire = stub_model(Comment, :author => "Guillaume", :body => "aha", :id => 1, :post_id => @post.id)
 			Comment.stub(:new) {@commentaire}
 		end
 

@@ -10,7 +10,7 @@ describe "CommentCreate" do
 		@comment3 = Comment.create(:author => "Gautier", :body => "REST", :post_id => @post1.id)		
 		@comments = [@comment1, @comment2, @comment3]
 		visit posts_path
-		visit login_path			
+#		visit login_path			
 	end
 	
 	describe "GET /posts/:id" do
@@ -35,7 +35,7 @@ describe "CommentCreate" do
 		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	
 		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "bla bla")
 		@post2 = Post.create(:person_id => @person.id, :title => "sujet2", :body => "bla bla")
-		@comment1 = Comment.create(:author => "Guillaume", :body => "RoR", :post_id => @post2.id)
+		@comment1 = Comment.create(:author => "Gui", :body => "RoR", :post_id => @post2.id)
 		@comment2 = Comment.create(:author => "Adrien", :body => "Capybara", :post_id => @post1.id)
 		@comment3 = Comment.create(:author => "Gautier", :body => "REST", :post_id => @post1.id)		
 		@comments = [@comment1, @comment2, @comment3]
@@ -43,15 +43,20 @@ describe "CommentCreate" do
 		visit login_path
 		fill_in('login', :with => @person.login)
 		fill_in('password', :with => @person.password)
-		click_button ('Connexion')		
-		
+		click_button ('Connexion')					
 	end
 
 	describe "GET /posts/:id" do
-		it "verifyClickButtonAddCommentaire" do
+	
+		it "should be logged to access premium buttons" do
+			visit consult_path(:id => @post2.id)										
+			page.should have_content ("#{@person.login} logged")
+		end
+	
+		it "verify ClickButton 'AddCommentaire' and 'Edit'" do
 			visit consult_path(:id => @post2.id)
-			current_path.should == consult_path(:id => @post2.id)
-			page.should have_button ("Edit")	
+			current_path.should == consult_path(:id => @post2)
+			page.should have_button ("Edit#{@comment1.id}")	
 			page.should have_button ("Add Commentaire")		
 		end	
 			

@@ -22,7 +22,7 @@ describe PersonController do
 	describe "POST 'connect'" do
 		before(:each) do
 			@person = stub_model(Person, :login => "Froz", :name => "CAEN", :firstname => "Guillaume", :password => "secret", :id => "31")			
-			@p=Person.stub(:find_by_login_and_password).with(@person.login, @person.password)
+			Person.stub(:find_by_login_and_password).with(@person.login, @person.password)
 		end
 		
 		it "should search the person" do

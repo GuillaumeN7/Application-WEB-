@@ -2,7 +2,19 @@ class PostController < ApplicationController
 	before_filter :authorize, :except => [:read, :index, :search, :makeSearch, :listing]
 
 	def index
-		@posts = Post.all	
+		@posts = Post.all
+		#--------------------------------Apres les rake db:migrate, il faut mettre a jour le note_post d'ou ce foreach------------------
+		@posts.each do |p|	
+			@notes = Note.find(:all, :conditions => ["post_id like ?", "#{p.id}"])			
+			@n = 0
+			@notes.each do |n|
+ 				@n += n.note
+			end
+			if @notes.count != 0
+				p.note_post =  @n / @notes.count		
+				p.save	
+			end
+		end	
 	end
 	
 	def search
@@ -122,6 +134,9 @@ class PostController < ApplicationController
 	def read
 		@post = Post.find(params[:id])
 		@comments = Comment.find_all_by_post_id(params[:id])
+		@note = Note.find_by_person_id_and_post_id(session[:id] , @post.id)
+		@nb_votant = Note.find_all_by_post_id(@post.id).count
+		@notes = Note.find(:all, :conditions => ["post_id like ?", "#{@post.id}"])		
 	end
 
 	def accessModify

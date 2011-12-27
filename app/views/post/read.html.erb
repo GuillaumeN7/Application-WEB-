@@ -12,23 +12,66 @@
 	<div class="title">Consultation du post</div> 
 		<div class="var">"<%=@post.title%>"</div>
 		<div class="title">de</div>
-		<div class="var">"<%=Person.find_by_id(@post.person_id).login%>"</div>				
+		<% unless Person.find_by_id(@post.person_id).nil? %>
+			<div class="var">"<%=Person.find_by_id(@post.person_id).login%>"</div>	
+		<% end %>			
 		<div class="title">et de ses commentaires</div>
 	
 	<div class="actions">
 		<%= button_to "Page d\'accueil", posts_path, :method => "get" %>
 	</div>
-	
+	<fieldset>	
+		<div class="note"> Note moyenne des utilisateurs : 
+			<% unless @nb_votant == 0 %>
+				<div class="title">
+					<%= @post.note_post %>/5 
+				</div>
+				<q>	<% unless @nb_votant == 1 %>
+						<%= @nb_votant %> votants  
+					<% else %>	
+						<%= @nb_votant %> seul votant		
+					<% end %>
+				</q>	
+			<% else %>
+				<q>Personne n'a vote pour l'instant</q>
+			<% end %>						
+		</div>
+	</fieldset>	
+	<% if session[:id]  %>
+		<% if @note.nil? %>
+			<fieldset>		
+				<div class="note">			
+					<%= form_tag(saveNote_path, :method => "post") do %>
+						Noter le post :
+						<%= label_tag(:note, "1") %>
+						<%= radio_button_tag(:note, "1") %>
+						<%= label_tag(:note, "2") %>		
+						<%= radio_button_tag(:note, "2") %>
+						<%= label_tag(:note, "3") %>				
+						<%= radio_button_tag(:note, "3") %>	
+						<%= label_tag(:note, "4") %>				
+						<%= radio_button_tag(:note, "4") %>
+						<%= label_tag(:note, "5") %>				
+						<%= radio_button_tag(:note, "5") %>												
+						<p><input type="submit" name="Valider" value="Valider"></p>
+					<% end %>				
+				</div>
+			</fieldset>	
+		<% end %>
+	<% end %>
+
 	<div class="reading">	
 		Titre : 
 		<input type="text" readonly="true" id="title" name="title" cols="20" value="<%= @post.title %>" />
 		<p>Message : 
-			<textarea name="body" id="body" cols="80" rows="6" readonly ><%= @post.body %></textarea></p>
+			<textarea name="body" id="body" cols="80" rows="6" readonly ><%= @post.body %></textarea>
+		</p>
 	</div>
 	<% if session[:id] == @post.person_id %>
 		<div class="needLogin">
 			<div class="actions">
 				<%= button_to "Modifier", accessModify_path(@post.id), :id => @post.id %>
+				<HR>
 			</div>
 		</div>
 	<% end %>
@@ -40,7 +83,7 @@
 	<% @post.comments.sort_by {|c| c[:updated_at]}.reverse.each do |c| %>	
 		<div class="<%= c.id %>"> 
 			<div class="listing">		
-					<li>
+				<li>
 					Auteur :  <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" />
 					<% if  Person.find_by_login(c.author) != nil %>
 						<q> [User] </q>
@@ -49,7 +92,6 @@
 					<% end %>
 					<p>Message : <textarea name="body" id="body" cols="80" rows="6" readonly ><%= c.body %></textarea></p>
 				</li>
-
 			</div>
 			<% if session[:id] == @post.person_id %> 
 				<div class="needLogin">	
@@ -66,9 +108,8 @@
 							<div class="actions">
 								<%= button_to "Edit", editCom_path(c.post_id, c.id), :id => "Edit#{c.id}" , :method => "get" %>
 						
-								<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p>
-								
-						</div>
+								<p><%= button_to "Supprimer", deleteCom_path(c.post_id,c.id), :id => "Delete#{c.id}" , :confirm => 'Confirmer la suppression', :method => :delete, :remote => true %></p>				
+							</div>
 						</div>
 					<% end %>	
 				<% end %>

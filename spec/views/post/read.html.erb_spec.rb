@@ -43,7 +43,13 @@ describe "post/read.html.erb" do
 		end 
 	end	
 	
+	it "should have content displaying vote information" do
+		rendered.should have_content("Note moyenne des utilisateurs : ")
+		rendered.should have_content("/5")	
+		rendered.should have_content("votant")		
+	end
 	
+
     it "displays a textfield 'Consultation du post :' with value = 'post.title' and a textareafield 'Message :' with value = 'post.body' " do
 	   		rendered.should have_selector("input", :type => "text") 
 	    		rendered.should have_content('Consultation du post')
@@ -83,6 +89,10 @@ describe "post/read.html.erb" do
 	
 	it "should have a link 'Deconnexion'" do
 		rendered.should have_link("Deconnexion")
+	end	
+	
+	it "should have a click button 'Valider'" do
+		rendered.should have_button("Valider")
 	end	
 	
 	it "should display '<%= session[:login] %> logged' if user logged" do

@@ -168,8 +168,18 @@ a:visited {
 	text-decoration:none ;	
 }
 
-a:hover {
+.note 
+{
+	text-align: center;	
 	color:lime ;
+	font-size: 28px;		
+	text-decoration:underline ;	
+	font-weight: bold;	
+}
+	
+a:hover{
+	color:lime ;
+	font-size: 28px;		
 	text-decoration:underline ;
 }
 

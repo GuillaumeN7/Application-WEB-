@@ -9,6 +9,7 @@ Blog::Application.routes.draw do
 	get "posts/search",						 :controller => :post,	  :action => :search,			:as => "search"
 	post "posts/search/posts",				 :controller => :post,	  :action => :listing,			:as => "listing_research"
 	get "/posts/:id", 						 :controller => :post,     :action => :read, 			:as => "consult"
+	post "/posts/:id/saveNote",				 :controller => :note,	  :action => :saveNote,			:as => "saveNote"	
 	post "/posts", 						 :controller => :post,     :action => :create,			:as => "createPost"	
 	delete '/post/delete/:id', 				 :controller => :post,     :action => :destroy, 			:as => "delete"
 	post "/posts/:id", 						 :controller => :post,     :action => :accessModify,	 	:as => "accessModify"

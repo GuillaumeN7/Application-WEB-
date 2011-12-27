@@ -124,6 +124,7 @@ end
 describe "PostConsult" do
 	before (:each) do
 		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")
+		@votant2 = Person.create(:login => "gamba", :name => "aa", :firstname => "bb", :password => "4", :id => "12")		
 		@post1 = Post.create(:person_id => @person.id, :title => "sujet1", :body => "Ceci est le sujet 1")
 		@post2 = Post.create(:person_id => @person.id, :title => "sujet2Consulte", :body => "Ceci est le sujet consulte")
 		visit posts_path
@@ -132,17 +133,21 @@ describe "PostConsult" do
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')
 	end	
-	describe "GET /posts/:id" do
+	
+	describe "GET /posts/:id" do	
 		it "verifyCurrentPath" do
 			current_path.should == posts_path
 		end	
+		
 		it "generates a listing of posts" do
 			page.body.should include(@post1.title)
 			page.body.should include(@post2.title)
 		end
+		
 		it "verifyLinkPostPresence" do
 			page.should have_link("#{@post2.id}")
 		end
+		
 		it "verifyAfterClick" do
 			click_link("#{@post2.id}")
 			current_path.should == "/posts/#{@post2.id}"
@@ -158,6 +163,41 @@ describe "PostConsult" do
 			click_button('Page d\'accueil')
 			current_path.should == posts_path		
 		end	
+		
+		it "should display @post.note_post after choose radio_button" do
+			click_link("#{@post2.id}")
+			page.choose('note_1')
+			click_button('Valider')
+			page.should have_content('Note moyenne des utilisateurs : ')
+			page.should have_content('1/5')
+			page.should have_content('1 seul votant')
+		end		
+		
+		it "should display @post.note_post after 2 votes" do
+			click_link("#{@post2.id}")
+			page.choose('note_1')
+			click_button('Valider')
+			page.should have_content('Note moyenne des utilisateurs : ')
+			page.should have_content('1/5')
+			page.should have_content('1 seul votant')
+			
+			#deconnexion du premier votant
+			click_link('Deconnexion')
+			
+			#connexion du deuxieme votant
+			visit login_path
+			fill_in('login', :with => @votant2.login)
+			fill_in('password', :with => @votant2.password)
+			click_button ('Connexion')
+						
+			#deuxieme vote
+			click_link("#{@post2.id}")
+			page.choose('note_3')
+			click_button('Valider')
+			page.should have_content('Note moyenne des utilisateurs : ')
+			page.should have_content('2/5')
+			page.should have_content('2 votants')			
+		end		
 	end
 end
 #---------------------------------------------------------		

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-# User not logged
+#-------------------------------------------User not logged--------------------------------------------------
 describe "post/index.html.erb" do
 	before(:each) do	
 		@person1 = Person.create(:name => "a", :firstname => "aa", :login => "capybara", :password => "aaAzeaz")
@@ -65,10 +65,19 @@ describe "post/index.html.erb" do
 	it "should not display 'an' because of updated_at much recent" do
 		rendered.should_not have_content ("an")																	
 	end	
+	
+	it "should display note of post if note != nil" do
+		@posts.each do |p|	
+			if p.note_post != nil
+				rendered.should have_content ("Note : ")
+				rendered.should =~ /#{p.note_post}/
+			end
+		end  
+	end
 			
 end
 
-#User logged
+#---------------------------------------------User logged-----------------------------------------------
 describe "post/index.html.erb" do
 	before(:each) do	
 		@person = Person.create(:name => "b", :firstname => "ab", :login => "capybarab", :password => "aaAzeaz")		
