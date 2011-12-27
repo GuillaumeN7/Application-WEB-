@@ -80,22 +80,6 @@ class PostController < ApplicationController
 			
 	end
 
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
 	def new
 	end
 

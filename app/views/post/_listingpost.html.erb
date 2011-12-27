@@ -23,7 +23,7 @@
 						<% if (DateTime.now.day - (p.updated_at).day) != 0 %>		
 								<%= (DateTime.now.day - (p.updated_at).day)%30  %> j	 
 						<% end %>
-						<% if (DateTime.now.hour - (p.updated_at).hour - 1.hour) != 0 %>		
+						<% if (DateTime.now.hour - (p.updated_at).hour) != 0 %>		
 								<%= (DateTime.now.hour - (p.updated_at).hour)%24 %> h 
 						<% end %>
 						<% if (DateTime.now.min - (p.updated_at).min) != 0 %>								

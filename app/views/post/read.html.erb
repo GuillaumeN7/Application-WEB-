@@ -37,8 +37,8 @@
 	</div>	
 	
 
-	<% @post.comments.each do |c| %>
-<		<div class="<%= c.id %>"> 
+	<% @post.comments.sort_by {|c| c[:updated_at]}.reverse.each do |c| %>	
+		<div class="<%= c.id %>"> 
 			<div class="listing">		
 					<li>
 					Auteur :  <input type="text" readonly="true" id="author" name="author" cols="20" value="<%= c.author %>" />
