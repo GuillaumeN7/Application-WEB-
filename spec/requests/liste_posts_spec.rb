@@ -101,7 +101,7 @@ describe "PostDelete" do
 		fill_in('password', :with => @person.password)
 		click_button ('Connexion')
 	end
-	describe "DELETE /posts" do
+	describe "DELETE /posts a partir de la page d'accueil posts_path" do
 		it "verifyCurrentPath" do
 			current_path.should == posts_path
 		end	
@@ -119,6 +119,29 @@ describe "PostDelete" do
 			page.body.should_not include(@post2.title)
 		end		
 	end
+	
+	describe "DELETE /posts a partir de consult_path(@post1.id)" do
+		it "verifyCurrentPath" do
+			visit consult_path(@post1.id)
+			current_path.should == consult_path(@post1.id)
+		end	
+		it "should display informations of post" do
+			visit consult_path(@post1.id)
+			page.body.should include(@post1.title)
+			page.body.should include(@post1.body)
+		end
+		it "verifyClickButtonDeletePresence by id='delete'" do
+			visit consult_path(@post1.id)
+			page.should have_button("delete")
+		end
+		it "verifyAfterClick" do
+			visit consult_path(@post1.id)
+			click_button("delete")
+			current_path.should == posts_path
+			page.body.should_not include(@post1.title)
+			page.body.should include(@post2.title)
+		end		
+	end	
 end	
 #---------------------------------------------------------		
 describe "PostConsult" do

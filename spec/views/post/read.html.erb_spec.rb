@@ -87,6 +87,11 @@ describe "post/read.html.erb" do
 		end 
 	end
 	
+	it "should have a button Supprimer for @post " do	
+		rendered.should have_selector("input", :type => "submit", :href => delete_path(@post1.id))
+		rendered.should have_button("delete")
+	end
+	
 	it "should have a link 'Deconnexion'" do
 		rendered.should have_link("Deconnexion")
 	end	

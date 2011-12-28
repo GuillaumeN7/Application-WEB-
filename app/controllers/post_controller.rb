@@ -105,12 +105,14 @@ class PostController < ApplicationController
 		end		
 		if @post.save
 			flash[:notice] = "201 CREATED : post created with success"
+			redirect_to posts_path
 		else
 			@post.valid?	
 			@post.errors
 			flash[:notice] = "error (title or body) : #{@post.errors[:title]}#{@post.errors[:body]} --> post not created"
+			redirect_to posts_new_path
 		end	  
-		redirect_to posts_path
+		
 	end
 
 	def destroy

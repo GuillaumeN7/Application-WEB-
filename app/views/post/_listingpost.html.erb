@@ -1,5 +1,6 @@
-<div class="listingURl">
-	<% @posts.sort_by {|p| p[:updated_at]}.reverse.each do |p| %>	
+
+<% @posts.sort_by {|p| p[:updated_at]}.reverse.each do |p| %>	
+	<div class="listingURl">
 		<div class="<%= p.id %>">
 			<% if Tag.find_by_post_id_and_person_id(p.id, session[:id]) %>
 				<div class="postTag">		
@@ -42,12 +43,12 @@
 						<% end %>										
 						<%= (DateTime.now.sec - (p.updated_at).sec)%60  %> sec ]
 				</div>			
-			<HR>	
 			<% if Tag.find_by_post_id_and_person_id(p.id, session[:id]) %>
 				</div>		
 			<% end %>
 		</div>	
-	<% end %>
-</div>
+	</div>
+<% end %>
+
 
 

@@ -15,7 +15,7 @@ describe PersonController do
 
 		it "should redirect to posts_path" do
 			post :create, @new_person_params
-			response.should redirect_to posts_path
+			response.should redirect_to newUser_path
 	  	end
 	end
 

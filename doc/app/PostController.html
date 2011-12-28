@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>Class: PostController</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/post_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-accessModify">#accessModify</a>
+    
+    <li><a href="#method-i-create">#create</a>
+    
+    <li><a href="#method-i-destroy">#destroy</a>
+    
+    <li><a href="#method-i-index">#index</a>
+    
+    <li><a href="#method-i-listing">#listing</a>
+    
+    <li><a href="#method-i-modify">#modify</a>
+    
+    <li><a href="#method-i-new">#new</a>
+    
+    <li><a href="#method-i-read">#read</a>
+    
+    <li><a href="#method-i-search">#search</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Comment.html">Comment</a>
+  
+    <li><a href="./CommentController.html">CommentController</a>
+  
+    <li><a href="./Note.html">Note</a>
+  
+    <li><a href="./NoteController.html">NoteController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./PersonController.html">PersonController</a>
+  
+    <li><a href="./Post.html">Post</a>
+  
+    <li><a href="./PostController.html">PostController</a>
+  
+    <li><a href="./PostHelper.html">PostHelper</a>
+  
+    <li><a href="./Tag.html">Tag</a>
+  
+    <li><a href="./TagController.html">TagController</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class PostController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-accessModify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">accessModify</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="accessModify-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">accessModify</span>
+        <span class="ruby-ivar">@post</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- accessModify-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- accessModify-method -->
+
+    
+      <div id="method-i-create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
+        <span class="ruby-ivar">@post</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">title</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:title</span>]
+        <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:body</span>]
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:id</span>]
+                <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">person_id</span> = <span class="ruby-identifier">session</span>[<span class="ruby-value">:id</span>]
+        <span class="ruby-keyword">end</span>           
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">save</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;201 CREATED : post created with success&quot;</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">valid?</span> 
+                <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">errors</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;error (title or body) : #{@post.errors[:title]}#{@post.errors[:body]} --&gt; post not created&quot;</span>
+        <span class="ruby-keyword">end</span>     
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">posts_path</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-i-destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 116</span>
+        <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
+                <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">all</span>     
+                <span class="ruby-ivar">@post</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">person_id</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:id</span>]    
+                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;ERROR : Ce post ne vous appartient pas!&quot;</span>   
+                <span class="ruby-keyword">else</span>  <span class="ruby-keyword">if</span> 
+                        <span class="ruby-constant">Post</span>.<span class="ruby-identifier">destroy</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+                                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;200 : Le post a ete supprime avec succes&quot;</span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;304 : erreur, post non supprime&quot;</span>
+                        <span class="ruby-keyword">end</span>                                          
+                <span class="ruby-keyword">end</span>
+<span class="ruby-comment">#               redirect_to posts_path</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> {<span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">posts_path</span>} 
+                        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">js</span>
+                <span class="ruby-keyword">end</span>           
+        <span class="ruby-keyword">end</span></pre>
+          </div><!-- destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destroy-method -->
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 4</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+        <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">all</span>
+        <span class="ruby-comment">#--------------------------------Apres les rake db:migrate, il faut mettre a jour le note_post d'ou ce foreach------------------</span>
+        <span class="ruby-ivar">@posts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>    
+                <span class="ruby-ivar">@notes</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">&quot;post_id like ?&quot;</span>, <span class="ruby-node">&quot;#{p.id}&quot;</span>])                       
+                <span class="ruby-ivar">@n</span> = <span class="ruby-value">0</span>
+                <span class="ruby-ivar">@notes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span>
+                        <span class="ruby-ivar">@n</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">note</span>
+                <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@notes</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+                        <span class="ruby-identifier">p</span>.<span class="ruby-identifier">note_post</span> =  <span class="ruby-ivar">@n</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@notes</span>.<span class="ruby-identifier">count</span>            
+                        <span class="ruby-identifier">p</span>.<span class="ruby-identifier">save</span>      
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>   
+        <span class="ruby-ivar">@tags</span> = <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- index-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- index-method -->
+
+    
+      <div id="method-i-listing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">listing</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="listing-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 25</span>
+        <span class="ruby-keyword">def</span> <span class="ruby-identifier">listing</span>
+                <span class="ruby-comment"># les 3 parametres renseignes par l'user</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:titreSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:messSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+                        <span class="ruby-comment"># On verifie que l'user recherche existe pour ne pas avoir un 'Nil_Object'</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>])
+                                <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-node">&quot;person_id = #{Person.find_by_login(params[:auteurSrch]).id} AND title = '#{params[:titreSrch]}' AND body like ?&quot;</span>, <span class="ruby-node">&quot;%#{params[:messSrch]}%&quot;</span>])
+<span class="ruby-comment">#                               @posts = Post.find_all_by_person_id_and_title_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:titreSrch], params[:messSrch])</span>
+                                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Resultat de la recherche suivant vos criteres auteur : #{params[:auteurSrch]}. Titre : #{params[:titreSrch]}. Contenant : #{params[:messSrch]}&quot;</span>                                                                   
+                        <span class="ruby-comment"># User non existant =&gt; pas de resultat possible      </span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;L'auteur recherche n'existe pas&quot;</span>
+                                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">search_path</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-comment"># parametres renseignes par l'user dont le titre</span>
+                <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:titreSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+                        <span class="ruby-comment"># titre + auteur</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+                                <span class="ruby-keyword">if</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>])
+                                        <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find_all_by_person_id_and_title</span>(<span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>]).<span class="ruby-identifier">id</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:titreSrch</span>])            
+                                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Resultat de la recherche. 'Auteur : #{params[:auteurSrch]}. Titre : #{params[:titreSrch]}.&quot;</span>      
+                                <span class="ruby-keyword">else</span>
+                                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;L'auteur recherche n'existe pas&quot;</span>
+                                        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">search_path</span>
+                                <span class="ruby-keyword">end</span>
+                        
+                        <span class="ruby-comment"># titre + message</span>
+                        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:messSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+                                <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-node">&quot;title = '#{params[:titreSrch]}' AND body like ?&quot;</span>, <span class="ruby-node">&quot;%#{params[:messSrch]}%&quot;</span>])                      
+<span class="ruby-comment">#                               @posts = Post.find_all_by_title_and_body(params[:titreSrch], params[:messSrch])</span>
+                                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Resultat de la recherche 'Titre : #{params[:titreSrch]}. Message : #{params[:messSrch]}&quot;</span>                          
+                        
+                        <span class="ruby-comment">#titre uniquement</span>
+                        <span class="ruby-keyword">else</span> 
+                                <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find_all_by_title</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:titreSrch</span>])
+                                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Resultat de la recherche 'Titre : #{params[:titreSrch]}&quot;</span>
+                        <span class="ruby-keyword">end</span>
+                        
+                <span class="ruby-comment"># 2 parametres renseignes par l'user dont l'auteur</span>
+                <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+                        <span class="ruby-keyword">if</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>])
+                        
+                                <span class="ruby-comment"># auteur + message</span>
+                                <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:messSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+                                        <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-node">&quot;person_id = #{Person.find_by_login(params[:auteurSrch]).id} AND body like ?&quot;</span>, <span class="ruby-node">&quot;%#{params[:messSrch]}%&quot;</span>])
+<span class="ruby-comment">#                                       @posts = Post.find_all_by_person_id_and_body(Person.find_by_login(params[:auteurSrch]).id, params[:messSrch])</span>
+                                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Resultat de la recherche 'Auteur : #{params[:auteurSrch]}. Contenant : #{params[:messSrch]}&quot;</span>             
+                        
+                                <span class="ruby-comment"># auteur uniquement</span>
+                                <span class="ruby-keyword">else</span> 
+                                        <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find_all_by_person_id</span>(<span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_by_login</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:auteurSrch</span>]).<span class="ruby-identifier">id</span>)
+                                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Resultat de la recherche 'Auteur : #{params[:auteurSrch]}.&quot;</span>
+                                <span class="ruby-keyword">end</span> 
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;L'auteur recherche n'existe pas&quot;</span>
+                                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">search_path</span>
+                        <span class="ruby-keyword">end</span>
+                
+                <span class="ruby-comment"># Recherche par 'body' du post uniquement </span>
+                <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:messSrch</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;&quot;</span>
+<span class="ruby-comment">#                       @posts = Post.find_all_by_body(params[:messSrch])</span>
+                        <span class="ruby-ivar">@posts</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">&quot;body like ?&quot;</span>, <span class="ruby-node">&quot;%#{params[:messSrch]}%&quot;</span>])
+                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-node">&quot;Resultat de la recherche 'Contenant : #{params[:messSrch]}&quot;</span>                
+                
+                <span class="ruby-comment"># Aucun parametres renseignes</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;Aucun parametre renseigne&quot;</span>
+                        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">search_path</span>
+                <span class="ruby-keyword">end</span>
+                        
+        <span class="ruby-keyword">end</span></pre>
+          </div><!-- listing-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- listing-method -->
+
+    
+      <div id="method-i-modify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">modify</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="modify-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">modify</span>
+        <span class="ruby-ivar">@post</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">title</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:title</span>]
+        <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:body</span>]
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">save</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;200 : Post modifie avec succes&quot;</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;401 (Unauthorized) ou 403 (forbidden) : Echec de la modification&quot;</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">consult_path</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- modify-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- modify-method -->
+
+    
+      <div id="method-i-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+      <div id="method-i-read" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read</span>
+        <span class="ruby-ivar">@post</span> = <span class="ruby-constant">Post</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@comments</span> = <span class="ruby-constant">Comment</span>.<span class="ruby-identifier">find_all_by_post_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@note</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">find_by_person_id_and_post_id</span>(<span class="ruby-identifier">session</span>[<span class="ruby-value">:id</span>] , <span class="ruby-ivar">@post</span>.<span class="ruby-identifier">id</span>)
+        <span class="ruby-ivar">@nb_votant</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">find_all_by_post_id</span>(<span class="ruby-ivar">@post</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">count</span>
+        <span class="ruby-ivar">@notes</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">&quot;post_id like ?&quot;</span>, <span class="ruby-node">&quot;#{@post.id}&quot;</span>])            
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read-method -->
+
+    
+      <div id="method-i-search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search-source">
+            <pre><span class="ruby-comment"># File app/controllers/post_controller.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

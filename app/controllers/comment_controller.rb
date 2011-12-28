@@ -6,17 +6,23 @@ class CommentController < ApplicationController
 	end
 
 	def create
-		post = Post.find(params[:id])
-	    	@comment = post.comments.build	
-		@comment.author = params[:author]
-		@comment.body = params[:body]		
-		@comment.post_id = params[:id]			
-		if @comment.save
-			flash[:notice] = "201 CREATED : Commentaire ajoute avec succes"
+		if ((session[:id] == nil and Person.find_by_login(params[:author]) == nil) or (session[:id] != nil))
+			post = Post.find(params[:id])
+		    	@comment = post.comments.build	
+			@comment.author = params[:author]
+			@comment.body = params[:body]		
+			@comment.post_id = params[:id]			
+			if @comment.save
+				flash[:notice] = "201 CREATED : Commentaire ajoute avec succes"
+				redirect_to consult_path(post.id)
+			else
+				flash[:notice] = "commentaire non ajoute : veuillez remplir tous les champs"
+				redirect_to newComment_path
+			end	
 		else
-			flash[:notice] = "401 (Unauthorized) ou 403 (forbidden) : commentaire non ajoute"
-		end	
-		redirect_to consult_path
+			flash[:notice] = "ce login existe deja, veuillez en choisir un autre"
+			redirect_to newComment_path
+		end			
 	end
 	
 	def edit

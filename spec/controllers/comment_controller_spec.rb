@@ -15,7 +15,7 @@ describe CommentController do
 
 		it "should redirect to post's view" do
 			post :create, {:id => @post.id}
-			response.should redirect_to consult_path(@post.id)
+			response.should redirect_to newComment_path
 		end		
 	end
 	

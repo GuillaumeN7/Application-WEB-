@@ -9,6 +9,7 @@
 	&nbsp<p></p>	
 </div>
 <body>	
+	<div class="notice"><%= flash[:notice] %></div>
 	<div class="title">
 		Creation d'un commentaire
 	</div>
@@ -27,7 +28,7 @@
 				<% end %>				
 				<p>Commentaire : &nbsp</p>
 				<textarea name="body" id="body" rows="6" cols="80" ></textarea>
-				<%= submit_tag("Valider") %>
+				<%= submit_tag("Valider") %>					
 			</div>
 		<% end %></p>
 	</div>

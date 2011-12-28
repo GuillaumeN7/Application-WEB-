@@ -108,6 +108,8 @@ q, .qright
 
 .listing
 {
+	border-bottom: 2px solid green; 
+	border-top: 2px solid green;
 	padding-top: 1%;
 	text-align: center;
 	font-family: "Times New Roman", serif;
@@ -120,6 +122,8 @@ q, .qright
 .listingURl
 {
 	padding-top: 1%;
+	border-bottom: 2px solid green; 
+	border-top: 2px solid green;
 	text-align: center;
 	font-family: "Times New Roman", serif;
 	color: #77B5FE;

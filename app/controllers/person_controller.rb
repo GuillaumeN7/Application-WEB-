@@ -12,10 +12,11 @@ class PersonController < ApplicationController
 		@person.login = params[:login]	
 		if @person.save
 			flash[:notice] = "201 USER #{@person.name} #{@person.firstname} alias #{@person.login} CREATED "
+			redirect_to posts_path
 		else
 			flash[:notice] = "ERROR : possibilities ==> Fill all the fields, Unhautorized or User already existing"
+			redirect_to newUser_path
 		end	
-		redirect_to posts_path
 	end
 	
 	def connect	

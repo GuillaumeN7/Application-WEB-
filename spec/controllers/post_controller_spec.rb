@@ -43,8 +43,15 @@ describe PostController do
 		it "should redirect to the todo list" do
 			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
 			session[:id] = @person.id
-			post :create
+			post :create, {:title => "lala", :body => "salut"}
 			response.should redirect_to posts_path
+		end
+		
+		it "should fail because need both parameters" do
+			@person = Person.create(:login => "a", :password =>"b", :name => "c", :firstname => "d")
+			session[:id] = @person.id
+			post :create
+			response.should redirect_to posts_new_path
 		end
 	 end
 
@@ -63,7 +70,7 @@ describe PostController do
 	   end
 
 	   it "should redirect to posts_path" do
-			post :create, @new_post_params
+			post :create, {:title => "lala", :body => "salut"}
 			response.should redirect_to posts_path
 	  	end
 	end

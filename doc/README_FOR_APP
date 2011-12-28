@@ -1,2 +1,217 @@
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+
+				-----------------------------------------------------------------------------------------------
+				|						DATE : Décembre 2011									|
+				|				AUTEUR : Guillaume CAEN - Etudiant à l'ENSEEIHT						|
+				|		SITUATION : Apprenti Ingénieur en Informatique et Réseau - 3ème année.			|
+				|		CONTEXTE : Projet d'application Web dans le cadre du cours de M. Pierre GAMBAROTTO	|
+				|																			|
+				|							RUBY ON RAILS										|
+				-----------------------------------------------------------------------------------------------
+
+L'application developpe au cours de ces dernieres semaines est un blog permettant à des utilisateurs de réaliser diverses actions.
+
+Dans un premier temps nous resumerons ces actions puis nous presenterons un scenario de test permettant d'en observer l'ensemble.
+
+LES FONCTIONNALITES OFFERTES PAR CETTE APPLICATION WEB ou BLOG.
+	
+N.B : Ici message <=> post	
+	
+	1. Les fonctionnalites offertes à tous les utilisateurs : 
+		- Créer un utilisateur : nom, prenom, login/pseudo, mot de passe.
+		- Voir les prenoms + login des utilisateurs déjà inscrits.
+		- Lire les messages laissés par les utilisateurs identifies.
+		- Commenter ces messages.
+		- Voir la note moyenne d'un message (comprise entre 1 et 5) ainsi que le nombre d'utilisateur ayant voté.
+		- Effectuer une recherche en fonction des critères suivants : 
+					- Par auteur : nom exact
+					- Par titre : titre exact
+					- Par contenu : une lettre, un mot ou expression, une suite de mots contenus dans un post.
+				==> L'utilisateur peut effectuer une recherche en fonction de n'importe lequel de ces 3 éléments et ce,
+			qu'ils soient cumulés ou non. (titre seul, auteur seul, contenu seul, titre+auteur+contenu, titre+auteur, auteur+contenu, titre+contenu).
+			Ceci permet d'avoir une grande liberté dans la recherche.
+		
+	
+	2. Les fonctionnalites offertes aux utilisateurs inscrits uniquement (en plus de celles décrites précedemment) :
+		- Bien sûr, se connecter.
+		- Poster de nouveaux messages.
+		- Editer les messages leurs appartenant.
+		- Supprimer les messages leurs appartenant.
+		- Supprimer ou editer les commentaires laissés par les autres utilisateurs à un message qui leurs appartiennent
+		- Editer/ supprimer leurs commentaires qu'ils laissent aux autres utilisateurs.
+		- Tagger les messages qui leurs plaisent ou qu'ils veulent suivre : ce tag mettra en valeur sur la page d'accueil les messages suivis.
+			==> Objectif : qu'ils n'aient pas de difficultés à les repérer.
+		- Notation des messages : chacun des utilisateurs identifiés pourra attribuer une note (comprise entre 1 et 5) à un message. 
+		
+		
+	3. Les ajouts pour rendre l'interface agréable et fonctionnelle.
+		- Affichage de la liste des posts sur la page d'accueil : 
+			==> Le message modifié/crée le plus récemment en tête de liste
+			==> Affichage de l'auteur du Post à côté du lien vers le message.
+			==> Affichage de l'auteur d'un commentaire et du fait qu'il s'agit d'un "invité" ou d'un "utilisateur enregistré"
+			==> Affichage de la date de modification sous la forme : "December 28, 2011 17:42" (par exemple)
+			==> Affichage du moment de la dernière modification/création sous la forme : "2 h 34 min et 23 sec" (par exemple)
+				--> Cet ajout permet à l'utilisateur une compréhension beaucoup plus simple et rapide qu'en lisant juste une date.
+			==> Affichage du dernier commentaire ajoute/modifie en tête de liste des commentaires d'un message.
+			
+		- Utilisation d'Ajax + Javascript : 
+			==> Suppression d'un message de la liste, suppression d'un commentaire d'une liste de commentaires d'un message : 
+				--> L'élément supprimé sera juste enlevé de la page sans tout rafraîchir.
+			==> Connexion : affichage d'un formulaire d'authentification en haut à droit de la page sans rafraichir le reste.
+			==> Deconnexion : 
+				- Lorsque l'utilisateur se deconnecte, les boutons nécessitant l'authentification qui étaient accessibles
+				à cet utilisateur sont supprimés de la page sans la rafraîchir (modifier post, editer commentaire, etc.).
+				- D'autre part, les messages taggés nécessitent un affichage particulier et cet affichage est supprimé en cas de déconnexion 
+					sans rafraîchissement total de la page.
+				- Un lien pour s'authentifier apparait à la place du lien 'Se deconnecter'.
+				
+		Bien sûr, l'interface fonctionne également pour les utilisateurs ayant désactivé JavaScript dans leur navigateur.
+			
+-----------------------------------------------------------------------------------------------------------------------------------
+
+INTRUCTIONS POUR TESTER LE PROJET
+
+Tout d'abord :
+	- rake db:migrate
+	- rake db:seed pour pre-remplir l'environnement de test
+	- rake db:migrate RAILS_ENV=test
+	- rake routes pour observer les routes.
+	
+	- rspec : tous les test sont OK.
+	
+	- acces au navigateur Web (j'ai fait tous mes tests sous Mozilla Firefox).
+		--> : http://localhost:3000/posts	  : page d'accueil du blog
+		
+La base étant a présent pré-rempli, effectuer le premier scénario : Utilisateur non loggé.
+
+---------------------------------------------------------------UTILISATEUR NON LOGGE :------------------------------------------------------------
+AFFICHAGE : 
+	- Sur cette page : la liste des posts. Observation de l'affichage.
+	- Cliquer sur un des posts notés : Observation.
+	- Cliquer sur Add Commentaire en dessous de la liste des commentaires.
+	- Un formulaire s'ouvre. 
+	- Cliquer sur Précédent : on revient à la lecture du post et de ses commentaires.
+
+COMMENTAIRES
+	- Cliquer sur 'Add Commentaire' à nouveau.
+		- cliquer sur OK sans remplir les champs : => constater que ce n'est pas possible
+		- cliquer sur OK en ne remplissant que l'auteur : => constater que ce n'est pas possible
+		- cliquer sur OK en ne remplissant que le message : => constater que ce n'est pas possible
+		- Remplir le champ 'auteur' avec 'gamba' ou 'froz312' ou '007' et un message quelconque : constater le message d'erreur.
+			N.B : ce sont les 3 utilisateurs pré-enregistrés dans la base.
+		- Remplir le champ auteur avec un login différent de ces trois-là, le champs comment avec n'importe quoi puis cliquer OK
+			--> le commentaire s'est bien mis en tête de liste sous le Post. 
+			--> La date de création s'affiche mais décale d'1h : methode 'time_tag c.updated_at' donc probable heure d'été / heure d'hiver.
+
+UTILISATEURS		
+		- cliquer sur le bouton 'Page d'accueil'. : on revient à notre première page.
+		- cliquer en bas sur le bouton 'Page des utilisateurs' : la liste des utilisateurs inscrits s'affiche.
+			--> Un formulaire s'affiche
+			- cliquer OK apres avoir n'avoir rempli que 0, 1, 2 ou 3 champs : error!
+			- cliquer OK apres avoir rempli les 4 champs mais avec 'login' = 'gamba' ou 'froz312' ou '007' : error!
+			- remplir les 4 champs (login != login_existants) puis cliquer OK. *
+		- On revient alors à la page d'acceuil 
+		- Cliquer sur 'Page des utilisateurs à nouveau : observer que l'utilisateur crée a bien été ajouté à la liste
+		- Cliquer sur 'Page d'accueil'.
+	
+RECHERCHE
+		- Cliquer sur le bouton 'Search' dans le <fieldset> en haut à gauche. Un formulaire apparait.
+		- Cliquer sur 'Search' avec les 3 champs vides : observer.
+		- Remplir le champ 'Auteur' avec 'gamba' ou 'froz312' ou '007' (ou 'le login de l'user cree')
+		- Cliquer 'Search'
+		- Observer puis cliquer sur 'Nouvelle recherche' en bas.
+		- Essayer toutes les combinaisons possibles. Le titre et l'auteur sont attendus exact (sinon message d'erreur et nouvelle recherche).
+											Le contenu doit exister quelque part dans le body du message.
+			==> titre seul, auteur seul, contenu seul, titre+auteur+contenu, titre+auteur, auteur+contenu, titre+contenu
+			- ex de recherche par contenu : "corps du sujet 2"
+			- les auteurs référencés ayant des messages : 'gamba', 'froz312' et '007'
+			- les titres 'sujet1_007', 'sujet2_007', 'sujet1Froz', 'sujet2Froz', 'sujet1Gamba', 'sujet2Gamba'
+			- les contenus : 'corps du sujet 1 de Froz', 'corps du sujet 2 de Froz', 
+					'corps du sujet 1 de Gamba', 'corps du sujet 1 de 007', 'corps du sujet 1 de 007', 'corps du sujet 2 de 007' 
+				
+		- Faire une recherche avec un auteur n'existant pas pour constater l'erreur (combiné à d'autres critères au choix).
+			
+---------------------------------------------------------------UTILISATEUR LOGGE :------------------------------------------------------------			
+Tout a du être observé dans le cas d'un utilisateur non loggé. testons à présent un utilisateur loggé : 
+AUTHENTIFICATION
+	- Cliquer sur "Page d'accueil"
+	- Cliquer sur le lien "S'authentifier" en haut à droite.
+	- Un formulaire apparait (via Ajax, ou redirection si JS desactive) : 
+				remplir les champs 'login'='gamba' ; 'password'='gamba' (ou 'froz312' -> '2') (ou '007' -> 'pw') 	
+	- Cliquer sur le bouton 'Connexion' : observer la page. 'Bienvenue gamba', les boutons supprimer des posts possédés par gamba, 
+		la possibilité d'ajouter un post et les posts taggés (en jaune).		
+		
+Il est possible de refaire le scénario de l'user non authentifié mais les résultats seront les mêmes.
+
+CREATION POST		
+	- Cliquer sur 'Add New Post' en bas : un formulaire s'affiche
+		- Remplir le champ 'Titre' puis cliquer OK : error
+		- Remplir le champ 'Message' puis cliquer OK : error
+		- Remplir les 2 champs puis cliquer OK : le post s'ajoute bien en tête de liste avec 'auteur = user logged' 
+				(et toujours ce décalage d'1h donc il est logique que soit affiché '[ Derniere modification : 1 h 0 sec ]' 
+
+SUPPRESSION POST
+	- Cliquer sur 'Supprimer' du post qui vient d'être crée : confirmer puis observer la suppression via Ajax.
+			
+TAG POST
+	- Cliquer sur un sujet qui n'a pas encore ete taggé par l'user loggé (fond noir).
+	- Le post s'ouvre, observer le rectangle jaune pour tagger le post : checker la case puis cliquer sur 'Tagger'
+		(N.B : On n'est pas obligé de cocher la case mais cela facilite l'idée du tagging du post).
+	- Le post est à présent taggé, cliquer sur 'Page d'accueil' (après avoir lu le titre du post) et observer
+		- il est à présent sur fond jaune.
+	- Cliquer à nouveau sur ce post  détagger le post sur la même logique et revenir à la page d'accueil, le fond n'est plus jaune.
+
+EDITION POST
+	- Cliquer sur un post n'appartenant pas à l'utilisateur loggé : pas de bouton permettant la modification du post
+	- Revenir à la page d'accueil
+	- Cliquer sur un post appartenant à l'utilisateur loggé : un bouton modifié est apparu juste au dessous du message du post. Cliquer 'Modifier'
+	- Le formulaire apparait, modifier le titre, le message ou les 2 puis cliquer sur 'Valider'.
+	- Constater que le post a bien pris en compte les modifications. Revenir à la page d'accueil.
+	- Le post modifié est à présent en tête de liste.
+
+EDITION/SUPPRESSION COMMENTAIRE
+	- Cliquer sur un post appartenant à l'utilisateur loggé : on a accès à l'édition et à la suppression de tous les commentaires. Tester.
+	- Revenir à la page d'accueil
+	- Cliquer sur un post d'un autre utilisateur, créer un commentaire, l'auteur est pré-rempli et ne peut être modifié.
+		--> on voit qu'on ne peut éditer/supprimer que le commentaire que l'on possède.
+		Suppression => ajax si javascript activé.
+
+NOTATION + DECONNEXION
+	- Revenir à la page d'accueil
+	- Choisir un post qui n'a pas encore été noté et cliquer sur le lien. (ex : 'Sujet2Froz') 
+	- Le noter, pour faciliter (par la suite) l'observation du clic de la moyenne cocher '1' et 'Valider'.
+		--> La note est mise à jour et "1 seul votant" apparait.
+	- Cliquer sur 'Deconnexion' en haut à droite.
+	- Constater au passage la disparition via Ajax de la partie en jaune "tagger/detagger" le post (bouton, checkbox, texte et fond jaune)
+		ainsi que la disparition des boutons d'édition/suppression des commentaires et du bouton 'modifier' si le post appartenait à l'user loggé.
+	- Se connecter avec un autre utilisateur différent de celui qui vient de noter (rappel : login:'froz312' ; pw:'2', ('gamba', 'gamba') et ('007', 'pw').
+	- Se connecter au post noté précedemment (normalement en tête de liste). Attribuer la note de 3 et 'Valider'. 
+		--> La note moyenne devient alors '(1 + 3) / 2 = 2' et "2 votants" apparait.
+	- Se deconnecter
+	- Se connecter avec le 3eme utilisateur, cliquer sur le lien en tête de liste. Attribuer la note de 5.
+		--> La note moyenne devient alors '(1 + 3 + 5) / 3 = 3'. "3 votants" apparait. 
+	- Cliquer sur le bouton 'Page d'accueil'
+	- Se deconnecter : observer Ajax supprimer les boutons "privilégiés" ainsi que les fonds jaunes des posts taggés. 
+		Un lien 'Sauthentifier' apparait à la place du lien 'Deconnexion'.
+		Ces observations peuvent se faire également sur toutes les pages du blog.
+	
+SUPPRESSION POST v2
+	- Se connecter en tant que 'gamba' avec le mot de pass 'gamba'
+	- Il y a deux possibilités de supprimer un post :
+		- Cliquer sur un post de 'gamba', un bouton supprimer est disponible. Cliquer 'Supprimer'. Le post est supprimé et redirige vers la page d'accueil.
+		- Il y a un deuxième post à 'gamba' : le supprimer à partir de la page d'accueil. Constater le travail de Ajax.
+		
+
+FIN DU SCENARIO DES TESTS.
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
