@@ -9,7 +9,7 @@ class NoteController < ApplicationController
 		@note.note = params[:note]
 		
 		if @note.save
-			@notes = Note.find(:all, :conditions => ["post_id like ?", "#{@post.id}"])			
+			@notes = Note.find(:all, :conditions => ["post_id like ?", "#{@post.id}"])		
 			@n = 0
 			@notes.each do |n|
  				@n += n.note
