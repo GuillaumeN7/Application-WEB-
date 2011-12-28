@@ -15,6 +15,7 @@ class PostController < ApplicationController
 				p.save	
 			end
 		end	
+		@tags = Tag.all
 	end
 	
 	def search
@@ -154,6 +155,7 @@ class PostController < ApplicationController
 		end
 	redirect_to consult_path
 	end
+	
 
 end
 

@@ -42,4 +42,21 @@
 		# notes post5
 		@note7 = Note.create(:post_id => @post5.id, :person_id => @person1.id, :note => "1", :id => "7")
 		@note8 = Note.create(:post_id => @post5.id, :person_id => @person2.id, :note => "1", :id => "8")
-		@note9 = Note.create(:post_id => @post5.id, :person_id => @person3.id, :note => "2", :id => "9")				
+		@note9 = Note.create(:post_id => @post5.id, :person_id => @person3.id, :note => "2", :id => "9")	
+		
+		
+		# Il y a 6 posts, on va en pré-tagger 3 pour le voir lors de la connexion a la page d'acceuil avec n'importe lequel des 3 comptes Person"
+		@tag1 = Tag.create(:post_id => @post1.id, :person_id => @person1.id)
+		@tag2 = Tag.create(:post_id => @post3.id, :person_id => @person1.id)		
+		@tag3 = Tag.create(:post_id => @post5.id, :person_id => @person1.id)		
+		
+		@tag4 = Tag.create(:post_id => @post2.id, :person_id => @person2.id)
+		@tag5 = Tag.create(:post_id => @post4.id, :person_id => @person2.id)		
+		@tag6 = Tag.create(:post_id => @post6.id, :person_id => @person2.id)	
+		
+		@tag7 = Tag.create(:post_id => @post3.id, :person_id => @person3.id)
+		@tag8 = Tag.create(:post_id => @post5.id, :person_id => @person3.id)		
+		@tag9 = Tag.create(:post_id => @post6.id, :person_id => @person3.id)			
+		
+		
+					

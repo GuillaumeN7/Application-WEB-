@@ -130,7 +130,7 @@ q, .qright
 
 .actions, .needLogin
 {
-	color: white;
+	color: red;
 	padding-top: 1%;
 	padding-bottom: 1%;
 	text-align: center;
@@ -166,6 +166,11 @@ body
 a:visited {
 	color:blue ;
 	text-decoration:none ;	
+}
+
+.postTag
+{
+	background-color: yellow;
 }
 
 .note 

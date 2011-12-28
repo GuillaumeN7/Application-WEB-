@@ -75,10 +75,28 @@
 			</div>
 		</div>
 	<% end %>
+	<div class="actions">
+		<div class="postTag">
+			<% unless Tag.find_by_post_id_and_person_id(@post.id, session[:id]).nil? %>
+				<%= form_tag(deTagPost_path, :method => "post") do %>
+					<%= check_box_tag(:detag) %>
+					<%= label_tag(:detag, "Detagger le post : ") %>	
+					<input type="submit" name="Detagger" value="Detagger">
+				<% end %>		
+			<% else %>
+				<%= form_tag(tagPost_path, :method => "post") do %>
+					<%= check_box_tag :tag %>
+	 				<%= label_tag(:tag, "Tagger le post : ") %>	
+					<input type="submit" name="Tagger" value="Tagger">
+				<% end %>		
+			<% end %>
+		</div>
+	</div>
+	<HR>		
+	
 	<div class="title">	
 		<HR> Commentaires 
 	</div>	
-	
 
 	<% @post.comments.sort_by {|c| c[:updated_at]}.reverse.each do |c| %>	
 		<div class="<%= c.id %>"> 

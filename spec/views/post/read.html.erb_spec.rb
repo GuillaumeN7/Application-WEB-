@@ -51,16 +51,16 @@ describe "post/read.html.erb" do
 	
 
     it "displays a textfield 'Consultation du post :' with value = 'post.title' and a textareafield 'Message :' with value = 'post.body' " do
-	   		rendered.should have_selector("input", :type => "text") 
-	    		rendered.should have_content('Consultation du post')
-	    		rendered.should have_content('et de ses commentaires')	    		
-	   		rendered.should have_selector('input', :content => @post1.title)
-			rendered.should have_content('Message : ')
-	   		rendered.should have_selector("textarea", :content => @post1.body) 
+   		rendered.should have_selector("input", :type => "text") 
+    		rendered.should have_content('Consultation du post')
+    		rendered.should have_content('et de ses commentaires')	    		
+   		rendered.should have_selector('input', :content => @post1.title)
+		rendered.should have_content('Message : ')
+   		rendered.should have_selector("textarea", :content => @post1.body) 
 	end	
 end
 
-#logged
+#logged + tag non existant
 describe "post/read.html.erb" do
 	before(:each) do
 		@person = Person.create(:id => "1", :name => "caen", :firstname => "gui", :login => "capybara", :password => "2")
@@ -97,5 +97,39 @@ describe "post/read.html.erb" do
 	
 	it "should display '<%= session[:login] %> logged' if user logged" do
 		rendered.should have_content("#{session[:login]} logged")
-	end			
+	end	
+	
+	it "should display 'Tagger le post :' if no tag found and have a button valider" do
+		rendered.should have_content("Tagger le post :")	
+		rendered.should have_button('Tagger')	
+	end
 end
+
+#logged + tag existant
+describe "post/read.html.erb" do
+	before(:each) do
+		@person = Person.create(:id => "1", :name => "caen", :firstname => "gui", :login => "capybara", :password => "2")
+		@post1 = stub_model(Post, :person_id => @person.id, :title => "titre du post", :body => "corps du post", :id => "24")
+		@comment1 = stub_model(Comment, :author => "Guillaume", :body => "com pour le test de la vue", :post_id =>@post1.id)
+		@comment2 = stub_model(Comment, :author => "Pauline", :body => "2eme com pour le test", :post_id =>@post1.id)	
+		@tag = Tag.create(:person_id => @person.id, :post_id => @post1.id)
+		@comments = [@comment1, @comment2]				
+		session[:id] = @person.id	
+		session[:login] = @person.login						
+		assign(:post, @post1)
+		assign(:comments, [@comment1, @comment2])
+		controller.request.path_parameters[:id] = @post1.id
+		render
+	end	
+	
+	it "should display 'deTagger le post :' if a tag found and have a button valider" do
+		rendered.should have_content("Detagger le post :")	
+		rendered.should have_button('Detagger')		
+	end
+end
+
+
+
+
+
+

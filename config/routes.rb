@@ -26,11 +26,12 @@ Blog::Application.routes.draw do
 	post "/posts/:id/comment",				 :controller => :comment,  :action => :create,			:as => "showComment"
 	get "/posts/:id/comments/:comment_id", 		 :controller => :comment,  :action => :edit, 			:as => "editCom"
 	put "/posts/:id/comments/:comment_id",		 :controller => :comment,  :action => :modify, 			:as => "modifyCom"	
-	delete '/post/:id/comments/:comment_id',	 :controller => :comment,  :action => :destroy, 			:as => "deleteCom" 																			
+	delete '/post/:id/comments/:comment_id',	 :controller => :comment,  :action => :destroy, 			:as => "deleteCom" 	
 
+	post "/posts/:id/tag",					 :controller => :tag,     :action => :tagPost,			:as => "tagPost"
+	post "/posts/:id/detag",					 :controller => :tag,     :action => :deTagPost,			:as => "deTagPost"
+																		
 
-
-	
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

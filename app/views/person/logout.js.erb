@@ -2,6 +2,9 @@ $('.needLogin').remove();
 $("a[href='<%=logout_path%>']").remove();
 $('.authentication').replaceWith("<div class='authentication'><%= escape_javascript(link_to 'Sauthentifier', login_path, :remote => true, :method => 'get') %></div>");
 $("form#login").attr("data-remote", true);
+$(".postTag").replaceWith(function() {
+    return $(this).contents();
+  });
 $('.notice').replaceWith("<% if flash[:notice] %><div class='notice'><%= escape_javascript(flash[:notice]) %></div><%end%>");
 <%flash[:notice]=nil%>
 

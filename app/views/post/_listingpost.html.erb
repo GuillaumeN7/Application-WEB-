@@ -1,8 +1,11 @@
 <div class="listingURl">
-	<% @posts.sort_by {|p| p[:updated_at]}.reverse.each do |p| %>
+	<% @posts.sort_by {|p| p[:updated_at]}.reverse.each do |p| %>	
 		<div class="<%= p.id %>">
-			<li><%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%> 
-				&nbsp;&nbsp;
+			<% if Tag.find_by_post_id_and_person_id(p.id, session[:id]) %>
+				<div class="postTag">		
+			<% end %>
+			<li>[------------<%= link_to "#{p.title}", consult_path(p.id), :id => p.id, :method => "get"%> ---------------]
+				&nbsp;&nbsp;		
 				<% unless Person.find_by_id(p.person_id).nil? %>
 					<div class="qright">
 						[Auteur : <%= Person.find_by_id(p.person_id).login %>]
@@ -40,6 +43,9 @@
 						<%= (DateTime.now.sec - (p.updated_at).sec)%60  %> sec ]
 				</div>			
 			<HR>	
+			<% if Tag.find_by_post_id_and_person_id(p.id, session[:id]) %>
+				</div>		
+			<% end %>
 		</div>	
 	<% end %>
 </div>

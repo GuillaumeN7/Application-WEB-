@@ -163,9 +163,10 @@ describe "PostConsult" do
 			click_button('Page d\'accueil')
 			current_path.should == posts_path		
 		end	
-		
+	#---------------------------------------------- test sur la notation ---------------------------------------------
 		it "should display @post.note_post after choose radio_button" do
 			click_link("#{@post2.id}")
+			page.has_checked_field?('note')
 			page.choose('note_1')
 			click_button('Valider')
 			page.should have_content('Note moyenne des utilisateurs : ')
@@ -198,9 +199,37 @@ describe "PostConsult" do
 			page.should have_content('2/5')
 			page.should have_content('2 votants')			
 		end		
+	#---------------------------------------------- tests sur le tagging des posts ---------------------------------------------		
+		it "should display 'Tagger le post :' with a button 'Valider' and a checkbox" do
+			click_link("#{@post2.id}")
+			page.should have_content('Tagger le post :')
+			page.should have_button('Tagger')
+			page.has_checked_field?('tag')
+		end
+		
+		it "should tag the post, redirect_to same page and display 'Detagger le post :' with a checkbox 'detag'" do
+			@tag = Tag.create(:post_id => @post2.id, :person_id => @person.id) 
+			click_link("#{@post2.id}")	
+			current_path.should == "/posts/#{@post2.id}"
+			page.should have_content('Detagger le post :')
+			page.should have_button('Detagger')
+			page.has_checked_field?('detag')			
+		end
+		
+		it "should detag the post, redirect_to same page and display 'Tagger le post' with a checkbox 'tag'" do
+			@tag = Tag.create(:post_id => @post2.id, :person_id => @person.id) 
+			click_link("#{@post2.id}")	
+			current_path.should == "/posts/#{@post2.id}"
+			check('detag')
+			click_button('Detagger')
+			current_path.should == "/posts/#{@post2.id}"
+			page.should have_content('Tagger le post :')
+			page.should have_button('Tagger')
+			page.has_checked_field?('tag')	
+		end			
 	end
 end
-#---------------------------------------------------------		
+#--------------------------------------------------------------------------------------------------------------------------	
 describe "PostEdit" do
 	before (:each) do
 		@person = Person.create(:login => "froz312", :name => "aa", :firstname => "bb", :password => "2", :id => "17")	

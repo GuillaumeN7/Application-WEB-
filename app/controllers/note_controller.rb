@@ -18,9 +18,7 @@ class NoteController < ApplicationController
 			@post.save
 			flash[:notice] = "Merci, votre avis a bien ete pris en compte."
 		else
-			@note.valid?	
-			@note.errors
-			flash[:notice] = "erreur : vote non retenu"
+			flash[:notice] = " params[:note]:#{params[:note]} post_id:#{@note.post_id} person_id:#{@note.person_id} note:#{@note.note} erreur : vote non retenu"
 		end	
 		redirect_to consult_path(params[:id])	
 	end
